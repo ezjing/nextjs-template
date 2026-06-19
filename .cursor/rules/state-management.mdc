@@ -1,0 +1,86 @@
+---
+description: 상태 관리 — React Query vs Redux 역할 구분
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# 상태 관리 규칙
+
+## 어디에 둘지 기준
+
+| 데이터 종류                | 예시                              | 저장 위치           |
+| -------------------------- | --------------------------------- | ------------------- |
+| 서버에서 받아온 데이터     | 회원 목록, 게시글, API 결과       | **React Query**     |
+| 화면에만 잠깐 쓰는 UI 상태 | 모달 열림, 검색어 입력            | 컴포넌트 `useState` |
+| 앱 전체가 공유하는 상태    | 로그인 사용자, 다크모드, 사이드바 | **Redux**           |
+
+> Redux/React Query 훅을 쓰는 파일·컴포넌트는 클라이언트에서만 동작하므로 `'use client'` 가 필요합니다.
+
+## React Query — 서버 데이터
+
+```ts
+// ✅ entities 또는 features 의 model/ 에 위치
+// src/entities/user/model/useUserQuery.ts
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { QUERY_KEYS } from '@/shared/constants/queryKeys';
+
+import { userApi } from '../api/userApi';
+
+export function useUserQuery() {
+  return useQuery({
+    queryKey: [QUERY_KEYS.USER_ME],
+    queryFn: () => userApi.getMe(),
+  });
+}
+```
+
+```ts
+// ✅ queryKey 는 shared/constants/queryKeys.ts 에서 중앙 관리
+export const QUERY_KEYS = {
+  USER_ME: 'userMe',
+  SAMPLE_LIST: 'sampleList',
+} as const;
+```
+
+## Redux — 클라이언트 전역 상태
+
+```ts
+// ✅ features/auth/model/authSlice.ts — 로그인 사용자
+// ✅ features/ui-preferences/model/uiPreferencesSlice.ts — 테마, 사이드바
+// ✅ 타입 안전한 훅은 src/app/store/hooks.ts 의 useAppDispatch / useAppSelector 사용
+
+// ❌ 서버 데이터를 Redux에 저장하지 않습니다
+// dispatch(setUserList(response.data))  ← 금지
+```
+
+## Mutation (저장·수정·삭제)
+
+```ts
+// ✅ features/.../model/ 에 useMutation 훅 작성
+'use client';
+
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+export function useSaveUser() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: userApi.save,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.USER_ME] }),
+  });
+}
+```
+
+## 로컬 UI 상태
+
+```tsx
+// ✅ 다이얼로그 열림/닫힘은 page가 소유 ('use client' 필요)
+'use client';
+
+export function OrderPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  return <Dialog open={isOpen} onClose={() => setIsOpen(false)} />;
+}
+```

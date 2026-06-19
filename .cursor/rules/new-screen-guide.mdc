@@ -1,0 +1,72 @@
+---
+description: 새 화면(페이지) 추가 절차 (Next.js App Router + FSD)
+alwaysApply: true
+---
+
+# 새 화면 추가 절차
+
+라우팅(루트 `app/`)과 페이지 구현(`src/pages`)을 분리합니다.
+
+## 1단계 — FSD 페이지 컴포넌트 생성
+
+```
+src/pages/<이름>/ui/<이름>Page.tsx
+```
+
+```tsx
+// src/pages/order/ui/OrderPage.tsx
+// 상태·이벤트·브라우저 API 를 쓰면 최상단에 'use client' 추가
+export function OrderPage() {
+  return <main>주문 페이지</main>;
+}
+```
+
+## 2단계 — 슬라이스 public API 작성
+
+```ts
+// src/pages/order/index.ts
+import type { Metadata } from 'next';
+
+export { OrderPage } from './ui/OrderPage';
+
+export const metadata: Metadata = {
+  title: '주문',
+};
+```
+
+## 3단계 — 루트 app 라우트에서 re-export
+
+```tsx
+// app/order/page.tsx  → "/order"
+export { OrderPage as default, metadata } from '@/pages/order';
+```
+
+> 루트 `app/<route>/page.tsx` 는 re-export 만 합니다. 페이지 본문 코드를 넣지 않습니다.
+
+## 4단계 — 기능 조립
+
+페이지는 레고 조립 역할만 합니다. 비즈니스 로직은 아래에 위임합니다.
+
+```
+무거운 조회 로직 → features/<이름>/model/use<이름>Query.ts
+무거운 저장 로직 → features/<이름>/model/use<이름>Mutation.ts
+공통 API 호출   → entities/<도메인>/api/<도메인>Api.ts
+재사용 UI 조각  → widgets/<이름>/ui/<이름>.tsx
+```
+
+## Server / Client 컴포넌트 구분
+
+- 기본은 **Server Component** 입니다.
+- `useState`·`useEffect`·이벤트 핸들러·`localStorage`/`window`·Redux/React Query 훅·recharts 등을 쓰면
+  파일 최상단에 `'use client'` 를 추가합니다.
+- `metadata` export 는 Server 모듈에서만 가능하므로, 클라이언트 페이지 컴포넌트의 `metadata` 는
+  `index.ts`(서버 모듈)에 정의하고 `app/<route>/page.tsx` 에서 함께 re-export 합니다.
+
+## 파일 하나당 역할 한 가지
+
+```
+OrderPage.tsx       → 레이아웃 조립만
+useOrderQuery.ts    → React Query 조회만
+useOrderMutation.ts → useMutation 저장·수정만
+orderApi.ts         → axios 호출만
+```

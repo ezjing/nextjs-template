@@ -73,6 +73,34 @@ code {
   font-family: var(--font-mono);
 }
 
+/* Snackbar 등장 애니메이션 */
+@keyframes snackbar-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.snackbar-enter {
+  animation: snackbar-in 0.2s ease-out;
+}
+
+/* Progress 무한 로딩 애니메이션 */
+@keyframes progress-indeterminate {
+  0% {
+    left: -35%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+.progress-indeterminate {
+  animation: progress-indeterminate 1.1s ease-in-out infinite;
+}
+
 /* 스크롤바 숨기기 (사이드바) */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

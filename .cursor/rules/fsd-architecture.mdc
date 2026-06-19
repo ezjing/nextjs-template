@@ -1,0 +1,71 @@
+---
+description: FSD 레이어 간 import 방향 규칙 (Next.js App Router)
+alwaysApply: true
+---
+
+# FSD 아키텍처 규칙
+
+레이어 순서: `app → pages → widgets → features → entities → shared`
+위 방향(아래→위)으로 import하면 안 됩니다. (`eslint-plugin-import` 의 `no-restricted-paths` 로 강제)
+
+## Next.js 와 FSD 폴더 분리
+
+- 라우팅은 **루트 `app/`** (App Router) 가 담당하며, 페이지 코드를 직접 두지 않고 `src/pages` 를 re-export 합니다.
+- FSD 레이어는 모두 **`src/`** 아래에 위치합니다. (`@/*` → `src/*`)
+- 루트의 빈 `pages/` 폴더는 Next.js 가 `src/pages` 를 Pages Router 로 오인하지 않게 하기 위한 것이므로 비워 둡니다.
+
+```
+app/page.tsx                          // "/" 라우트 (re-export 전용)
+└─ export { DashboardPage as default, metadata } from '@/pages/dashboard';
+
+src/pages/dashboard/
+├─ index.ts                           // public API (page + metadata)
+└─ ui/DashboardPage.tsx               // 실제 페이지 컴포넌트
+```
+
+## 허용되는 import 방향
+
+```
+app      → pages, widgets, features, entities, shared
+pages    → widgets, features, entities, shared
+widgets  → features, entities, shared
+features → entities, shared
+entities → shared
+shared   → shared 내부만
+```
+
+## 금지 예시
+
+```ts
+// ❌ shared → app import 금지
+// src/shared/ui/button/Button.tsx
+import store from '@/app/store';
+
+// ❌ features/A → features/B 직접 import 금지
+// src/features/auth/model/useAuth.ts
+import { useSelectMember } from '@/features/member-select/model/useSelectMember';
+
+// ❌ pages/A → pages/B import 금지
+import { LoginPage } from '@/pages/login';
+```
+
+## 올바른 예시
+
+```ts
+// ✅ pages → widgets → features → shared 순서
+// src/pages/dashboard/ui/DashboardPage.tsx
+import { KpiSection } from '@/features/dashboard-kpi/ui/KpiSection';
+import { AppSidebar } from '@/widgets/sidebar/ui/AppSidebar';
+import { Button } from '@/shared/ui/button/Button';
+```
+
+## 세그먼트 구조
+
+각 슬라이스(slice) 안은 역할에 따라 나눕니다.
+
+- `ui/` — 화면에 보이는 컴포넌트
+- `model/` — 상태, 훅, 비즈니스 로직 (slice, hook 등)
+- `api/` — HTTP 호출 함수만
+- `index.ts` — 슬라이스 public API (pages 슬라이스는 필수, 그 외 권장)
+
+파일을 새로 만들 때 반드시 이 세그먼트 중 하나에 위치시킵니다.

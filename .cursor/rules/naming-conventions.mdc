@@ -1,0 +1,134 @@
+---
+description: TypeScript 파일·함수·변수 네이밍 규칙
+globs: src/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# 네이밍 규칙
+
+## 한눈에 보기
+
+| 종류              | 케이스     | 접두어/형태              | 예시                                |
+| ----------------- | ---------- | ------------------------ | ----------------------------------- |
+| 컴포넌트          | PascalCase | 명사형                   | MemberCard, Modal                   |
+| 타입/인터페이스   | PascalCase | 명사형                   | User, ButtonProps, AuthState        |
+| 일반 함수         | camelCase  | 동사형                   | fetchData(), parseString()          |
+| 이벤트 핸들러     | camelCase  | handle...                | handleDelete(), handleInputChange() |
+| 커스텀 훅         | camelCase  | use...                   | useCurrentMember(), useForm()       |
+| Boolean 변수/함수 | camelCase  | is..., has..., should... | isOpen, hasToken, shouldRender      |
+
+---
+
+## 컴포넌트 — PascalCase, 명사형
+
+```tsx
+// ✅
+export function MemberCard() {}
+export function DashboardPage() {}
+export function AppSidebar() {}
+
+// ❌
+export function memberCard() {}
+export function getMemberCard() {}
+```
+
+## 타입 / 인터페이스 — PascalCase
+
+```ts
+// ✅
+export interface User {
+  id: number;
+  name: string;
+}
+export type ButtonVariant = 'primary' | 'secondary';
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+
+// ❌
+export interface userProps {}
+export type buttonVariant = 'primary';
+```
+
+## 일반 함수 — camelCase, 동사형
+
+```ts
+// ✅
+function fetchData() {}
+function formatDate(date: Date) {}
+
+// ❌
+function FetchData() {} // PascalCase 금지
+function data() {} // 동사형 아님
+```
+
+## 이벤트 핸들러 — camelCase, handle 접두사
+
+```ts
+// ✅
+function handleDelete() {}
+function handleInputChange() {}
+
+// ❌
+function onDelete() {} // on 접두사 금지 (props명은 on 사용)
+function deleteItem() {} // handle 접두사 없음
+```
+
+> **props명과 구분**: 부모에서 넘기는 콜백 prop명은 `on`(예: `onClose`, `onSelect`),
+> 실제 핸들러 함수명은 `handle`(예: `handleClose`, `handleSelect`).
+
+## 커스텀 훅 — camelCase, use 접두사
+
+```ts
+// ✅
+export function useCurrentMember() {}
+export function useAuth() {}
+
+// ❌
+export function CurrentMember() {} // use 없음 + PascalCase
+```
+
+## Boolean 변수/함수 — camelCase, is / has / should 접두사
+
+```ts
+// ✅
+const isOpen = false;
+const hasToken = true;
+function isValid(value: string) {}
+
+// ❌
+const open = false; // is 없음
+const token = true; // has 없음
+```
+
+---
+
+## 파일 확장자 규칙
+
+| 종류                        | 확장자 |
+| --------------------------- | ------ |
+| React 컴포넌트 (JSX 있음)   | `.tsx` |
+| 로직·API·slice·훅·타입·설정 | `.ts`  |
+| 전역 스타일                 | `.css` |
+
+## 슬라이스 폴더명 — kebab-case
+
+```
+features/dashboard-kpi/
+features/ui-preferences/
+entities/user/
+```
+
+## 조회·저장 핸들러 네이밍 (화면 단위)
+
+화면(page/feature) 내에서 조회·저장 처리를 담당하는 함수는 번호를 붙입니다.
+
+```ts
+function searchLogic1() {
+  /* 첫 번째 조회 처리 */
+}
+function searchLogic2() {
+  /* 두 번째 조회 처리 */
+}
+function saveLogic1() {
+  /* 첫 번째 저장 처리 */
+}
+```
