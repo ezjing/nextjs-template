@@ -7,7 +7,7 @@
 - **Next.js 16** (App Router, Turbopack)
 - **TypeScript** (strict)
 - **Tailwind CSS v4** (클래스 기반 다크모드)
-- **Redux Toolkit** + **react-redux**
+- **Zustand** (클라이언트 전역 상태)
 - **TanStack Query** + **axios**
 - **recharts**, **lucide-react**
 
@@ -24,7 +24,7 @@ Next.js 의 라우팅 폴더(`app`, `pages`)와 FSD 레이어를 분리합니다
 │  └─ showcase/page.tsx     # "/showcase" → @/pages/home re-export
 ├─ pages/                   # 의도적으로 빈 폴더 (README 참고)
 └─ src/                     # FSD 레이어
-   ├─ app/                  # 앱 전역: providers, store, styles
+   ├─ app/                  # 앱 전역: providers, styles
    ├─ pages/                # FSD 페이지 (dashboard, login, home)
    ├─ widgets/              # sidebar, dashboard-header, layout
    ├─ features/             # auth, ui-preferences, dashboard-*

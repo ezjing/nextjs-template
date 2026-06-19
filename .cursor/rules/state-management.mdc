@@ -1,5 +1,5 @@
 ---
-description: 상태 관리 — React Query vs Redux 역할 구분
+description: 상태 관리 — React Query vs Zustand 역할 구분
 globs: src/**/*.{ts,tsx}
 alwaysApply: false
 ---
@@ -12,9 +12,9 @@ alwaysApply: false
 | -------------------------- | --------------------------------- | ------------------- |
 | 서버에서 받아온 데이터     | 회원 목록, 게시글, API 결과       | **React Query**     |
 | 화면에만 잠깐 쓰는 UI 상태 | 모달 열림, 검색어 입력            | 컴포넌트 `useState` |
-| 앱 전체가 공유하는 상태    | 로그인 사용자, 다크모드, 사이드바 | **Redux**           |
+| 앱 전체가 공유하는 상태    | 로그인 사용자, 다크모드, 사이드바 | **Zustand**         |
 
-> Redux/React Query 훅을 쓰는 파일·컴포넌트는 클라이언트에서만 동작하므로 `'use client'` 가 필요합니다.
+> Zustand/React Query 훅을 쓰는 파일·컴포넌트는 클라이언트에서만 동작하므로 `'use client'` 가 필요합니다.
 
 ## React Query — 서버 데이터
 
@@ -45,15 +45,43 @@ export const QUERY_KEYS = {
 } as const;
 ```
 
-## Redux — 클라이언트 전역 상태
+## Zustand — 클라이언트 전역 상태
+
+스토어는 해당 슬라이스의 `model/` 에 두고, 파일명은 `...Store.ts`, 훅은 `use...Store` 로 만듭니다.
+별도의 Provider 는 필요 없습니다. (앱 전역 래핑 불필요)
 
 ```ts
-// ✅ features/auth/model/authSlice.ts — 로그인 사용자
-// ✅ features/ui-preferences/model/uiPreferencesSlice.ts — 테마, 사이드바
-// ✅ 타입 안전한 훅은 src/app/store/hooks.ts 의 useAppDispatch / useAppSelector 사용
+// ✅ features/auth/model/authStore.ts — 로그인 사용자
+'use client'; // 컴포넌트에서만 import 한다면 스토어 파일 자체엔 불필요
 
-// ❌ 서버 데이터를 Redux에 저장하지 않습니다
-// dispatch(setUserList(response.data))  ← 금지
+import { create } from 'zustand';
+
+import type { User } from '@/entities/user/model/userTypes';
+
+interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  setUser: (user: User | null) => void;
+  clearUser: () => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
+  isAuthenticated: false,
+  setUser: (user) => set({ user, isAuthenticated: !!user }),
+  clearUser: () => set({ user: null, isAuthenticated: false }),
+}));
+```
+
+```ts
+// ✅ 컴포넌트/훅에서는 selector 로 필요한 값만 구독해 리렌더를 최소화합니다
+const user = useAuthStore((state) => state.user);
+const setUser = useAuthStore((state) => state.setUser);
+
+// ✅ features/ui-preferences/model/uiPreferencesStore.ts — 테마, 사이드바
+
+// ❌ 서버 데이터를 Zustand 에 저장하지 않습니다 (React Query 사용)
+// ❌ 스토어 전체를 구독하지 마세요: const state = useAuthStore();  ← 불필요한 리렌더
 ```
 
 ## Mutation (저장·수정·삭제)

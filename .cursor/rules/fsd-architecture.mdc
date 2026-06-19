@@ -39,7 +39,7 @@ shared   → shared 내부만
 ```ts
 // ❌ shared → app import 금지
 // src/shared/ui/button/Button.tsx
-import store from '@/app/store';
+import { AppProviders } from '@/app/providers/AppProviders';
 
 // ❌ features/A → features/B 직접 import 금지
 // src/features/auth/model/useAuth.ts
