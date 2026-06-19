@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js + TypeScript FSD Template
 
-## Getting Started
+**Next.js(App Router) + TypeScript** 조합 템플릿입니다. [Feature-Sliced Design](https://fsd.how/kr/docs/guides/tech/with-nextjs/) 구조를 따릅니다.
 
-First, run the development server:
+## 기술 스택
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 16** (App Router, Turbopack)
+- **TypeScript** (strict)
+- **Tailwind CSS v4** (클래스 기반 다크모드)
+- **Redux Toolkit** + **react-redux**
+- **TanStack Query** + **axios**
+- **recharts**, **lucide-react**
+
+## 폴더 구조
+
+Next.js 의 라우팅 폴더(`app`, `pages`)와 FSD 레이어를 분리합니다.
+
+```
+.
+├─ app/                     # Next.js App Router (라우팅 전용)
+│  ├─ layout.tsx            # 루트 레이아웃 (globals.css + AppProviders)
+│  ├─ page.tsx              # "/"      → @/pages/dashboard re-export
+│  ├─ login/page.tsx        # "/login" → @/pages/login re-export
+│  └─ showcase/page.tsx     # "/showcase" → @/pages/home re-export
+├─ pages/                   # 의도적으로 빈 폴더 (README 참고)
+└─ src/                     # FSD 레이어
+   ├─ app/                  # 앱 전역: providers, store, styles
+   ├─ pages/                # FSD 페이지 (dashboard, login, home)
+   ├─ widgets/              # sidebar, dashboard-header, layout
+   ├─ features/             # auth, ui-preferences, dashboard-*
+   ├─ entities/             # user
+   └─ shared/               # api, config, constants, lib, ui
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 라우팅 규칙
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+루트 `app/<route>/page.tsx` 는 페이지 코드를 직접 담지 않고, `src/pages` 의 FSD 페이지를 re-export 합니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```ts
+// app/page.tsx
+export { DashboardPage as default, metadata } from '@/pages/dashboard';
+```
 
-## Learn More
+> 루트의 빈 `pages/` 폴더는 Next.js 가 `src/pages` 를 Pages Router 로 오인해 빌드가 실패하는 것을 막기 위해 필요합니다.
 
-To learn more about Next.js, take a look at the following resources:
+### FSD import 방향 규칙
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`eslint-plugin-import` 의 `no-restricted-paths` 로 레이어 간 import 방향을 강제합니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+app > pages > widgets > features > entities > shared
+```
 
-## Deploy on Vercel
+(상위 레이어만 하위 레이어를 참조할 수 있으며, 역방향 import 는 오류로 처리됩니다.)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 경로 별칭
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`@/*` 는 `src/*` 를 가리킵니다 (`tsconfig.json`).
+
+## 시작하기
+
+```bash
+npm run dev      # 개발 서버 (http://localhost:3000)
+npm run build    # 프로덕션 빌드 (타입체크 포함)
+npm run lint     # ESLint (FSD 규칙 포함)
+npm run format   # Prettier 포맷팅
+```
+
+## 환경 변수
+
+`.env.local` 에 API 베이스 URL 을 설정합니다. (클라이언트 노출 변수는 `NEXT_PUBLIC_` 접두사 필요)
+
+```
+NEXT_PUBLIC_API_BASE_URL=
+```
