@@ -29,6 +29,8 @@ export interface TableProps<T> {
   onRowClick?: (row: T, index: number) => void;
   /** 행 구분 hover 효과 */
   hoverable?: boolean;
+  /** 행별 추가 className */
+  rowClassName?: (row: T, index: number) => string | undefined;
   className?: string;
 }
 
@@ -47,6 +49,7 @@ export function Table<T>({
   emptyText = '데이터가 없습니다',
   onRowClick,
   hoverable = true,
+  rowClassName,
   className,
 }: TableProps<T>) {
   return (
@@ -100,6 +103,7 @@ export function Table<T>({
                   'bg-white dark:bg-slate-800',
                   hoverable && 'transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50',
                   onRowClick && 'cursor-pointer',
+                  rowClassName?.(row, idx),
                 )}
               >
                 {columns.map((col) => (
