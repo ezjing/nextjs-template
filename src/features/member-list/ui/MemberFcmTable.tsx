@@ -1,6 +1,9 @@
 'use client';
 
+import { RefreshCw } from 'lucide-react';
+
 import type { MemberFcm } from '@/entities/member/model/memberFcmTypes';
+import { Button } from '@/shared/ui/button/Button';
 import { Table, type TableColumn } from '@/shared/ui/table/Table';
 
 import { useMemberFcmQuery } from '../model/useMemberFcmQuery';
@@ -28,29 +31,53 @@ const columns: TableColumn<MemberFcm>[] = [
 ];
 
 export function MemberFcmTable({ selectedId, selectedName }: MemberFcmTableProps) {
-  const { data: tokens = [], isLoading, isError, error } = useMemberFcmQuery(selectedId);
+  const { data: tokens = [], isLoading, isError, error, refetch, isFetching } =
+    useMemberFcmQuery(selectedId);
 
   return (
     <div className="mt-8 flex flex-col gap-3">
-      <div>
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-          FCM 토큰
-          {selectedName && (
-            <span className="ml-2 text-sm font-normal text-slate-500 dark:text-slate-400">
-              — {selectedName} ({selectedId})
-            </span>
-          )}
-        </h2>
-        <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
-          TB_BS_MEMBER_FCM 테이블을 조회합니다.
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+            FCM 토큰
+            {selectedName && (
+              <span className="ml-2 text-sm font-normal text-slate-500 dark:text-slate-400">
+                — {selectedName} ({selectedId})
+              </span>
+            )}
+          </h2>
+          <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+            TB_BS_MEMBER_FCM 테이블을 조회합니다.
+            {isFetching && !isLoading && (
+              <span className="ml-2 text-violet-600 dark:text-violet-400">갱신 중...</span>
+            )}
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          size="sm"
+          leftIcon={<RefreshCw className="h-4 w-4" />}
+          loading={isFetching}
+          onClick={() => refetch()}
+        >
+          새로고침
+        </Button>
       </div>
 
       {isError ? (
-        <div className="flex items-center justify-center rounded-xl border border-red-200 bg-red-50 px-6 py-8 dark:border-red-800/40 dark:bg-red-900/20">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-red-200 bg-red-50 px-6 py-8 dark:border-red-800/40 dark:bg-red-900/20">
           <p className="text-sm text-red-600 dark:text-red-400">
             {error instanceof Error ? error.message : 'FCM 토큰 조회 중 오류가 발생했습니다.'}
           </p>
+          <Button
+            variant="outline"
+            size="sm"
+            leftIcon={<RefreshCw className="h-4 w-4" />}
+            loading={isFetching}
+            onClick={() => refetch()}
+          >
+            새로고침
+          </Button>
         </div>
       ) : (
         <Table<MemberFcm>

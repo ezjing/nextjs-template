@@ -1,6 +1,6 @@
 'use client';
 
-import { Pencil, Plus, Trash2 } from 'lucide-react';
+import { Pencil, Plus, RefreshCw, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 import {
@@ -28,7 +28,8 @@ interface MemberTableProps {
 
 export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
   const [authCd, setAuthCd] = useState<AuthCd>(AUTH_CD.TEST);
-  const { data: members = [], isLoading, isError, error } = useMemberListQuery(authCd);
+  const { data: members = [], isLoading, isError, error, refetch, isFetching } =
+    useMemberListQuery(authCd);
   const snackbar = useSnackbar();
 
   const createMutation = useCreateMember();
@@ -133,10 +134,19 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
 
   if (isError) {
     return (
-      <div className="flex items-center justify-center rounded-xl border border-red-200 bg-red-50 px-6 py-12 dark:border-red-800/40 dark:bg-red-900/20">
+      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-red-200 bg-red-50 px-6 py-12 dark:border-red-800/40 dark:bg-red-900/20">
         <p className="text-sm text-red-600 dark:text-red-400">
           {error instanceof Error ? error.message : '회원 목록을 불러오는 중 오류가 발생했습니다.'}
         </p>
+        <Button
+          variant="outline"
+          size="sm"
+          leftIcon={<RefreshCw className="h-4 w-4" />}
+          loading={isFetching}
+          onClick={() => refetch()}
+        >
+          새로고침
+        </Button>
       </div>
     );
   }
@@ -154,17 +164,28 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
             className="w-40"
           />
           <p className="pb-2 text-sm text-slate-500 dark:text-slate-400">
-            {isLoading ? '불러오는 중...' : `총 ${members.length}명`}
+            {isFetching ? '불러오는 중...' : `총 ${members.length}명`}
           </p>
         </div>
-        <Button
-          variant="primary"
-          size="sm"
-          leftIcon={<Plus className="h-4 w-4" />}
-          onClick={openCreate}
-        >
-          회원 등록
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            leftIcon={<RefreshCw className="h-4 w-4" />}
+            loading={isFetching}
+            onClick={() => refetch()}
+          >
+            새로고침
+          </Button>
+          <Button
+            variant="primary"
+            size="sm"
+            leftIcon={<Plus className="h-4 w-4" />}
+            onClick={openCreate}
+          >
+            회원 등록
+          </Button>
+        </div>
       </div>
 
       {/* 테이블 */}
