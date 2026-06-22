@@ -12,10 +12,15 @@ function useInvalidateMembers() {
 }
 
 export function useCreateMember() {
+  const queryClient = useQueryClient();
   const invalidate = useInvalidateMembers();
   return useMutation({
     mutationFn: (data: MemberCreateInput) => memberApi.create(data),
-    onSuccess: invalidate,
+    onSuccess: (result) => {
+      invalidate();
+      // 서버가 등록 응답에 함께 내려준 FCM 토큰을 재조회 없이 캐시에 주입
+      queryClient.setQueryData([QUERY_KEYS.MEMBER_FCM_LIST, result.memberId], result.fcmTokens);
+    },
   });
 }
 

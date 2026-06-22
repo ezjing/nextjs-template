@@ -1,3 +1,5 @@
+import type { MemberFcm } from './memberFcmTypes';
+
 export const AUTH_CD = {
   BUSINESS_OWNER: 'BUSINESS_OWNER',
   HEAD_MANAGER: 'HEAD_MANAGER',
@@ -59,6 +61,13 @@ export interface MemberCreateInput {
   useYn: string;
   tbmYn?: string;
   approvalYn?: string;
+}
+
+/** 회원 등록 API 응답 (저장 + 등록 직후 FCM 토큰 조회 결과를 한 번에 반환) */
+export interface MemberCreateResult {
+  message: string;
+  memberId: string;
+  fcmTokens: MemberFcm[];
 }
 
 /** 회원 수정 입력 타입 (id/coCd는 PK이므로 변경 불가) */
