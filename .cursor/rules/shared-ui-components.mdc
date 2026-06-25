@@ -16,6 +16,7 @@ shared/ui/select/Select.tsx
 shared/ui/dialog/Dialog.tsx
 shared/ui/bottom-sheet/BottomSheet.tsx
 shared/ui/error-boundary/ErrorBoundary.tsx
+shared/ui/snackbar/Snackbar.tsx
 ```
 
 > 이 컴포넌트들은 상태/이벤트/포털을 사용하므로 `'use client'` 로 선언되어 있습니다.
@@ -96,6 +97,97 @@ const [isOpen, setIsOpen] = useState(false);
 </ErrorBoundary>;
 ```
 
+## Snackbar
+
+> 전역 Provider는 `src/app/providers/AppProviders.tsx`에 이미 적용되어 있습니다.
+> 페이지·feature에서 `<SnackbarProvider>`를 다시 감싸지 않습니다.
+
+### import
+
+```ts
+import { useSnackbar } from '@/shared/ui/snackbar/Snackbar';
+```
+
+### 기본 사용
+
+```tsx
+'use client';
+
+export function MemberTable() {
+  const snackbar = useSnackbar();
+
+  const handleSave = async () => {
+    try {
+      await saveMutation.mutateAsync(data);
+      snackbar.success('회원 정보가 수정되었습니다.');
+    } catch {
+      snackbar.error('회원 수정에 실패했습니다.');
+    }
+  };
+}
+```
+
+### variant 선택 기준
+
+| variant   | 사용 시점                               | 예시                                       |
+| --------- | --------------------------------------- | ------------------------------------------ |
+| `success` | 저장·수정·삭제 등 **작업 성공**         | `회원이 등록되었습니다.`                   |
+| `error`   | API/mutation **실패**, 예상치 못한 오류 | `회원 삭제에 실패했습니다.`                |
+| `warning` | **유효성 검사 실패**, 사용법 안내       | `필수 항목을 입력해주세요.`                |
+| `info`    | 성공/실패가 아닌 **중립 정보**          | `김철수 선택됨`, `새 업데이트가 있습니다.` |
+
+- variant별 헬퍼(`success`, `warning`, `error`, `info`)를 우선 사용합니다.
+- `show(message, { variant })`는 커스텀 옵션이 필요할 때만 사용합니다.
+
+### 피드백 책임 위치 (FSD)
+
+```ts
+// ✅ features/pages UI — 사용자 메시지는 여기서
+'use client';
+const snackbar = useSnackbar();
+snackbar.success('저장되었습니다.');
+
+// ✅ features/.../model/useXxxMutation.ts — 서버 호출·캐시만
+onSuccess: () => queryClient.invalidateQueries(...);
+
+// ❌ entities/shared/ui — 도메인 문구·snackbar 호출 금지
+// ❌ Server Component — useSnackbar 사용 금지
+```
+
+### Snackbar vs Dialog vs confirm
+
+| 상황                       | 사용                      |
+| -------------------------- | ------------------------- |
+| 작업 결과 알림 (성공/실패) | `snackbar`                |
+| 삭제 전 **사용자 확인**    | `confirm()` 또는 `Dialog` |
+| 폼 입력·상세 편집          | `Dialog`                  |
+
+- 필드 단위 유효성 오류 → `Input`의 `error` prop
+- 폼 전체 제출 차단·사용법 안내 → `snackbar.warning`
+
+### 옵션
+
+```tsx
+// 액션이 있는 info
+snackbar.info('새 업데이트가 있습니다.', {
+  actionLabel: '새로고침',
+  onAction: () => snackbar.success('새로고침했습니다.'),
+});
+
+// 오래 보여줘야 할 때
+snackbar.warning('처리 중입니다.', { duration: 5000 });
+
+// 수동 닫기 (duration: 0)
+const id = snackbar.error('오류가 발생했습니다.', { duration: 0 });
+snackbar.dismiss(id);
+```
+
+### 메시지 작성
+
+- 한국어, 짧고 명확한 문장 (1줄)
+- HTTP 상태 코드·스택 트레이스 등 기술 정보를 그대로 노출하지 않습니다.
+- 성공/실패 메시지는 **무엇이** 되었는지 명시합니다. (`회원이 삭제되었습니다.`)
+
 ## shared/ui 에 추가할 때 규칙
 
 1. 비즈니스 문구·도메인 로직을 포함하지 않습니다.
@@ -103,4 +195,3 @@ const [isOpen, setIsOpen] = useState(false);
 3. `cn()` 유틸로 className을 조합합니다 (`@/shared/lib/cn`).
 4. 외부에서 `className` prop으로 스타일을 덮어쓸 수 있게 열어둡니다.
 5. props 는 `interface ...Props` 로 타입을 정의합니다.
-```

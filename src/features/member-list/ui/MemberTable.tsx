@@ -28,8 +28,14 @@ interface MemberTableProps {
 
 export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
   const [authCd, setAuthCd] = useState<AuthCd>(AUTH_CD.TEST);
-  const { data: members = [], isLoading, isError, error, refetch, isFetching } =
-    useMemberListQuery(authCd);
+  const {
+    data: members = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+    isFetching,
+  } = useMemberListQuery(authCd);
   const snackbar = useSnackbar();
 
   const createMutation = useCreateMember();
@@ -114,14 +120,20 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
       render: (row) => (
         <div className="flex items-center justify-center gap-1">
           <button
-            onClick={(e) => { e.stopPropagation(); openEdit(row); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              openEdit(row);
+            }}
             className="rounded p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-violet-600 dark:hover:bg-slate-700 dark:hover:text-violet-400"
             aria-label="수정"
           >
             <Pencil className="h-3.5 w-3.5" />
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); handleDelete(row); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete(row);
+            }}
             className="rounded p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-slate-700 dark:hover:text-rose-400"
             aria-label="삭제"
           >
@@ -192,7 +204,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
       <Table<Member>
         columns={columns}
         data={members}
-        rowKey={(row) => row.id}
+        rowKey={(row) => `${row.coCd}-${row.id}`}
         loading={isLoading}
         loadingRows={8}
         emptyText="회원 데이터가 없습니다."

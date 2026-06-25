@@ -101,6 +101,8 @@ export function useSaveUser() {
 }
 ```
 
+> mutation 훅에는 `useSnackbar`를 넣지 않습니다. 성공/실패 메시지는 호출하는 UI 컴포넌트(`features/.../ui`)에서 `try/catch`로 처리합니다.
+
 ## 로컬 UI 상태
 
 ```tsx

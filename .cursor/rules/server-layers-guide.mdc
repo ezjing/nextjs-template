@@ -1,0 +1,212 @@
+---
+description: 서버 Service·Repository·Query 레이어 작성 규칙 (entities 내부)
+globs: src/entities/**/*.ts
+alwaysApply: false
+---
+
+# 서버 레이어 작성 규칙 (Service / Repository / Query)
+
+`src/entities/<도메인>/` 안의 서버 전용 파일들에 대한 역할 분리 규칙입니다.
+
+## 전통 백엔드 레이어 → 이 프로젝트 매핑
+
+| 백엔드 레이어 | 이 프로젝트 파일                                  | 담당 내용                            |
+| ------------- | ------------------------------------------------- | ------------------------------------ |
+| Model         | `entities/<도메인>/model/*Types.ts`               | 타입·인터페이스 (★ 이 파일)          |
+| Controller    | `app/api/.../route.ts`                            | HTTP 파싱·응답                       |
+| Service       | `entities/<도메인>/model/<도메인>Service.ts`      | 업무 규칙·오케스트레이션 (★ 이 파일) |
+| Repository    | `entities/<도메인>/api/<도메인>Queries.ts` (함수) | DB 접근 함수 (★ 이 파일)             |
+| Query         | `entities/<도메인>/api/<도메인>Queries.ts` (SQL)  | SQL 문자열 (★ 이 파일)               |
+
+> Repository와 Query는 같은 파일(`...Queries.ts`) 안에 공존합니다.
+> 함수 선언부가 Repository 역할, 함수 내부 SQL 문자열이 Query 역할입니다.
+
+## 파일 배치
+
+```
+src/entities/<도메인>/
+├── model/
+│   ├── <도메인>Types.ts       # Model — 타입·인터페이스
+│   └── <도메인>Service.ts     # Service — 업무 규칙·오케스트레이션
+└── api/
+    ├── <도메인>Api.ts          # 클라이언트 axios 호출 (서버 X)
+    └── <도메인>Queries.ts      # Repository(함수) + Query(SQL)
+```
+
+---
+
+## Model 레이어 (`*Types.ts`)
+
+타입과 인터페이스만 정의합니다. 함수·로직을 포함하지 않습니다.
+
+```ts
+// entities/member/model/memberTypes.ts
+export const AUTH_CD = { ADMIN: 'ADMIN', USER: 'USER', TEST: 'TEST' } as const;
+export type AuthCd = (typeof AUTH_CD)[keyof typeof AUTH_CD];
+
+export interface Member {
+  coCd: string;
+  id: string;
+  name: string;
+  authCd: AuthCd;
+}
+
+export interface MemberCreateInput {
+  coCd: string;
+  id: string;
+  name: string;
+  pw: string;
+}
+```
+
+---
+
+## Service 레이어 (`<도메인>Service.ts`)
+
+업무 규칙·오케스트레이션·유효성 검사를 담당합니다.
+
+### ServiceError 클래스
+
+모든 Service 파일에 `XxxServiceError`를 정의합니다. `status`를 포함해 Route Handler가 HTTP 상태로 직접 변환할 수 있게 합니다.
+
+```ts
+export class MemberServiceError extends Error {
+  constructor(
+    message: string,
+    public readonly status: number,
+  ) {
+    super(message);
+    this.name = 'MemberServiceError';
+  }
+}
+```
+
+### Service 함수 규칙
+
+- 유효성 검사 실패 → `new XxxServiceError('메시지', 400)` throw
+- 리소스 없음 → `new XxxServiceError('메시지', 404)` throw
+- DB 접근 **금지** — Query 함수만 호출한다
+- 여러 Query를 조합하는 오케스트레이션은 Service에서 수행한다
+
+```ts
+// ✅ 올바른 Service 함수
+export async function createMemberWithFcm(input: MemberCreateInput): Promise<MemberCreateResult> {
+  if (!input.coCd || !input.id || !input.name || !input.pw) {
+    throw new MemberServiceError('coCd, id, name, pw는 필수 항목입니다.', 400);
+  }
+
+  await insertMember(input); // Query 함수 호출
+  const fcmTokens = await findFcmByMemberId(input.id); // Query 함수 호출
+
+  return { message: '회원이 등록되었습니다.', memberId: input.id, fcmTokens };
+}
+
+export async function removeMember(id: string): Promise<{ message: string }> {
+  const affectedRows = await softDeleteMember(id); // Query 함수 호출
+
+  if (affectedRows === 0) {
+    throw new MemberServiceError('해당 회원을 찾을 수 없습니다.', 404);
+  }
+
+  return { message: '회원이 삭제되었습니다.' };
+}
+
+// ❌ Service에서 DB 직접 접근 금지
+import pool from '@/shared/lib/db'; // 금지
+export async function badService() {
+  await pool.execute('SELECT ...'); // 금지
+}
+```
+
+---
+
+## Repository / Query 레이어 (`<도메인>Queries.ts`)
+
+DB 접근 함수(Repository)와 SQL 문자열(Query)이 하나의 파일에 공존합니다.
+
+### DB 연결 규칙
+
+- `shared/lib/db`의 `pool`만 사용한다.
+- `mysql2`에서 `createConnection`을 직접 호출하지 않는다.
+
+```ts
+import pool from '@/shared/lib/db'; // ✅ pool만 import
+
+// ❌ 금지
+import mysql from 'mysql2/promise';
+const conn = await mysql.createConnection({ ... });
+```
+
+### 함수 네이밍
+
+| 작업        | 접두사          | 예시                                       |
+| ----------- | --------------- | ------------------------------------------ |
+| 조회        | `find...`       | `findMembersByAuthCd`, `findFcmByMemberId` |
+| 삽입        | `insert...`     | `insertMember`                             |
+| 수정        | `update...`     | `updateMember`                             |
+| 소프트 삭제 | `softDelete...` | `softDeleteMember`                         |
+
+### SQL 작성 규칙
+
+```ts
+// ✅ 컬럼 alias: SNAKE_CASE → camelCase
+const MEMBER_COLUMNS = `
+  CO_CD       AS coCd,
+  ID          AS id,
+  NAME        AS name,
+  AUTH_CD     AS authCd,
+  DELETE_YN   AS deleteYn
+`;
+
+// ✅ 파라미터 바인딩: ? 플레이스홀더만 사용 (SQL 인젝션 방지)
+export async function findMembersByAuthCd(authCd: AuthCd): Promise<Member[]> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    `SELECT ${MEMBER_COLUMNS} FROM TB_BS_MEMBER WHERE DELETE_YN = 'N' AND AUTH_CD = ?`,
+    [authCd],
+  );
+  return rows as Member[];
+}
+
+// ❌ 문자열 보간으로 파라미터 삽입 금지
+await pool.query(`SELECT * FROM TB_BS_MEMBER WHERE AUTH_CD = '${authCd}'`);
+```
+
+### Soft Delete 패턴
+
+물리 삭제 대신 `DELETE_YN = 'Y'`로 소프트 삭제합니다.
+
+```ts
+export async function softDeleteMember(id: string): Promise<number> {
+  const [result] = await pool.execute<ResultSetHeader>(
+    `UPDATE TB_BS_MEMBER SET DELETE_YN = 'Y' WHERE ID = ? AND DELETE_YN = 'N'`,
+    [id],
+  );
+  return result.affectedRows; // Service에서 0이면 404 처리
+}
+```
+
+조회 시 항상 `DELETE_YN = 'N'` 조건을 포함합니다.
+
+---
+
+## 서버 전용 모듈 경계
+
+아래 파일은 **서버에서만** 실행됩니다. 클라이언트 컴포넌트(`'use client'`)나 클라이언트 훅에서 import하면 빌드 에러가 발생합니다.
+
+| 파일                                  | 이유                                 |
+| ------------------------------------- | ------------------------------------ |
+| `shared/lib/db.ts`                    | `mysql2` 드라이버 — Node.js 전용     |
+| `shared/config/env.ts` → `SERVER_ENV` | DB 크리덴셜 포함, 브라우저 노출 금지 |
+| `entities/*/model/*Service.ts`        | DB 접근 코드 포함                    |
+| `entities/*/api/*Queries.ts`          | DB 접근 코드 포함                    |
+
+```ts
+// ❌ 클라이언트 훅에서 서버 전용 모듈 import 금지
+'use client';
+import pool from '@/shared/lib/db'; // 빌드 에러
+import { SERVER_ENV } from '@/shared/config/env'; // 빌드 에러
+import { getMembers } from '@/entities/member/model/memberService'; // 빌드 에러
+
+// ✅ 클라이언트는 axios(memberApi)를 통해 /api/... 호출
+import { memberApi } from '@/entities/member/api/memberApi';
+```

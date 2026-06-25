@@ -1,0 +1,129 @@
+---
+description: Next.js API Route Handler(Controller) 작성 규칙
+globs: app/api/**/*.ts
+alwaysApply: false
+---
+
+# API Route Handler 작성 규칙
+
+`app/api/` 아래의 `route.ts` 파일은 **Controller** 역할입니다.
+HTTP 요청 파싱과 응답 변환만 담당하고, 업무 로직은 Service에 위임합니다.
+
+## 전통 백엔드 레이어 → 이 프로젝트 매핑
+
+| 백엔드 레이어 | 이 프로젝트 파일                                  | 담당 내용                  |
+| ------------- | ------------------------------------------------- | -------------------------- |
+| Model         | `entities/<도메인>/model/*Types.ts`               | 타입·인터페이스            |
+| Controller    | `app/api/.../route.ts`                            | HTTP 파싱·응답 (★ 이 파일) |
+| Service       | `entities/<도메인>/model/<도메인>Service.ts`      | 업무 규칙·오케스트레이션   |
+| Repository    | `entities/<도메인>/api/<도메인>Queries.ts` (함수) | DB 접근 함수               |
+| Query         | `entities/<도메인>/api/<도메인>Queries.ts` (SQL)  | SQL 문자열                 |
+
+## 핵심 원칙
+
+- Route Handler는 **HTTP 처리만** 담당한다 (파싱, 응답, 에러 변환).
+- 업무 로직(유효성 검사, DB 조회·저장 등)을 **직접 구현하지 않는다** → Service 함수에 위임한다.
+- `db`(`shared/lib/db`)를 route.ts에서 **직접 import하지 않는다**.
+- 에러 응답 형식은 `{ message: string }` 으로 고정한다.
+- `XxxServiceError`를 catch해 `error.status`를 그대로 사용하고, 그 외 예외는 500으로 처리한다.
+
+## 파일 배치
+
+```
+app/api/<도메인>/<리소스>/
+├── route.ts            # GET(목록), POST(생성)
+└── [id]/
+    ├── route.ts        # PUT(수정), DELETE(삭제)
+    └── <sub>/
+        └── route.ts    # 하위 리소스
+```
+
+## 기본 패턴
+
+```ts
+// app/api/community/users/route.ts
+import { NextResponse } from 'next/server';
+
+import { XxxServiceError, getItems, createItem } from '@/entities/xxx/model/xxxService';
+
+export async function GET(request: Request) {
+  try {
+    const param = new URL(request.url).searchParams.get('param') ?? 'default';
+    const result = await getItems(param);
+    return NextResponse.json(result);
+  } catch (error) {
+    if (error instanceof XxxServiceError) {
+      return NextResponse.json({ message: error.message }, { status: error.status });
+    }
+    console.error('[GET /api/xxx]', error);
+    return NextResponse.json({ message: '조회에 실패했습니다.' }, { status: 500 });
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const result = await createItem(body);
+    return NextResponse.json(result, { status: 201 });
+  } catch (error) {
+    if (error instanceof XxxServiceError) {
+      return NextResponse.json({ message: error.message }, { status: error.status });
+    }
+    console.error('[POST /api/xxx]', error);
+    return NextResponse.json({ message: '등록에 실패했습니다.' }, { status: 500 });
+  }
+}
+```
+
+## 동적 라우트 (params)
+
+Next.js 15+에서 `params`는 Promise입니다. 반드시 `await`로 구조분해합니다.
+
+```ts
+// app/api/community/users/[id]/route.ts
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const body = await request.json();
+    const result = await modifyItem(id, body);
+    return NextResponse.json(result);
+  } catch (error) {
+    if (error instanceof XxxServiceError) {
+      return NextResponse.json({ message: error.message }, { status: error.status });
+    }
+    console.error('[PUT /api/xxx/[id]]', error);
+    return NextResponse.json({ message: '수정에 실패했습니다.' }, { status: 500 });
+  }
+}
+```
+
+## 에러 처리 규칙
+
+| 상황              | 처리                                         |
+| ----------------- | -------------------------------------------- |
+| `XxxServiceError` | `error.status` + `error.message` 그대로 응답 |
+| 그 외 모든 예외   | `status: 500` + 한국어 고정 메시지 응답      |
+| 로그 형식         | `console.error('[METHOD /api/경로]', error)` |
+
+## 금지 사항
+
+```ts
+// ❌ route.ts에서 DB 직접 접근 금지
+import pool from '@/shared/lib/db';
+
+// ❌ 업무 로직 직접 구현 금지
+export async function POST(request: Request) {
+  const body = await request.json();
+  if (!body.name) {
+    /* 유효성 검사 금지 */
+  }
+  await pool.execute('INSERT INTO ...'); // DB 직접 호출 금지
+}
+
+// ✅ Service에 위임
+export async function POST(request: Request) {
+  const body = await request.json();
+  const result = await createItem(body); // Service 호출
+  return NextResponse.json(result, { status: 201 });
+}
+```
