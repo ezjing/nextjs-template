@@ -130,7 +130,7 @@ export function Dialog({
         )}
 
         {/* 바디 */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">{children}</div>
+        {children ? <div className="flex-1 overflow-y-auto px-6 py-4">{children}</div> : null}
 
         {/* 푸터 */}
         {footer && (
