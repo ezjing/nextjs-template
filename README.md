@@ -92,19 +92,12 @@ DB 를 쓰는 API 는 Route Handler 에서 Service, Queries 순서로 역할을 
 | 토큰 정의 (1단계 팔레트 → 2단계 의미) | `src/app/styles/tokens.css` |
 | 토큰 명세, 결정 사항, lint 규칙 | [`docs/design-tokens.md`](docs/design-tokens.md) |
 | 화면 견본 (라이트·다크) | `/showcase` 맨 위 Design Tokens 섹션 |
-| AI 코딩 도구용 요약 규칙 | `.cursor/rules/design-tokens.mdc` |
+| 사용법 — 어떤 클래스를 쓰는지 (AI 도구 규칙 겸용) | `.cursor/rules/design-tokens.mdc` |
 
 ### 새 프로젝트에 적용하기
 
-`tokens.css` 맨 위 **브랜드 블록**만 바꾸면 앱 전체가 바뀝니다.
-
-1. 브랜드 색 — `violet` 을 원하는 팔레트 이름으로 모두 바꾸기 (`--brand-50` ~ `--brand-950`)
-2. 중립 회색 — `gray` 를 원하는 회색 계열로 모두 바꾸기 (`--neutral-50` ~ `--neutral-950`)
-3. 모서리 — `--brand-radius` (모든 `rounded-control*`, `rounded-card` 가 따라감)
-4. 글꼴 — `--brand-font-sans`, `--brand-font-display` (웹폰트는 불러오는 코드도 추가)
-5. `/showcase` 에서 라이트·다크 확인
-
-자세한 순서는 [`docs/design-tokens.md`](docs/design-tokens.md) 의 "새 프로젝트에 적용하기" 를 참고하세요.
+`tokens.css` 맨 위 **브랜드 블록**(브랜드 색, 중립 회색, `--brand-radius`, 글꼴)만 바꾸면 앱 전체가 바뀝니다.
+순서는 [`docs/design-tokens.md`](docs/design-tokens.md) 의 "새 프로젝트에 적용하기" 체크리스트를 따르세요.
 
 ## 시작하기
 

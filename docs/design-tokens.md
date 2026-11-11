@@ -5,6 +5,9 @@
 > 근거: 2026-11-11 기준 `src/` 전체에서 실제 사용 중인 Tailwind 클래스 빈도 분석
 > 원칙: 현재 화면이 **바뀌지 않도록** 지금 쓰는 값을 그대로 토큰으로 옮겼습니다.
 
+이 문서는 토큰의 **명세와 결정 기록**입니다 (값, 다크모드 값, Figma 구성, 결정 이유, lint 규칙).
+코드에서 **어떤 클래스를 쓰는지(사용법)** 는 [`.cursor/rules/design-tokens.mdc`](../.cursor/rules/design-tokens.mdc) 에 정리되어 있습니다.
+
 ## 새 프로젝트에 적용하기
 
 이 템플릿을 복사한 뒤 아래 순서대로 진행하세요. **대부분 `tokens.css` 맨 위 "브랜드" 블록만 바꾸면 됩니다.**
@@ -12,7 +15,7 @@
 - [ ] **브랜드 색** — `tokens.css` 브랜드 블록에서 `violet`을 원하는 팔레트 이름으로 모두 바꾸기 (예: `blue`). 11줄
   - Tailwind 기본 팔레트에 없는 색이면 `@theme`에 `--color-{이름}-50` ~ `-950`을 먼저 추가 (mauve 예시 참고)
 - [ ] **중립 회색** — 브랜드 블록에서 `gray`를 원하는 회색 계열로 모두 바꾸기 (`slate`, `zinc`, `neutral`, `stone` …). 11줄
-- [ ] **모서리** — `--brand-radius` 값 바꾸기. `rounded-control`은 이 값, `rounded-card`는 1.5배로 자동 계산
+- [ ] **모서리** — `--brand-radius` 값 바꾸기. `rounded-control-xs`(0.5배), `-sm`(0.75배), `rounded-control`(1배), `rounded-card`(1.5배)가 자동 계산
 - [ ] **글꼴** — `--brand-font-sans`, `--brand-font-display` 바꾸기
   - 웹폰트라면 폰트를 불러오는 코드(`app/layout.tsx`의 `next/font` 등)도 추가하기 — 현재 템플릿은 Pretendard를 불러오지 않습니다
 - [ ] **상태 색** (선택) — success / warning / danger / info 색을 바꿔야 하면 Semantic 영역에서 해당 줄 수정
@@ -118,8 +121,7 @@
 | `chart-5` | `var(--chart-5)` / `bg-chart-5` | pink-500 | 동일 | (예비) |
 
 - `chart-1`은 브랜드 색을 따라갑니다. 나머지는 브랜드가 바뀌어도 데이터끼리 구분되도록 고정 색입니다.
-- recharts의 `fill`, `stroke`, `stopColor`에는 `var(--chart-1)` 문자열을, 범례 점 같은 HTML에는 `bg-chart-1` 클래스를 씁니다.
-- 축 글자는 `var(--fg-subtle)`, 격자선은 `var(--border)`, 차트 카드는 `bg-surface rounded-card shadow-card`, 툴팁은 `shadow-popover`를 씁니다.
+- 차트의 축 글자는 `fg-subtle`, 격자선은 `border` 토큰을 씁니다. 코드 작성법은 사용법 문서를 참고하세요.
 - 데이터가 5개를 넘으면 `chart-1`부터 다시 반복합니다. 6개 이상이 자주 필요해지면 디자이너와 `chart-6` 이후를 추가합니다.
 
 ---
@@ -156,11 +158,11 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 
 ## 5. 글꼴
 
-이미 정리가 잘 되어 있어 **Tailwind 기본 스케일을 그대로** 씁니다 (`text-xs` 52, `text-sm` 123, `text-base` 12 …).
-`font-medium`, `font-semibold`, `font-bold` 3단계만 사용합니다.
+글자 크기는 **토큰을 만들지 않고 Tailwind 기본 스케일만** 씁니다 (`text-xs` 12px가 가장 작은 크기). 임의 크기(`text-[11px]`)는 lint 에러입니다.
+굵기는 `font-medium`, `font-semibold`, `font-bold` 3단계만 씁니다.
+용도별 권장 조합(페이지 제목, 본문, 캡션 …)은 사용법 문서의 "글자 크기" 표를 따릅니다.
 
-글자 크기는 **토큰을 만들지 않고 Tailwind 기본 스케일만** 씁니다 (`text-xs` 12px가 가장 작은 크기).
-`text-[11px]` 같은 임의 크기는 쓰지 않습니다. (lint 에러)
+글자 토큰을 만들지 않은 이유와 나중에 만들 시점은 아래 결정 사항 8번을 참고하세요.
 
 ---
 
@@ -172,23 +174,22 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 | 2 | 빨간색 계열 | `rose`(대부분) + `red`(일부) 혼용 | **red** | 에러/위험 색의 가장 보편적인 이름 |
 | 3 | 커스텀 팔레트 mauve·olive·mist·taupe | 등록만 되어 있고 사용처 0곳 | 그대로 둠 | Primitive로 유지 |
 | 4 | `text-[11px]`, `text-[10px]` 임의 크기 | 4곳 | **Tailwind `text-xs`(12px)로 통일** | 글자 크기는 토큰 없이 Tailwind 스케일만 사용 (규칙 일관성). Avatar xs 10 → 12px, 나머지 11 → 12px |
+| 5 | 기존 면보다 진한 회색 면, 반전 면 | 대응 토큰 없음 | `surface-strong`, `surface-inverse` + `fg-inverse` 추가 | Skeleton·트랙·Toggle, Tooltip 에 필요 |
+| 6 | 장식용 색 (KPI 아이콘, 채널 막대) | violet·blue·emerald·orange 직접 사용 | `chart-1` ~ `chart-4` 사용 | 브랜드 변경을 따라가도록. orange → amber |
+| 7 | `fg-subtle` 다크 값 | 초안 gray-500 | **gray-400** | 기존 코드 76곳이 다크에서도 400 유지 (500은 3곳) |
+| 8 | 용도별 글자 토큰 (`text-title`, `text-body` …) | Tailwind 크기 직접 사용 | **만들지 않음** | 프로젝트마다 거의 안 바뀌고, 컴포넌트 크기별 글자(Button·Avatar)와 섞여 규칙이 오히려 헷갈림. tailwind-merge 등록 누락 위험. Figma Text Style 이 정의되면 그때 도입 |
+| 9 | `rounded-md`, `rounded` (20곳) | 토큰 없음 | `rounded-control-sm`(×0.75), `rounded-control-xs`(×0.5) 추가 | 크기 유지 + `--brand-radius` 연동 |
+| 10 | BottomSheet `rounded-t-2xl`, Dialog `shadow-xl`, Card hover `shadow-md` | 1곳씩 | 가까운 토큰으로 통일 (`rounded-t-card`, `shadow-modal`, `shadow-popover`) | 토큰 수를 늘리지 않음. BottomSheet 16 → 12px |
 
 > 1·2번은 Semantic 토큰이 가리키는 Primitive만 바꾸면 되므로, 디자이너가 Figma에서 다르게 정하면 `tokens.css`의 값만 바꾸면 됩니다.
 > 토큰 교체(2026-11-11)로 shared/ui 의 slate·rose 가 gray·red 로 바뀌었습니다.
 
-## 코드 적용 현황
+## 남은 작업
 
-- [x] `tokens.css`에 토큰 추가 (`globals.css`에서 import) (기존 클래스와 공존, 화면 변화 없음)
-- [x] `shared/lib/cn.ts` — tailwind-merge가 `rounded-control`, `shadow-card`, `h-control-md` 등을 인식하도록 설정
-- [x] 브랜드 블록 (`--brand-*`, `--neutral-*`, `--brand-radius`, `--brand-font-*`)
-- [x] 입력 요소 높이 토큰 — Button, Input, Select, Combobox, DatePicker, TimePicker 적용 (값 동일, 화면 변화 없음)
-- [x] lint 규칙 — 팔레트 색·임의 색 사용 금지 (`eslint.config.mjs`의 `designTokenRules`)
-- [x] `/showcase` 토큰 견본 섹션 (`src/pages/home/ui/DesignTokens.tsx`)
-- [x] 차트 토큰 `chart-1` ~ `chart-5` + 대시보드 차트 3개 적용 (`src/features/dashboard-charts`)
-- [ ] Figma Variables 구성 (디자이너)
-- [x] shared/ui, features, widgets, pages 전체를 토큰 클래스로 교체 (팔레트 색 사용 0곳)
-- [x] lint 규칙 경고 → **에러**
-- [x] 모서리·그림자 전체를 토큰으로 교체 (`rounded-lg/xl/md`, `shadow-sm/lg/xl/2xl` 사용 0곳)
+코드 쪽 토큰 적용은 끝났습니다 (팔레트 색·원본 모서리·그림자 사용 0곳, lint 로 강제).
+
+- [ ] **Figma Variables 구성** (디자이너) — 위 "Figma Variables 구성"과 같은 이름·값으로
+- [ ] **다크모드 값 검토** (디자이너) — 기존 화면 값을 그대로 옮긴 것이라 차트·상태 색의 다크 값은 조정 여지가 있음
 
 ## lint 규칙
 
@@ -207,12 +208,3 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 - 커밋할 때 husky + lint-staged 가 바뀐 파일에 ESLint·Prettier 를 자동 실행합니다. 에러가 있으면 커밋이 중단됩니다.
 - 장식용 색(KPI 아이콘, 채널 막대 등)도 `chart-1` ~ `chart-5`를 씁니다.
 - 꼭 필요한 예외는 해당 줄에 `// eslint-disable-next-line no-restricted-syntax`와 이유를 적습니다.
-
-## 사용 예
-
-```tsx
-// Before
-'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600'
-// After — dark: 불필요
-'bg-surface-muted text-fg-secondary rounded-control'
-```

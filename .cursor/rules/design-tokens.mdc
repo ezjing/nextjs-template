@@ -8,8 +8,10 @@ alwaysApply: true
 
 화면 코드에서는 **디자인 토큰 클래스만** 사용합니다. 위반하면 `npm run lint` 에서 에러가 납니다.
 
+이 파일은 **사용법**만 다룹니다. 아래는 다른 곳에 있습니다.
+
 - 토큰 정의: `src/app/styles/tokens.css`
-- 명세·결정 사항: `docs/design-tokens.md`
+- 토큰별 값(Light/Dark), 결정 이유, **lint 금지 패턴 전체 목록**: `docs/design-tokens.md`
 - 화면 견본: `/showcase` 맨 위 Design Tokens 섹션
 
 ## 색
