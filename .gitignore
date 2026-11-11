@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code — 작업 폴더(worktree)와 로컬 미리보기 설정
+.claude/worktrees/
+.claude/launch.json

@@ -132,6 +132,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Claude Code 작업 폴더(worktree)·로컬 설정 — 프로젝트 코드가 아님
+    ".claude/**",
   ]),
 ]);
 
