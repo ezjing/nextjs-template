@@ -15,7 +15,7 @@ alwaysApply: true
 - 루트의 빈 `pages/` 폴더는 Next.js 가 `src/pages` 를 Pages Router 로 오인하지 않게 하기 위한 것이므로 비워 둡니다.
 
 ```
-app/page.tsx                          // "/" 라우트 (re-export 전용)
+app/(main)/page.tsx                   // "/" 라우트 (re-export 전용, MainLayout 적용 그룹)
 └─ export { DashboardPage as default, metadata } from '@/pages/dashboard';
 
 src/pages/dashboard/

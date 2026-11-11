@@ -45,7 +45,7 @@ const dotColors: Record<BadgeVariant, string> = {
 };
 
 const sizes: Record<BadgeSize, string> = {
-  sm: 'h-5 px-2 text-2xs gap-1',
+  sm: 'h-5 px-2 text-xs gap-1',
   md: 'h-6 px-2.5 text-xs gap-1.5',
   lg: 'h-7 px-3 text-sm gap-1.5',
 };

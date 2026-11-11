@@ -8,18 +8,17 @@ alwaysApply: false
 
 ## 사용 가능한 기본 컴포넌트
 
-```
-shared/ui/button/Button.tsx
-shared/ui/input/Input.tsx
-shared/ui/textarea/Textarea.tsx
-shared/ui/select/Select.tsx
-shared/ui/dialog/Dialog.tsx
-shared/ui/bottom-sheet/BottomSheet.tsx
-shared/ui/error-boundary/ErrorBoundary.tsx
-shared/ui/snackbar/Snackbar.tsx
-```
+새 UI 를 직접 만들기 전에 아래 목록에 있는지 먼저 확인합니다. 모든 컴포넌트의 실제 모습은 `/showcase` 에서 볼 수 있습니다.
 
-> 이 컴포넌트들은 상태/이벤트/포털을 사용하므로 `'use client'` 로 선언되어 있습니다.
+| 분류 | 컴포넌트 (`shared/ui/<폴더>/<이름>.tsx`) |
+|---|---|
+| 버튼·입력 | `button/Button`, `input/Input`, `input/FileInput`, `textarea/Textarea`, `select/Select`, `combobox/Combobox`, `checkbox/Checkbox`, `radio/Radio`, `toggle/Toggle`, `slider/Slider`, `date-picker/DatePicker`, `time-picker/TimePicker` |
+| 표시 | `badge/Badge`, `tag/Tag`, `avatar/Avatar`, `card/Card`, `table/Table`, `empty-state/EmptyState`, `skeleton/Skeleton`, `spinner/Spinner`, `progress/Progress`, `stepper/Stepper` |
+| 탐색 | `tabs/Tabs`, `pagination/Pagination`, `accordion/Accordion`, `dropdown/Dropdown` |
+| 오버레이 | `dialog/Dialog`, `drawer/Drawer`, `bottom-sheet/BottomSheet`, `tooltip/Tooltip` |
+| 피드백 | `alert/Alert`, `snackbar/Snackbar`, `error-boundary/ErrorBoundary` |
+
+> 상태/이벤트/포털을 사용하는 컴포넌트는 `'use client'` 로 선언되어 있습니다.
 > 서버 컴포넌트에서 직접 렌더링하지 말고, 클라이언트 컴포넌트 트리 안에서 사용하세요.
 
 ## import 경로 — 파일 직접 참조
@@ -195,3 +194,6 @@ snackbar.dismiss(id);
 3. `cn()` 유틸로 className을 조합합니다 (`@/shared/lib/cn`).
 4. 외부에서 `className` prop으로 스타일을 덮어쓸 수 있게 열어둡니다.
 5. props 는 `interface ...Props` 로 타입을 정의합니다.
+6. 스타일은 디자인 토큰 클래스만 씁니다 (`bg-surface`, `text-fg-muted`, `rounded-control`, `h-control-md` …). `dark:` 는 쓰지 않습니다. → `design-tokens.mdc`
+7. 크기 variant(`sm`/`md`/`lg`)가 있는 입력 요소는 높이를 `h-control-sm/md/lg` 로 맞춥니다.
+8. 만든 컴포넌트는 `/showcase`(`src/pages/home/ui/HomePage.tsx`)에 예시를 추가합니다.

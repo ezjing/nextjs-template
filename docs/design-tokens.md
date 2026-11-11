@@ -159,11 +159,8 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 이미 정리가 잘 되어 있어 **Tailwind 기본 스케일을 그대로** 씁니다 (`text-xs` 52, `text-sm` 123, `text-base` 12 …).
 `font-medium`, `font-semibold`, `font-bold` 3단계만 사용합니다.
 
-Tailwind 기본보다 작은 크기가 필요할 때만 아래 토큰을 씁니다. `text-[11px]` 같은 임의 크기는 쓰지 않습니다.
-
-| 토큰 | 클래스 | 값 | 사용처 |
-|---|---|---|---|
-| `text-2xs` | `text-2xs` | 0.6875rem (11px) | Avatar xs 이니셜, Badge sm, Input 플로팅 라벨(위로 올라간 상태) |
+글자 크기는 **토큰을 만들지 않고 Tailwind 기본 스케일만** 씁니다 (`text-xs` 12px가 가장 작은 크기).
+`text-[11px]` 같은 임의 크기는 쓰지 않습니다. (lint 에러)
 
 ---
 
@@ -174,7 +171,7 @@ Tailwind 기본보다 작은 크기가 필요할 때만 아래 토큰을 씁니�
 | 1 | 회색 계열 | `slate`(shared/ui) + `gray`(features·widgets) 혼용 | **gray** | 디자인 시스템·Figma 라이브러리에서 가장 보편적인 중립 회색 이름 |
 | 2 | 빨간색 계열 | `rose`(대부분) + `red`(일부) 혼용 | **red** | 에러/위험 색의 가장 보편적인 이름 |
 | 3 | 커스텀 팔레트 mauve·olive·mist·taupe | 등록만 되어 있고 사용처 0곳 | 그대로 둠 | Primitive로 유지 |
-| 4 | `text-[11px]`, `text-[10px]` 임의 크기 | 4곳 | **`text-2xs`(11px)로 통일** | 같은 용도(아주 작은 라벨). Avatar xs 이니셜은 10px → 11px |
+| 4 | `text-[11px]`, `text-[10px]` 임의 크기 | 4곳 | **Tailwind `text-xs`(12px)로 통일** | 글자 크기는 토큰 없이 Tailwind 스케일만 사용 (규칙 일관성). Avatar xs 10 → 12px, 나머지 11 → 12px |
 
 > 1·2번은 Semantic 토큰이 가리키는 Primitive만 바꾸면 되므로, 디자이너가 Figma에서 다르게 정하면 `tokens.css`의 값만 바꾸면 됩니다.
 > 토큰 교체(2026-11-11)로 shared/ui 의 slate·rose 가 gray·red 로 바뀌었습니다.
@@ -201,8 +198,13 @@ Tailwind 기본보다 작은 크기가 필요할 때만 아래 토큰을 씁니�
 |---|---|---|
 | 팔레트 색 | `bg-slate-500`, `dark:text-violet-400`, `text-white`, `bg-black/50` | `bg-surface`, `text-primary-fg`, `text-fg-on-primary`, `bg-overlay` |
 | 임의 색 | `text-[#333]`, `bg-[rgb(0,0,0)]` | 필요한 토큰을 Figma와 협의해 추가 |
+| 임의 글자 크기 | `text-[11px]`, `peer-focus:text-[0.7rem]`, `text-[length:…]` | Tailwind 기본 크기 `text-xs`, `text-sm`, `text-base` … |
+| 모서리 원본 클래스 | `rounded`, `rounded-lg`, `sm:rounded-xl`, `rounded-t-2xl`, `rounded-[10px]` | `rounded-control-xs` / `-sm`, `rounded-control`, `rounded-card`, `rounded-t-card` (허용: `rounded-full`, `rounded-none`) |
+| 그림자 원본 클래스 | `shadow`, `shadow-sm`, `hover:shadow-md`, `shadow-[…]` | `shadow-card`, `shadow-popover`, `shadow-modal` (허용: `shadow-none`) |
+| 색 값 리터럴 (클래스가 아닌 곳) | `fill="#8b5cf6"`, `style={{ color: '#333' }}`, `'rgba(0,0,0,.5)'` | `fill="var(--chart-1)"`, `style={{ color: 'var(--fg-muted)' }}` (`href`, `id` 속성은 제외) |
 
 - 인라인 `style={{ color: 'var(--fg)' }}`처럼 CSS 변수를 쓰는 것은 허용합니다.
+- 커밋할 때 husky + lint-staged 가 바뀐 파일에 ESLint·Prettier 를 자동 실행합니다. 에러가 있으면 커밋이 중단됩니다.
 - 장식용 색(KPI 아이콘, 채널 막대 등)도 `chart-1` ~ `chart-5`를 씁니다.
 - 꼭 필요한 예외는 해당 줄에 `// eslint-disable-next-line no-restricted-syntax`와 이유를 적습니다.
 

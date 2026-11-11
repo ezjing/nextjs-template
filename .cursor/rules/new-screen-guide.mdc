@@ -36,12 +36,21 @@ export const metadata: Metadata = {
 
 ## 3단계 — 루트 app 라우트에서 re-export
 
+사이드바·헤더(`MainLayout`)가 필요한 화면은 `app/(main)/` 아래에 둡니다.
+`(main)` 은 Route Group 이라 URL 에 포함되지 않습니다.
+
 ```tsx
-// app/order/page.tsx  → "/order"
+// app/(main)/order/page.tsx  → "/order" (MainLayout 적용)
 export { OrderPage as default, metadata } from '@/pages/order';
 ```
 
+```tsx
+// app/login/page.tsx  → "/login" (레이아웃 없는 화면은 app/ 바로 아래)
+export { LoginPage as default, metadata } from '@/pages/login';
+```
+
 > 루트 `app/<route>/page.tsx` 는 re-export 만 합니다. 페이지 본문 코드를 넣지 않습니다.
+> 사이드바 메뉴에 노출하려면 `src/widgets/sidebar/ui/AppSidebar.tsx` 의 `NAV_ITEMS` 에도 추가합니다.
 
 ## 4단계 — 기능 조립
 
@@ -52,12 +61,18 @@ export { OrderPage as default, metadata } from '@/pages/order';
 무거운 저장 로직 → features/<이름>/model/use<이름>Mutation.ts
 공통 API 호출   → entities/<도메인>/api/<도메인>Api.ts
 재사용 UI 조각  → widgets/<이름>/ui/<이름>.tsx
+공통 컴포넌트   → shared/ui (먼저 있는지 확인 → shared-ui-components.mdc)
 ```
+
+## 스타일
+
+- 색·모서리·그림자·높이는 디자인 토큰 클래스만 씁니다. → `design-tokens.mdc`
+- 페이지 제목은 `text-2xl font-bold text-fg`, 카드 제목은 `text-base font-semibold text-fg` 처럼 권장 조합을 따릅니다.
 
 ## Server / Client 컴포넌트 구분
 
 - 기본은 **Server Component** 입니다.
-- `useState`·`useEffect`·이벤트 핸들러·`localStorage`/`window`·Redux/React Query 훅·recharts 등을 쓰면
+- `useState`·`useEffect`·이벤트 핸들러·`localStorage`/`window`·Zustand/React Query 훅·recharts 등을 쓰면
   파일 최상단에 `'use client'` 를 추가합니다.
 - `metadata` export 는 Server 모듈에서만 가능하므로, 클라이언트 페이지 컴포넌트의 `metadata` 는
   `index.ts`(서버 모듈)에 정의하고 `app/<route>/page.tsx` 에서 함께 re-export 합니다.

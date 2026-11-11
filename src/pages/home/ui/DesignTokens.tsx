@@ -96,12 +96,6 @@ const SHADOW_TOKENS = [
   { usage: 'shadow-modal', desc: '모달, 드로어', value: 'var(--shadow-modal)' },
 ];
 
-const TEXT_TOKENS = [
-  { usage: 'text-2xs', desc: '11px — Avatar xs, Badge sm, 플로팅 라벨' },
-  { usage: 'text-xs', desc: '12px — Tailwind 기본' },
-  { usage: 'text-sm', desc: '14px — Tailwind 기본' },
-];
-
 const CONTROL_HEIGHT_TOKENS = [
   { usage: 'h-control-sm', value: 'var(--spacing-control-sm)', px: '32px' },
   { usage: 'h-control-md', value: 'var(--spacing-control-md)', px: '36px' },
@@ -199,19 +193,6 @@ export function DesignTokens() {
           {SHADOW_TOKENS.map((t) => (
             <div key={t.usage} className="space-y-2">
               <div className="size-20 rounded-card bg-surface" style={{ boxShadow: t.value }} />
-              <p className="font-mono text-xs font-semibold text-fg">{t.usage}</p>
-              <p className="text-xs text-fg-muted">{t.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        <GroupTitle>글자 크기 (Tailwind 기본보다 작은 것만 토큰)</GroupTitle>
-        <div className="space-y-2">
-          {TEXT_TOKENS.map((t) => (
-            <div key={t.usage} className="flex items-baseline gap-3">
-              <span className={`${t.usage} w-28 shrink-0 text-fg`}>가나다 Aa</span>
               <p className="font-mono text-xs font-semibold text-fg">{t.usage}</p>
               <p className="text-xs text-fg-muted">{t.desc}</p>
             </div>

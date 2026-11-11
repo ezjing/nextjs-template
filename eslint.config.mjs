@@ -38,12 +38,56 @@ const arbitraryColor = `(^|[\\s:])(${COLOR_UTIL})-\\[(#|rgb|hsl|oklch|color)`;
 const tokenMessage =
   "팔레트 색·임의 색 대신 디자인 토큰 클래스를 사용하세요 (예: bg-surface, text-fg-muted, border-border). 목록: docs/design-tokens.md";
 
+/**
+ * 임의 글자 크기 금지 (text-[11px], text-[0.8rem], text-[length:…] 등)
+ * 글자 크기는 토큰 없이 Tailwind 기본 스케일(text-xs ~ text-9xl)만 사용합니다.
+ */
+const arbitraryFontSize = `(^|[\\s:])text-\\[(\\d|\\.\\d|length:|calc\\(|clamp\\(|var\\()`;
+const fontSizeMessage =
+  "임의 글자 크기 대신 Tailwind 기본 크기를 사용하세요 (text-xs, text-sm, text-base …). 규칙: docs/design-tokens.md";
+
+/**
+ * 모서리·그림자 원본 클래스 금지
+ * 토큰(rounded-control-xs/-sm, rounded-control, rounded-card, shadow-card/popover/modal)은
+ * --brand-radius 등 브랜드 값을 따라가므로, Tailwind 원본 크기를 쓰면 그 부분만 브랜드에서 빠집니다.
+ * 허용: rounded-full, rounded-none, shadow-none, 토큰 클래스
+ */
+const RADIUS_SIDE = "t|r|b|l|s|e|tl|tr|bl|br|ss|se|es|ee";
+const rawRadius = `(^|[\\s:])rounded(-(${RADIUS_SIDE}))?(-(xs|sm|md|lg|xl|2xl|3xl|4xl))?($|\\s)`;
+const rawShadow = `(^|[\\s:])shadow(-(2xs|xs|sm|md|lg|xl|2xl))?($|\\s)`;
+const arbitraryRadiusShadow = `(^|[\\s:])(rounded(-(${RADIUS_SIDE}))?|shadow)-\\[`;
+const radiusShadowMessage =
+  "모서리·그림자는 토큰 클래스를 사용하세요 (rounded-control-xs/-sm, rounded-control, rounded-card, shadow-card, shadow-popover, shadow-modal). 목록: docs/design-tokens.md";
+
+/**
+ * 색 값 리터럴 금지 — 클래스가 아닌 곳(차트 fill/stroke, style={{ color }} 등)에 직접 쓴 색
+ * 예) fill="#8b5cf6", style={{ color: 'rgb(0 0 0)' }}
+ * 대신 CSS 변수를 씁니다: fill="var(--chart-1)", style={{ color: 'var(--fg-muted)' }}
+ */
+const colorLiteral = `^\\s*(#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\\s*$|(rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\\()`;
+const colorLiteralMessage =
+  "색 값을 직접 쓰지 말고 토큰 CSS 변수를 사용하세요 (예: var(--primary), var(--chart-1), var(--fg-muted)). 목록: docs/design-tokens.md";
+
+const selectors = (pattern, message) =>
+  [`Literal[value=/${pattern}/]`, `TemplateElement[value.raw=/${pattern}/]`].map((selector) => ({
+    selector,
+    message,
+  }));
+
 const designTokenRules = [
-  `Literal[value=/${paletteClass}/]`,
-  `TemplateElement[value.raw=/${paletteClass}/]`,
-  `Literal[value=/${arbitraryColor}/]`,
-  `TemplateElement[value.raw=/${arbitraryColor}/]`,
-].map((selector) => ({ selector, message: tokenMessage }));
+  ...selectors(paletteClass, tokenMessage),
+  ...selectors(arbitraryColor, tokenMessage),
+  ...selectors(arbitraryFontSize, fontSizeMessage),
+  ...selectors(rawRadius, radiusShadowMessage),
+  ...selectors(rawShadow, radiusShadowMessage),
+  ...selectors(arbitraryRadiusShadow, radiusShadowMessage),
+  // href="#add" 같은 앵커는 색이 아니므로 href / id 속성은 제외
+  ...[
+    `:not(JSXAttribute) > Literal[value=/${colorLiteral}/]`,
+    `JSXAttribute[name.name!=/^(href|id)$/] > Literal[value=/${colorLiteral}/]`,
+    `TemplateElement[value.raw=/${colorLiteral}/]`,
+  ].map((selector) => ({ selector, message: colorLiteralMessage })),
+];
 
 const eslintConfig = defineConfig([
   ...nextVitals,

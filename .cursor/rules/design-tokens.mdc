@@ -1,0 +1,84 @@
+---
+description: 디자인 토큰 사용 규칙 (색·모서리·그림자·높이·글자 크기)
+globs: src/**/*.tsx, app/**/*.tsx, src/app/styles/*.css
+alwaysApply: true
+---
+
+# 디자인 토큰 규칙
+
+화면 코드에서는 **디자인 토큰 클래스만** 사용합니다. 위반하면 `npm run lint` 에서 에러가 납니다.
+
+- 토큰 정의: `src/app/styles/tokens.css`
+- 명세·결정 사항: `docs/design-tokens.md`
+- 화면 견본: `/showcase` 맨 위 Design Tokens 섹션
+
+## 색
+
+`dark:` 는 쓰지 않습니다. 토큰이 다크모드 값을 자동으로 바꿉니다.
+
+| 용도 | 클래스 |
+|---|---|
+| 페이지 바탕 / 카드·입력창 | `bg-bg` / `bg-surface` |
+| hover·약한 면 / 진한 면 / 비활성 | `bg-surface-muted` / `bg-surface-strong` / `bg-surface-subtle` |
+| 반전 면 (Tooltip) | `bg-surface-inverse` + `text-fg-inverse` |
+| 모달 뒤 dim | `bg-overlay` |
+| 글자 (진함 → 흐림) | `text-fg` / `text-fg-secondary` / `text-fg-muted` / `text-fg-subtle` |
+| 색 배경 위 글자 | `text-fg-on-primary` |
+| 테두리 / 입력창 테두리 / 포커스 | `border-border` / `border-border-strong` / `ring-ring` |
+| 브랜드 | `bg-primary`, `hover:bg-primary-hover`, `active:bg-primary-active`, `text-primary-fg`, `bg-primary-subtle` |
+| 상태 | `{success,warning,danger,info}` + `-hover`, `-fg`, `-subtle`, `-border` (예: `bg-danger-subtle text-danger-fg`) |
+| 차트·장식 데이터 색 | 순서대로 `var(--chart-1)` ~ `var(--chart-5)` / `bg-chart-1` |
+
+```tsx
+// ❌ 금지
+<div className="bg-white text-slate-500 dark:bg-slate-800 dark:text-slate-400" />
+<Bar fill="#8b5cf6" />
+<p style={{ color: '#333' }} />
+
+// ✅
+<div className="bg-surface text-fg-muted" />
+<Bar fill="var(--chart-1)" />
+<p style={{ color: 'var(--fg-muted)' }} />
+```
+
+- 상태 토큰(`success`, `danger` …)은 의미가 있으므로 차트 데이터 색으로 쓰지 않습니다. 차트는 `chart-N` 을 씁니다.
+- 반투명이 필요하면 토큰에 투명도를 붙입니다: `bg-surface/80`, `hover:bg-fg/10`.
+
+## 모서리 · 그림자 · 높이
+
+| 용도 | 클래스 |
+|---|---|
+| 아주 작은 요소 (글자 줄, 작은 아이콘 버튼) | `rounded-control-xs` |
+| 작은 요소 (Tabs 항목, 체크박스, 날짜 칸) | `rounded-control-sm` |
+| 버튼, 입력창, 메뉴 항목 | `rounded-control` |
+| 카드, 다이얼로그, 팝업 | `rounded-card` (윗모서리만: `rounded-t-card`) |
+| 원형 / 없음 | `rounded-full` / `rounded-none` |
+| 카드 / 팝업 / 모달 그림자 | `shadow-card` / `shadow-popover` / `shadow-modal` |
+| 입력 요소 높이 (Button·Input·Select …) | `h-control-sm` / `h-control-md` / `h-control-lg` |
+
+`rounded-lg`, `rounded-xl`, `shadow-sm`, `rounded-[10px]` 같은 Tailwind 원본·임의 값은 금지입니다.
+토큰은 `--brand-radius` 를 따라가므로 원본 클래스를 쓰면 그 부분만 브랜드 변경에서 빠집니다.
+
+## 글자 크기
+
+글자 크기는 토큰이 없습니다. **Tailwind 기본 스케일**(`text-xs` 12px ~)만 쓰고, `text-[11px]` 같은 임의 크기는 금지입니다.
+
+| 용도 | 클래스 (권장 조합) |
+|---|---|
+| 페이지 제목 | `text-2xl font-bold` |
+| 카드·섹션·다이얼로그 제목 | `text-base font-semibold` |
+| 본문 | `text-sm` |
+| 라벨, 메뉴 | `text-sm font-medium` |
+| 캡션, 도움말 | `text-xs` |
+| 구분 라벨 (대문자) | `text-xs font-semibold uppercase tracking-wider` |
+
+## 클래스 조합
+
+클래스는 `cn()` (`@/shared/lib/cn`) 으로 합칩니다.
+`tokens.css` 에 radius·shadow·높이 이름을 새로 추가하면 `src/shared/lib/cn.ts` 의 tailwind-merge 설정에도 추가해야 합니다.
+등록하지 않으면 `cn('rounded-card', 'rounded-full')` 처럼 겹치는 클래스가 정리되지 않습니다.
+
+## 토큰이 필요할 때
+
+필요한 토큰이 없으면 팔레트 색이나 임의 값으로 우회하지 말고,
+디자이너와 협의해 `tokens.css`(2단계 Semantic) 와 `docs/design-tokens.md` 에 함께 추가합니다.

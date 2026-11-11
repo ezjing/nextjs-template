@@ -72,8 +72,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
               htmlFor={inputId}
               className={cn(
                 'pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-fg-subtle transition-all duration-150',
-                'peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-2xs peer-focus:font-medium',
-                'peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-2xs peer-[:not(:placeholder-shown)]:font-medium',
+                'peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-xs peer-focus:font-medium',
+                'peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:font-medium',
                 error ? 'text-danger-fg peer-focus:text-danger-fg' : 'peer-focus:text-primary-fg',
                 leftAddon && 'left-9',
               )}
