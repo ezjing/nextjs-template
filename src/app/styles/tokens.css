@@ -1,0 +1,334 @@
+/* =============================================================
+ * 디자인 토큰
+ * - Figma Variables 와 1:1 로 맞추는 파일입니다. 토큰이 아닌 스타일은 넣지 마세요.
+ * - 원본은 Figma, 명세는 docs/design-tokens.md
+ *
+ * 토큰은 3단계로 구성됩니다. 아래 단계는 위 단계만 참조합니다.
+ *
+ *   1단계 팔레트 (Primitive)  실제 색·글꼴 값. 의미 없음          예) violet-600, gray-200
+ *     ↓
+ *   2단계 의미 (Semantic)     용도에 따른 이름. 화면은 여기만 사용  예) primary, fg-muted, border
+ *     ↓
+ *   3단계 컴포넌트 (Component) 특정 컴포넌트 전용 이름 — 현재 없음   예) button-primary-bg
+ * ============================================================= */
+
+
+/* #############################################################
+ * 1단계 — 팔레트 (Primitive)
+ * - 의미 없는 원재료 값입니다. 화면 코드에서 직접 쓰지 않습니다. (lint 경고)
+ * - Tailwind 기본 팔레트(gray, violet, red …)는 tailwindcss 패키지에 들어 있어 여기에 따로 적지 않습니다.
+ * - 구성: (1) 브랜드 선택 — 이 프로젝트가 쓸 팔레트를 고르는 곳
+ *         (2) 커스텀 팔레트 — Tailwind 기본에 없는 색·글꼴 원본 값
+ * ############################################################# */
+
+/* 1단계 (1) ▼▼▼ 브랜드 — 새 프로젝트에서는 이 블록만 바꾸세요 ▼▼▼
+ * 나머지 토큰은 모두 이 값을 참조하므로, 여기만 바꾸면 앱 전체가 바뀝니다.
+ * 자세한 순서: docs/design-tokens.md "새 프로젝트에 적용하기"
+ */
+:root {
+  /* 브랜드 색 — "violet" 을 원하는 팔레트 이름으로 모두 바꾸세요 (예: blue, emerald, mauve) */
+  --brand-50: var(--color-violet-50);
+  --brand-100: var(--color-violet-100);
+  --brand-200: var(--color-violet-200);
+  --brand-300: var(--color-violet-300);
+  --brand-400: var(--color-violet-400);
+  --brand-500: var(--color-violet-500);
+  --brand-600: var(--color-violet-600);
+  --brand-700: var(--color-violet-700);
+  --brand-800: var(--color-violet-800);
+  --brand-900: var(--color-violet-900);
+  --brand-950: var(--color-violet-950);
+
+  /* 중립 회색 — "gray" 를 원하는 회색 계열로 모두 바꾸세요 (예: slate, zinc, neutral, stone, mist) */
+  --neutral-50: var(--color-gray-50);
+  --neutral-100: var(--color-gray-100);
+  --neutral-200: var(--color-gray-200);
+  --neutral-300: var(--color-gray-300);
+  --neutral-400: var(--color-gray-400);
+  --neutral-500: var(--color-gray-500);
+  --neutral-600: var(--color-gray-600);
+  --neutral-700: var(--color-gray-700);
+  --neutral-800: var(--color-gray-800);
+  --neutral-900: var(--color-gray-900);
+  --neutral-950: var(--color-gray-950);
+
+  /* 모서리 기본값 — rounded-control 은 이 값, rounded-card 는 1.5배 */
+  --brand-radius: 0.5rem;
+
+  /* 글꼴 — 웹폰트를 쓰려면 폰트 파일을 불러오는 코드(app/layout.tsx 등)도 필요합니다 */
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --brand-font-display: "Pretendard", sans-serif;
+}
+/* ▲▲▲ 브랜드 끝 ▲▲▲ */
+
+/* 1단계 (2) — 커스텀 팔레트·글꼴
+ * @theme 에 등록하면 Tailwind 기본 팔레트와 같은 방식(--color-mauve-500 등)으로 쓸 수 있습니다. */
+@theme {
+  /* 폰트 — 값은 위 브랜드 블록에서 지정 */
+  --font-sans: var(--brand-font-sans);
+  --font-mono: source-code-pro, Menlo, Monaco, Consolas, monospace;
+  --font-display: var(--brand-font-display);
+
+  /* 커스텀 색상 팔레트 */
+  --color-mauve-50: oklch(98.5% 0 0);
+  --color-mauve-100: oklch(96% 0.003 325.6);
+  --color-mauve-200: oklch(92.2% 0.005 325.62);
+  --color-mauve-300: oklch(86.5% 0.012 325.68);
+  --color-mauve-400: oklch(71.1% 0.019 323.02);
+  --color-mauve-500: oklch(54.2% 0.034 322.5);
+  --color-mauve-600: oklch(43.5% 0.029 321.78);
+  --color-mauve-700: oklch(36.4% 0.029 323.89);
+  --color-mauve-800: oklch(26.3% 0.024 320.12);
+  --color-mauve-900: oklch(21.2% 0.019 322.12);
+  --color-mauve-950: oklch(14.5% 0.008 326);
+
+  --color-olive-50: oklch(98.8% 0.003 106.5);
+  --color-olive-100: oklch(96.6% 0.005 106.5);
+  --color-olive-200: oklch(93% 0.007 106.5);
+  --color-olive-300: oklch(88% 0.011 106.6);
+  --color-olive-400: oklch(73.7% 0.021 106.9);
+  --color-olive-500: oklch(58% 0.031 107.3);
+  --color-olive-600: oklch(46.6% 0.025 107.3);
+  --color-olive-700: oklch(39.4% 0.023 107.4);
+  --color-olive-800: oklch(28.6% 0.016 107.4);
+  --color-olive-900: oklch(22.8% 0.013 107.4);
+  --color-olive-950: oklch(15.3% 0.006 107.1);
+
+  --color-mist-50: oklch(98.7% 0.002 197.1);
+  --color-mist-100: oklch(96.3% 0.002 197.1);
+  --color-mist-200: oklch(92.5% 0.005 214.3);
+  --color-mist-300: oklch(87.2% 0.007 219.6);
+  --color-mist-400: oklch(72.3% 0.014 214.4);
+  --color-mist-500: oklch(56% 0.021 213.5);
+  --color-mist-600: oklch(45% 0.017 213.2);
+  --color-mist-700: oklch(37.8% 0.015 216);
+  --color-mist-800: oklch(27.5% 0.011 216.9);
+  --color-mist-900: oklch(21.8% 0.008 223.9);
+  --color-mist-950: oklch(14.8% 0.004 228.8);
+
+  --color-taupe-50: oklch(98.6% 0.002 67.8);
+  --color-taupe-100: oklch(96% 0.002 17.2);
+  --color-taupe-200: oklch(92.2% 0.005 34.3);
+  --color-taupe-300: oklch(86.8% 0.007 39.5);
+  --color-taupe-400: oklch(71.4% 0.014 41.2);
+  --color-taupe-500: oklch(54.7% 0.021 43.1);
+  --color-taupe-600: oklch(43.8% 0.017 39.3);
+  --color-taupe-700: oklch(36.7% 0.016 35.7);
+  --color-taupe-800: oklch(26.8% 0.011 36.5);
+  --color-taupe-900: oklch(21.4% 0.009 43.1);
+  --color-taupe-950: oklch(14.7% 0.004 49.3);
+}
+
+/* #############################################################
+ * 2단계 — 의미 (Semantic)
+ * - 용도에 따른 이름입니다. 화면 코드(컴포넌트·페이지)는 이 단계의 토큰만 사용합니다.
+ * - 값은 1단계(--brand-*, --neutral-*, --color-*)만 참조합니다.
+ * - 원본: Figma Variables `Semantic` 컬렉션 (Light / Dark 모드)
+ * - 이름 규칙: Figma `fg-muted` = CSS `--fg-muted` = Tailwind `text-fg-muted`
+ * - 구성: (1) Light 값 — :root
+ *         (2) Dark 값 — .dark (Light 와 다른 것만 덮어씀)
+ *         (3) Tailwind 등록 — @theme inline (bg-surface, rounded-card 같은 클래스 생성)
+ * ############################################################# */
+
+/* 2단계 (1) — Light 값 */
+:root {
+  /* 배경 / 면 */
+  --bg: var(--neutral-50);
+  --surface: var(--color-white);
+  --surface-muted: var(--neutral-100);
+  --surface-subtle: var(--neutral-50);
+  --overlay: color-mix(in oklab, var(--color-black) 50%, transparent);
+
+  /* 글자 */
+  --fg: var(--neutral-900);
+  --fg-secondary: var(--neutral-700);
+  --fg-muted: var(--neutral-500);
+  --fg-subtle: var(--neutral-400);
+  --fg-on-primary: var(--color-white);
+
+  /* 테두리 / 포커스 */
+  --border: var(--neutral-200);
+  --border-strong: var(--neutral-300);
+  --ring: var(--brand-500);
+
+  /* 브랜드 */
+  --primary: var(--brand-600);
+  --primary-hover: var(--brand-700);
+  --primary-active: var(--brand-800);
+  --primary-fg: var(--brand-600);
+  --primary-subtle: var(--brand-50);
+
+  /* 상태: success */
+  --success: var(--color-emerald-500);
+  --success-hover: var(--color-emerald-600);
+  --success-fg: var(--color-emerald-700);
+  --success-subtle: var(--color-emerald-50);
+  --success-border: var(--color-emerald-200);
+
+  /* 상태: warning */
+  --warning: var(--color-amber-500);
+  --warning-hover: var(--color-amber-600);
+  --warning-fg: var(--color-amber-700);
+  --warning-subtle: var(--color-amber-50);
+  --warning-border: var(--color-amber-200);
+
+  /* 상태: danger */
+  --danger: var(--color-red-600);
+  --danger-hover: var(--color-red-700);
+  --danger-fg: var(--color-red-600);
+  --danger-subtle: var(--color-red-50);
+  --danger-border: var(--color-red-200);
+
+  /* 상태: info */
+  --info: var(--color-sky-500);
+  --info-hover: var(--color-sky-600);
+  --info-fg: var(--color-sky-700);
+  --info-subtle: var(--color-sky-50);
+  --info-border: var(--color-sky-200);
+
+  /* 차트 데이터 색 — 의미 없이 순서만 있는 색. 데이터 1번째 = chart-1, 2번째 = chart-2 …
+   * chart-1 은 브랜드 색을 따라가고, 나머지는 브랜드와 무관하게 서로 잘 구분되는 색으로 고정
+   * 다크모드도 같은 값 사용 (조정이 필요하면 .dark 에 추가) */
+  --chart-1: var(--brand-500);
+  --chart-2: var(--color-blue-500);
+  --chart-3: var(--color-emerald-500);
+  --chart-4: var(--color-amber-500);
+  --chart-5: var(--color-pink-500);
+}
+
+/* 2단계 (2) — Dark 값 (Light 와 다른 것만) */
+.dark {
+  --bg: var(--neutral-900);
+  --surface: var(--neutral-800);
+  --surface-muted: var(--neutral-700);
+  --surface-subtle: color-mix(in oklab, var(--neutral-800) 50%, transparent);
+
+  --fg: var(--neutral-100);
+  --fg-secondary: var(--neutral-300);
+  --fg-muted: var(--neutral-400);
+  --fg-subtle: var(--neutral-500);
+
+  --border: var(--neutral-700);
+  --border-strong: var(--neutral-600);
+
+  --primary-fg: var(--brand-400);
+  --primary-subtle: color-mix(in oklab, var(--brand-500) 20%, transparent);
+
+  --success-fg: var(--color-emerald-300);
+  --success-subtle: color-mix(in oklab, var(--color-emerald-500) 10%, transparent);
+  --success-border: color-mix(in oklab, var(--color-emerald-500) 30%, transparent);
+
+  --warning-fg: var(--color-amber-300);
+  --warning-subtle: color-mix(in oklab, var(--color-amber-500) 10%, transparent);
+  --warning-border: color-mix(in oklab, var(--color-amber-500) 30%, transparent);
+
+  --danger-fg: var(--color-red-400);
+  --danger-subtle: color-mix(in oklab, var(--color-red-500) 10%, transparent);
+  --danger-border: color-mix(in oklab, var(--color-red-500) 30%, transparent);
+
+  --info-fg: var(--color-sky-300);
+  --info-subtle: color-mix(in oklab, var(--color-sky-500) 10%, transparent);
+  --info-border: color-mix(in oklab, var(--color-sky-500) 30%, transparent);
+}
+
+/* 2단계 (3) — Tailwind 유틸리티 등록 (bg-surface, text-fg-muted, rounded-card, shadow-card …)
+ * 모서리·높이·그림자는 Light/Dark 구분이 없어 여기에 값을 바로 적습니다.
+ * 새 radius/shadow/높이 이름을 추가하면 shared/lib/cn.ts 의 tailwind-merge 설정에도 추가하세요. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-overlay: var(--overlay);
+
+  --color-fg: var(--fg);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-on-primary: var(--fg-on-primary);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-subtle: var(--primary-subtle);
+
+  --color-success: var(--success);
+  --color-success-hover: var(--success-hover);
+  --color-success-fg: var(--success-fg);
+  --color-success-subtle: var(--success-subtle);
+  --color-success-border: var(--success-border);
+
+  --color-warning: var(--warning);
+  --color-warning-hover: var(--warning-hover);
+  --color-warning-fg: var(--warning-fg);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-warning-border: var(--warning-border);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-fg: var(--danger-fg);
+  --color-danger-subtle: var(--danger-subtle);
+  --color-danger-border: var(--danger-border);
+
+  --color-info: var(--info);
+  --color-info-hover: var(--info-hover);
+  --color-info-fg: var(--info-fg);
+  --color-info-subtle: var(--info-subtle);
+  --color-info-border: var(--info-border);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* 모서리 — 브랜드 블록의 --brand-radius 기준 */
+  --radius-control: var(--brand-radius);
+  --radius-card: calc(var(--brand-radius) * 1.5);
+
+  /* 입력 요소 높이 — Button, Input, Select, Combobox, DatePicker, TimePicker 공통
+   * 사용: h-control-sm / h-control-md / h-control-lg */
+  --spacing-control-sm: 2rem;
+  --spacing-control-md: 2.25rem;
+  --spacing-control-lg: 2.75rem;
+
+  /* 그림자 (Tailwind 기본 sm / lg / 2xl 과 동일한 값) */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-modal: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+
+/* #############################################################
+ * 3단계 — 컴포넌트 (Component)  ※ 현재 없음 — 필요해지면 이 아래에 작성
+ *
+ * - 특정 컴포넌트 전용 이름입니다. 한 컴포넌트만 따로 바꿔야 할 때 씁니다.
+ *   예) "버튼만 모서리를 더 둥글게", "입력창 테두리만 진하게"
+ * - 언제 추가하나요?
+ *   · 디자이너가 Figma 에서 컴포넌트별 변수(button/primary/bg 등)를 관리하기 시작할 때
+ *   · 템플릿을 npm 패키지로 배포해, 컴포넌트 코드를 고치지 않고 모양을 바꿔야 할 때
+ *   그 전에는 컴포넌트 코드의 variant(size="md" 등)로 처리합니다.
+ * - 규칙
+ *   · 값은 2단계 토큰만 참조합니다. 1단계(팔레트)를 직접 참조하지 않습니다.
+ *   · 이름: --{컴포넌트}-{부위}-{상태}   예) --button-primary-bg-hover
+ *   · Light/Dark 값은 2단계 토큰이 이미 바뀌므로 대부분 :root 한 곳에만 적으면 됩니다.
+ *   · 사용: Tailwind v4 의 변수 문법 bg-(--button-primary-bg), h-(--input-height-md)
+ *   · docs/design-tokens.md 와 Figma 에도 같은 이름으로 추가합니다.
+ *
+ * 작성 예시 (주석 해제 후 사용)
+ *
+ * :root {
+ *   --button-primary-bg: var(--primary);
+ *   --button-primary-bg-hover: var(--primary-hover);
+ *   --button-primary-fg: var(--fg-on-primary);
+ *   --button-radius: var(--radius-control);
+ *
+ *   --input-border: var(--border-strong);
+ *   --input-bg-disabled: var(--surface-subtle);
+ * }
+ * ############################################################# */

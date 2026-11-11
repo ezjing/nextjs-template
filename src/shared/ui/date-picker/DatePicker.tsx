@@ -124,7 +124,7 @@ export function DatePicker({
         disabled={disabled}
         onClick={toggleOpen}
         className={cn(
-          'flex h-9 w-full items-center justify-between gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
+          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
           'focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent',
           'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
           'dark:bg-slate-800 dark:text-slate-100',

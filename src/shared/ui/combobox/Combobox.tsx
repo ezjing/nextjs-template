@@ -92,7 +92,7 @@ export function Combobox({
       <div
         onClick={openMenu}
         className={cn(
-          'flex h-9 w-full cursor-text items-center gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
+          'flex h-control-md w-full cursor-text items-center gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
           'focus-within:ring-2 focus-within:ring-violet-500 focus-within:border-transparent',
           'dark:bg-slate-800',
           disabled && 'cursor-not-allowed bg-slate-50 dark:bg-slate-800/50',

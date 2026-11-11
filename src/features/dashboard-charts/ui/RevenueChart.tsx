@@ -33,9 +33,9 @@ const data: RevenueDatum[] = [
 ];
 
 const LINES = [
-  { key: 'acmePlus', label: 'Acme Plus', color: '#8b5cf6' },
-  { key: 'acmeAdv', label: 'Acme Advanced', color: '#3b82f6' },
-  { key: 'acmePro', label: 'Acme Professional', color: '#10b981' },
+  { key: 'acmePlus', label: 'Acme Plus', color: 'var(--chart-1)' },
+  { key: 'acmeAdv', label: 'Acme Advanced', color: 'var(--chart-2)' },
+  { key: 'acmePro', label: 'Acme Professional', color: 'var(--chart-3)' },
 ] as const;
 
 interface TooltipPayloadItem {
@@ -54,8 +54,8 @@ interface CustomTooltipProps {
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-3 shadow-lg dark:border-gray-700 dark:bg-gray-800">
-      <p className="mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400">{label}</p>
+    <div className="rounded-card border border-border bg-surface p-3 shadow-popover">
+      <p className="mb-2 text-xs font-semibold text-fg-muted">{label}</p>
       {payload.map((p) => (
         <p key={p.dataKey} className="text-sm font-medium" style={{ color: p.color }}>
           {p.name}: {p.value.toLocaleString()}
@@ -67,14 +67,14 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
 
 export function RevenueChart() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-card border border-border bg-surface p-5 shadow-card">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h3 className="text-base font-semibold text-gray-800 dark:text-white">매출 추이</h3>
+        <h3 className="text-base font-semibold text-fg">매출 추이</h3>
         <div className="flex items-center gap-4">
           {LINES.map((l) => (
             <div key={l.key} className="flex items-center gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: l.color }} />
-              <span className="text-xs text-gray-500 dark:text-gray-400">{l.label}</span>
+              <span className="text-xs text-fg-muted">{l.label}</span>
             </div>
           ))}
         </div>
@@ -89,15 +89,15 @@ export function RevenueChart() {
               </linearGradient>
             ))}
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
           <XAxis
             dataKey="month"
-            tick={{ fontSize: 11, fill: '#9ca3af' }}
+            tick={{ fontSize: 11, fill: 'var(--fg-subtle)' }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
-            tick={{ fontSize: 11, fill: '#9ca3af' }}
+            tick={{ fontSize: 11, fill: 'var(--fg-subtle)' }}
             axisLine={false}
             tickLine={false}
             tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}k`}

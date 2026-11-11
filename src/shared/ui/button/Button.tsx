@@ -46,9 +46,9 @@ export function Button({
   };
 
   const sizes: Record<ButtonSize, string> = {
-    sm: 'h-8 px-3 text-xs',
-    md: 'h-9 px-4 text-sm',
-    lg: 'h-11 px-6 text-base',
+    sm: 'h-control-sm px-3 text-xs',
+    md: 'h-control-md px-4 text-sm',
+    lg: 'h-control-lg px-6 text-base',
   };
 
   return (

@@ -36,6 +36,8 @@ import { TimePicker } from '@/shared/ui/time-picker/TimePicker';
 import { Toggle } from '@/shared/ui/toggle/Toggle';
 import { Tooltip } from '@/shared/ui/tooltip/Tooltip';
 
+import { DesignTokens } from './DesignTokens';
+
 const ROLE_OPTIONS = [
   { value: 'admin', label: '관리자' },
   { value: 'user', label: '일반 사용자' },
@@ -140,6 +142,8 @@ export function HomePage() {
             shared/ui 에 등록된 공통 UI 컴포넌트 쇼케이스입니다.
           </p>
         </div>
+
+        <DesignTokens />
 
         {/* Button */}
         <section className="space-y-3">
