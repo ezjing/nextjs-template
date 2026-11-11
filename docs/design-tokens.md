@@ -159,6 +159,12 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 이미 정리가 잘 되어 있어 **Tailwind 기본 스케일을 그대로** 씁니다 (`text-xs` 52, `text-sm` 123, `text-base` 12 …).
 `font-medium`, `font-semibold`, `font-bold` 3단계만 사용합니다.
 
+Tailwind 기본보다 작은 크기가 필요할 때만 아래 토큰을 씁니다. `text-[11px]` 같은 임의 크기는 쓰지 않습니다.
+
+| 토큰 | 클래스 | 값 | 사용처 |
+|---|---|---|---|
+| `text-2xs` | `text-2xs` | 0.6875rem (11px) | Avatar xs 이니셜, Badge sm, Input 플로팅 라벨(위로 올라간 상태) |
+
 ---
 
 ## 결정 사항
@@ -168,7 +174,7 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 | 1 | 회색 계열 | `slate`(shared/ui) + `gray`(features·widgets) 혼용 | **gray** | 디자인 시스템·Figma 라이브러리에서 가장 보편적인 중립 회색 이름 |
 | 2 | 빨간색 계열 | `rose`(대부분) + `red`(일부) 혼용 | **red** | 에러/위험 색의 가장 보편적인 이름 |
 | 3 | 커스텀 팔레트 mauve·olive·mist·taupe | 등록만 되어 있고 사용처 0곳 | 그대로 둠 | Primitive로 유지 |
-| 4 | `text-[11px]`, `text-[10px]` 임의 크기 | 4곳 | 이번에는 토큰화하지 않음 | |
+| 4 | `text-[11px]`, `text-[10px]` 임의 크기 | 4곳 | **`text-2xs`(11px)로 통일** | 같은 용도(아주 작은 라벨). Avatar xs 이니셜은 10px → 11px |
 
 > 1·2번은 Semantic 토큰이 가리키는 Primitive만 바꾸면 되므로, 디자이너가 Figma에서 다르게 정하면 `tokens.css`의 값만 바꾸면 됩니다.
 > 토큰 교체(2026-11-11)로 shared/ui 의 slate·rose 가 gray·red 로 바뀌었습니다.
