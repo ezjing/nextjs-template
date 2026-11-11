@@ -129,9 +129,7 @@ function NavGroup({ item, setSidebarExpanded }: NavGroupProps) {
                   href={child.path}
                   className={cn(
                     'block rounded-control px-3 py-1.5 text-sm transition-colors',
-                    isActive
-                      ? 'text-primary-fg'
-                      : 'text-fg-muted hover:text-fg-secondary',
+                    isActive ? 'text-primary-fg' : 'text-fg-muted hover:text-fg-secondary',
                   )}
                 >
                   {child.label}

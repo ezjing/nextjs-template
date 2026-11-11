@@ -13,17 +13,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
-  {
-    label,
-    error,
-    hint,
-    rows = 4,
-    fullWidth = false,
-    className,
-    wrapperClassName,
-    id,
-    ...props
-  },
+  { label, error, hint, rows = 4, fullWidth = false, className, wrapperClassName, id, ...props },
   ref,
 ) {
   const textareaId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
@@ -31,10 +21,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
   return (
     <div className={cn('flex flex-col gap-1', fullWidth && 'w-full', wrapperClassName)}>
       {label && (
-        <label
-          htmlFor={textareaId}
-          className="text-sm font-medium text-fg-secondary"
-        >
+        <label htmlFor={textareaId} className="text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
@@ -48,9 +35,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
           'transition-colors duration-150',
           'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
           'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
-          error
-            ? 'border-danger focus:ring-danger'
-            : 'border-border-strong',
+          error ? 'border-danger focus:ring-danger' : 'border-border-strong',
           className,
         )}
         {...props}

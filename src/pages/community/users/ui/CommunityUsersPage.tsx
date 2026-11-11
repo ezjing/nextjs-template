@@ -25,9 +25,7 @@ export function CommunityUsersPage() {
 
       <MemberTable selectedId={selectedId} onSelectId={handleSelectMember} />
 
-      {selectedId && (
-        <MemberFcmTable selectedId={selectedId} selectedName={selectedName} />
-      )}
+      {selectedId && <MemberFcmTable selectedId={selectedId} selectedName={selectedName} />}
     </>
   );
 }

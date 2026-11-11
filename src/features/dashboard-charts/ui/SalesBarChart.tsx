@@ -70,9 +70,19 @@ export function SalesBarChart() {
             axisLine={false}
             tickLine={false}
           />
-          <YAxis tick={{ fontSize: 11, fill: 'var(--fg-subtle)' }} axisLine={false} tickLine={false} />
+          <YAxis
+            tick={{ fontSize: 11, fill: 'var(--fg-subtle)' }}
+            axisLine={false}
+            tickLine={false}
+          />
           <Tooltip content={<CustomTooltip />} cursor={{ fill: 'transparent' }} />
-          <Bar dataKey="direct" name="직접 판매" fill="var(--chart-1)" radius={[4, 4, 0, 0]} maxBarSize={24} />
+          <Bar
+            dataKey="direct"
+            name="직접 판매"
+            fill="var(--chart-1)"
+            radius={[4, 4, 0, 0]}
+            maxBarSize={24}
+          />
           <Bar
             dataKey="indirect"
             name="간접 판매"

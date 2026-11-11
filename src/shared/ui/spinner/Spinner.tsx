@@ -21,9 +21,18 @@ const sizeMap: Record<SpinnerSize, string> = {
   xl: 'h-12 w-12 border-4',
 };
 
-export function Spinner({ size = 'md', label = '로딩 중', showLabel = false, className }: SpinnerProps) {
+export function Spinner({
+  size = 'md',
+  label = '로딩 중',
+  showLabel = false,
+  className,
+}: SpinnerProps) {
   return (
-    <span className={cn('inline-flex items-center gap-2', className)} role="status" aria-live="polite">
+    <span
+      className={cn('inline-flex items-center gap-2', className)}
+      role="status"
+      aria-live="polite"
+    >
       <span
         className={cn(
           'inline-block animate-spin rounded-full border-current border-t-transparent text-primary-fg',

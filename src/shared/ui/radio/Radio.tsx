@@ -81,12 +81,8 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
 
       {(label || description) && (
         <span className="flex flex-col gap-0.5">
-          {label && (
-            <span className="text-sm font-medium text-fg-secondary">{label}</span>
-          )}
-          {description && (
-            <span className="text-xs text-fg-muted">{description}</span>
-          )}
+          {label && <span className="text-sm font-medium text-fg-secondary">{label}</span>}
+          {description && <span className="text-xs text-fg-muted">{description}</span>}
         </span>
       )}
     </label>
@@ -121,13 +117,14 @@ export function RadioGroup({
 }: RadioGroupProps) {
   return (
     <fieldset className={cn('flex flex-col gap-2', className)}>
-      {label && (
-        <legend className="mb-1 text-sm font-medium text-fg-secondary">
-          {label}
-        </legend>
-      )}
+      {label && <legend className="mb-1 text-sm font-medium text-fg-secondary">{label}</legend>}
       <RadioGroupContext.Provider value={{ name, value, onChange, disabled }}>
-        <div className={cn('flex gap-3', orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap')}>
+        <div
+          className={cn(
+            'flex gap-3',
+            orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap',
+          )}
+        >
           {children}
         </div>
       </RadioGroupContext.Provider>

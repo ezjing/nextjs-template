@@ -12,7 +12,6 @@
  *   3단계 컴포넌트 (Component) 특정 컴포넌트 전용 이름 — 현재 없음   예) button-primary-bg
  * ============================================================= */
 
-
 /* #############################################################
  * 1단계 — 팔레트 (Primitive)
  * - 의미 없는 원재료 값입니다. 화면 코드에서 직접 쓰지 않습니다. (lint 경고)
@@ -56,8 +55,8 @@
   --brand-radius: 0.5rem;
 
   /* 글꼴 — 웹폰트를 쓰려면 폰트 파일을 불러오는 코드(app/layout.tsx 등)도 필요합니다 */
-  --brand-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --brand-font-display: "Pretendard", sans-serif;
+  --brand-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --brand-font-display: 'Pretendard', sans-serif;
 }
 /* ▲▲▲ 브랜드 끝 ▲▲▲ */
 
@@ -316,7 +315,6 @@
   --shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-modal: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
-
 
 /* #############################################################
  * 3단계 — 컴포넌트 (Component)  ※ 현재 없음 — 필요해지면 이 아래에 작성

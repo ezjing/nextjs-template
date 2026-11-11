@@ -95,9 +95,7 @@ export function Combobox({
           'flex h-control-md w-full cursor-text items-center gap-2 rounded-control border bg-surface px-3 text-sm transition-colors duration-150',
           'focus-within:ring-2 focus-within:ring-ring focus-within:border-transparent',
           disabled && 'cursor-not-allowed bg-surface-subtle',
-          error
-            ? 'border-danger focus-within:ring-danger'
-            : 'border-border-strong',
+          error ? 'border-danger focus-within:ring-danger' : 'border-border-strong',
         )}
       >
         <Icon name="search" size={16} className="shrink-0 text-fg-subtle" />
@@ -131,7 +129,11 @@ export function Combobox({
             <Icon name="x" size={14} />
           </button>
         )}
-        <Icon name="chevronDown" size={16} className={cn('shrink-0 text-fg-subtle transition-transform', open && 'rotate-180')} />
+        <Icon
+          name="chevronDown"
+          size={16}
+          className={cn('shrink-0 text-fg-subtle transition-transform', open && 'rotate-180')}
+        />
       </div>
 
       {open && (

@@ -69,9 +69,21 @@ const MEMBERS: MemberRow[] = [
 ];
 
 const FAQ_ITEMS = [
-  { value: 'q1', title: '무료 체험 기간이 있나요?', content: '네, 가입 후 14일간 모든 기능을 무료로 사용할 수 있습니다.' },
-  { value: 'q2', title: '결제 수단은 무엇이 있나요?', content: '신용카드, 계좌이체, 간편결제를 지원합니다.' },
-  { value: 'q3', title: '언제든 해지할 수 있나요?', content: '네, 설정 페이지에서 즉시 해지할 수 있으며 위약금은 없습니다.' },
+  {
+    value: 'q1',
+    title: '무료 체험 기간이 있나요?',
+    content: '네, 가입 후 14일간 모든 기능을 무료로 사용할 수 있습니다.',
+  },
+  {
+    value: 'q2',
+    title: '결제 수단은 무엇이 있나요?',
+    content: '신용카드, 계좌이체, 간편결제를 지원합니다.',
+  },
+  {
+    value: 'q3',
+    title: '언제든 해지할 수 있나요?',
+    content: '네, 설정 페이지에서 즉시 해지할 수 있으며 위약금은 없습니다.',
+  },
 ];
 
 const STEPS = [
@@ -185,7 +197,12 @@ export function HomePage() {
             leftAddon={<Icon name="search" size={16} />}
             fullWidth
           />
-          <Input label="에러 상태" placeholder="입력해주세요" error="필수 입력 항목입니다." fullWidth />
+          <Input
+            label="에러 상태"
+            placeholder="입력해주세요"
+            error="필수 입력 항목입니다."
+            fullWidth
+          />
           <Input
             label="힌트 텍스트"
             placeholder="사용자명"
@@ -213,7 +230,13 @@ export function HomePage() {
             leftAddon={<Icon name="user" size={16} />}
             fullWidth
           />
-          <Input floatingLabel label="비밀번호" type="password" error="8자 이상 입력해주세요." fullWidth />
+          <Input
+            floatingLabel
+            label="비밀번호"
+            type="password"
+            error="8자 이상 입력해주세요."
+            fullWidth
+          />
         </section>
 
         {/* Input — File Attachment */}
@@ -234,7 +257,9 @@ export function HomePage() {
 
         {/* Textarea */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Textarea</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Textarea
+          </h2>
           <Textarea
             label="메모"
             placeholder="내용을 입력하세요..."
@@ -273,7 +298,9 @@ export function HomePage() {
 
         {/* Checkbox */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Checkbox</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Checkbox
+          </h2>
           <Checkbox
             label="이용약관에 동의합니다"
             description="서비스 이용을 위해 필수로 동의해야 합니다."
@@ -368,23 +395,25 @@ export function HomePage() {
               fullWidth
             />
           </div>
-          <TimePicker label="12시간 표기" value={time} onChange={setTime} use24Hour={false} fullWidth />
+          <TimePicker
+            label="12시간 표기"
+            value={time}
+            onChange={setTime}
+            use24Hour={false}
+            fullWidth
+          />
         </section>
 
         {/* Snackbar */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Snackbar</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Snackbar
+          </h2>
           <div className="flex flex-wrap gap-3">
-            <Button
-              variant="outline"
-              onClick={() => snackbar.success('저장이 완료되었습니다.')}
-            >
+            <Button variant="outline" onClick={() => snackbar.success('저장이 완료되었습니다.')}>
               Success
             </Button>
-            <Button
-              variant="outline"
-              onClick={() => snackbar.warning('필수 항목을 입력해주세요.')}
-            >
+            <Button variant="outline" onClick={() => snackbar.warning('필수 항목을 입력해주세요.')}>
               Warning
             </Button>
             <Button
@@ -420,7 +449,9 @@ export function HomePage() {
 
         {/* Progress */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Progress</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Progress
+          </h2>
           <Progress value={30} showLabel />
           <Progress value={70} variant="success" showLabel />
           <Progress value={90} variant="warning" showLabel />
@@ -429,7 +460,9 @@ export function HomePage() {
 
         {/* Skeleton */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Skeleton</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Skeleton
+          </h2>
           <div className="flex items-center gap-3">
             <Skeleton variant="circle" width={48} height={48} />
             <div className="flex-1">
@@ -476,18 +509,45 @@ export function HomePage() {
             value={activeTab}
             onChange={setActiveTab}
             items={[
-              { value: 'profile', label: '프로필', icon: <Icon name="user" size={16} />, content: <p className="text-sm text-fg-secondary">프로필 탭 내용입니다.</p> },
-              { value: 'settings', label: '설정', icon: <Icon name="settings" size={16} />, content: <p className="text-sm text-fg-secondary">설정 탭 내용입니다.</p> },
-              { value: 'noti', label: '알림', content: <p className="text-sm text-fg-secondary">알림 탭 내용입니다.</p>, disabled: true },
+              {
+                value: 'profile',
+                label: '프로필',
+                icon: <Icon name="user" size={16} />,
+                content: <p className="text-sm text-fg-secondary">프로필 탭 내용입니다.</p>,
+              },
+              {
+                value: 'settings',
+                label: '설정',
+                icon: <Icon name="settings" size={16} />,
+                content: <p className="text-sm text-fg-secondary">설정 탭 내용입니다.</p>,
+              },
+              {
+                value: 'noti',
+                label: '알림',
+                content: <p className="text-sm text-fg-secondary">알림 탭 내용입니다.</p>,
+                disabled: true,
+              },
             ]}
           />
           <Tabs
             variant="pill"
             fullWidth
             items={[
-              { value: 'day', label: '일간', content: <p className="text-sm text-fg-secondary">일간 통계</p> },
-              { value: 'week', label: '주간', content: <p className="text-sm text-fg-secondary">주간 통계</p> },
-              { value: 'month', label: '월간', content: <p className="text-sm text-fg-secondary">월간 통계</p> },
+              {
+                value: 'day',
+                label: '일간',
+                content: <p className="text-sm text-fg-secondary">일간 통계</p>,
+              },
+              {
+                value: 'week',
+                label: '주간',
+                content: <p className="text-sm text-fg-secondary">주간 통계</p>,
+              },
+              {
+                value: 'month',
+                label: '월간',
+                content: <p className="text-sm text-fg-secondary">월간 통계</p>,
+              },
             ]}
           />
         </section>
@@ -495,8 +555,12 @@ export function HomePage() {
         {/* Alert */}
         <section className="space-y-3">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Alert</h2>
-          <Alert variant="success" title="저장 완료" >변경사항이 정상적으로 저장되었습니다.</Alert>
-          <Alert variant="warning" title="주의">입력값을 다시 한 번 확인해주세요.</Alert>
+          <Alert variant="success" title="저장 완료">
+            변경사항이 정상적으로 저장되었습니다.
+          </Alert>
+          <Alert variant="warning" title="주의">
+            입력값을 다시 한 번 확인해주세요.
+          </Alert>
           {alertOpen && (
             <Alert variant="error" title="오류 발생" onClose={() => setAlertOpen(false)}>
               네트워크 연결을 확인해주세요.
@@ -507,19 +571,29 @@ export function HomePage() {
 
         {/* Tag */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Tag · Chip</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Tag · Chip
+          </h2>
           <div className="flex flex-wrap items-center gap-2">
             <Tag variant="primary">기본</Tag>
             <Tag variant="success">성공</Tag>
-            <Tag variant="info" leftIcon={<Icon name="bell" size={12} />}>알림</Tag>
+            <Tag variant="info" leftIcon={<Icon name="bell" size={12} />}>
+              알림
+            </Tag>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {tags.map((t) => (
-              <Tag key={t} variant="default" onRemove={() => setTags((prev) => prev.filter((x) => x !== t))}>
+              <Tag
+                key={t}
+                variant="default"
+                onRemove={() => setTags((prev) => prev.filter((x) => x !== t))}
+              >
                 {t}
               </Tag>
             ))}
-            {tags.length === 0 && <span className="text-sm text-fg-subtle">모든 태그를 삭제했습니다.</span>}
+            {tags.length === 0 && (
+              <span className="text-sm text-fg-subtle">모든 태그를 삭제했습니다.</span>
+            )}
           </div>
         </section>
 
@@ -540,11 +614,20 @@ export function HomePage() {
                   }
                   items={[
                     { label: '수정', icon: <Icon name="pencil" size={16} /> },
-                    { label: '삭제', icon: <Icon name="trash2" size={16} />, danger: true, divider: true },
+                    {
+                      label: '삭제',
+                      icon: <Icon name="trash2" size={16} />,
+                      danger: true,
+                      divider: true,
+                    },
                   ]}
                 />
               }
-              footer={<Button size="sm" fullWidth>자세히 보기</Button>}
+              footer={
+                <Button size="sm" fullWidth>
+                  자세히 보기
+                </Button>
+              }
             >
               <p className="text-sm text-fg-secondary">
                 카드 본문 영역입니다. 헤더, 본문, 푸터로 구성됩니다.
@@ -558,26 +641,41 @@ export function HomePage() {
 
         {/* Dropdown */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Dropdown</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Dropdown
+          </h2>
           <Dropdown
-            trigger={<Button variant="outline" rightIcon={<Icon name="chevronDown" size={16} />}>메뉴 열기</Button>}
+            trigger={
+              <Button variant="outline" rightIcon={<Icon name="chevronDown" size={16} />}>
+                메뉴 열기
+              </Button>
+            }
             items={[
               { label: '프로필 보기', icon: <Icon name="user" size={16} /> },
               { label: '설정', icon: <Icon name="settings" size={16} /> },
-              { label: '로그아웃', icon: <Icon name="logOut" size={16} />, danger: true, divider: true },
+              {
+                label: '로그아웃',
+                icon: <Icon name="logOut" size={16} />,
+                danger: true,
+                divider: true,
+              },
             ]}
           />
         </section>
 
         {/* Accordion */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Accordion</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Accordion
+          </h2>
           <Accordion items={FAQ_ITEMS} defaultValue="q1" />
         </section>
 
         {/* Combobox */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Combobox</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Combobox
+          </h2>
           <Combobox
             label="국가 검색"
             options={COUNTRY_OPTIONS}
@@ -627,18 +725,26 @@ export function HomePage() {
 
         {/* Pagination */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Pagination</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            Pagination
+          </h2>
           <Pagination page={page} totalPages={10} onChange={setPage} />
         </section>
 
         {/* EmptyState */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">EmptyState</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
+            EmptyState
+          </h2>
           <div className="rounded-card border border-border">
             <EmptyState
               title="아직 데이터가 없습니다"
               description="첫 항목을 추가하여 시작해보세요."
-              action={<Button size="sm" leftIcon={<Icon name="plus" size={16} />}>새로 만들기</Button>}
+              action={
+                <Button size="sm" leftIcon={<Icon name="plus" size={16} />}>
+                  새로 만들기
+                </Button>
+              }
             />
           </div>
         </section>

@@ -31,8 +31,14 @@ const columns: TableColumn<MemberFcm>[] = [
 ];
 
 export function MemberFcmTable({ selectedId, selectedName }: MemberFcmTableProps) {
-  const { data: tokens = [], isLoading, isError, error, refetch, isFetching } =
-    useMemberFcmQuery(selectedId);
+  const {
+    data: tokens = [],
+    isLoading,
+    isError,
+    error,
+    refetch,
+    isFetching,
+  } = useMemberFcmQuery(selectedId);
 
   return (
     <div className="mt-8 flex flex-col gap-3">
@@ -48,9 +54,7 @@ export function MemberFcmTable({ selectedId, selectedName }: MemberFcmTableProps
           </h2>
           <p className="mt-0.5 text-sm text-fg-muted">
             TB_BS_MEMBER_FCM 테이블을 조회합니다.
-            {isFetching && !isLoading && (
-              <span className="ml-2 text-primary-fg">갱신 중...</span>
-            )}
+            {isFetching && !isLoading && <span className="ml-2 text-primary-fg">갱신 중...</span>}
           </p>
         </div>
         <Button

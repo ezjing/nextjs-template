@@ -139,10 +139,7 @@ export function BottomSheet({
         >
           <div className="h-1 w-10 rounded-full bg-surface-strong" />
           {title && (
-            <h2
-              id="bottom-sheet-title"
-              className="text-sm font-semibold text-fg"
-            >
+            <h2 id="bottom-sheet-title" className="text-sm font-semibold text-fg">
               {title}
             </h2>
           )}
@@ -152,9 +149,7 @@ export function BottomSheet({
         <div className="flex-1 overflow-y-auto px-4 pb-4">{children}</div>
 
         {/* 푸터 */}
-        {footer && (
-          <div className="border-t border-border px-4 py-3">{footer}</div>
-        )}
+        {footer && <div className="border-t border-border px-4 py-3">{footer}</div>}
       </div>
     </div>,
     document.body,

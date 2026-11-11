@@ -117,9 +117,7 @@ export function FileInput({
               className="flex items-center gap-2 rounded-control border border-border bg-surface px-3 py-2"
             >
               <Icon name="fileText" size={16} className="shrink-0 text-primary-fg" />
-              <span className="flex-1 truncate text-sm text-fg-secondary">
-                {file.name}
-              </span>
+              <span className="flex-1 truncate text-sm text-fg-secondary">{file.name}</span>
               <span className="shrink-0 text-xs text-fg-subtle">{formatSize(file.size)}</span>
               {!disabled && (
                 <button

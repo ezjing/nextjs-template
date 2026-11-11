@@ -14,9 +14,7 @@ export function DashboardPage() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-fg">대시보드</h1>
-          <p className="mt-0.5 text-sm text-fg-muted">
-            비즈니스 현황을 한눈에 확인하세요
-          </p>
+          <p className="mt-0.5 text-sm text-fg-muted">비즈니스 현황을 한눈에 확인하세요</p>
         </div>
         <div className="flex items-center gap-2">
           <button className="flex items-center gap-2 rounded-control border border-border bg-surface px-3 py-2 text-sm font-medium text-fg-secondary shadow-card hover:bg-surface-subtle">

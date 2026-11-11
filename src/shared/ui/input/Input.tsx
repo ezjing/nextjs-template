@@ -59,9 +59,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
               'transition-colors duration-150 placeholder:text-transparent',
               'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
               'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
-              error
-                ? 'border-danger focus:ring-danger'
-                : 'border-border-strong',
+              error ? 'border-danger focus:ring-danger' : 'border-border-strong',
               leftAddon && 'pl-9',
               rightAddon && 'pr-9',
               className,
@@ -76,9 +74,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
                 'pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-sm text-fg-subtle transition-all duration-150',
                 'peer-focus:top-2 peer-focus:-translate-y-0 peer-focus:text-[11px] peer-focus:font-medium',
                 'peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:-translate-y-0 peer-[:not(:placeholder-shown)]:text-[11px] peer-[:not(:placeholder-shown)]:font-medium',
-                error
-                  ? 'text-danger-fg peer-focus:text-danger-fg'
-                  : 'peer-focus:text-primary-fg',
+                error ? 'text-danger-fg peer-focus:text-danger-fg' : 'peer-focus:text-primary-fg',
                 leftAddon && 'left-9',
               )}
             >
@@ -125,9 +121,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             'transition-colors duration-150',
             'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
             'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
-            error
-              ? 'border-danger focus:ring-danger'
-              : 'border-border-strong',
+            error ? 'border-danger focus:ring-danger' : 'border-border-strong',
             leftAddon && 'pl-9',
             rightAddon && 'pr-9',
             className,

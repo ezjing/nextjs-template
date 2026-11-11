@@ -29,7 +29,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   { label, description, error, size = 'md', className, wrapperClassName, id, disabled, ...props },
   ref,
 ) {
-  const checkboxId = id ?? (typeof label === 'string' ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
+  const checkboxId =
+    id ?? (typeof label === 'string' ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
 
   return (
     <div className={cn('flex flex-col gap-1', wrapperClassName)}>
@@ -75,12 +76,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
 
         {(label || description) && (
           <span className="flex flex-col gap-0.5">
-            {label && (
-              <span className="text-sm font-medium text-fg-secondary">{label}</span>
-            )}
-            {description && (
-              <span className="text-xs text-fg-muted">{description}</span>
-            )}
+            {label && <span className="text-sm font-medium text-fg-secondary">{label}</span>}
+            {description && <span className="text-xs text-fg-muted">{description}</span>}
           </span>
         )}
       </label>

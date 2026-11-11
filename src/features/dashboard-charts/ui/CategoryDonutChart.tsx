@@ -66,12 +66,13 @@ export function CategoryDonutChart() {
               onMouseEnter={() => setActiveIndex(index)}
             >
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: chartColor(index) }} />
+                <span
+                  className="h-2.5 w-2.5 rounded-full"
+                  style={{ backgroundColor: chartColor(index) }}
+                />
                 <span className="text-sm text-fg-secondary">{item.name}</span>
               </div>
-              <span className="text-sm font-semibold text-fg">
-                {item.value}%
-              </span>
+              <span className="text-sm font-semibold text-fg">{item.value}%</span>
             </li>
           ))}
         </ul>

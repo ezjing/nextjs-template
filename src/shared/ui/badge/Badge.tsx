@@ -31,8 +31,7 @@ const variants: Record<BadgeVariant, string> = {
   warning: 'bg-warning-subtle text-warning-fg',
   error: 'bg-danger-subtle text-danger-fg',
   info: 'bg-info-subtle text-info-fg',
-  outline:
-    'border border-border-strong text-fg-secondary',
+  outline: 'border border-border-strong text-fg-secondary',
 };
 
 const dotColors: Record<BadgeVariant, string> = {

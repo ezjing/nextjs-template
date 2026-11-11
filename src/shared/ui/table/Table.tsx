@@ -53,12 +53,7 @@ export function Table<T>({
   className,
 }: TableProps<T>) {
   return (
-    <div
-      className={cn(
-        'w-full overflow-x-auto rounded-card border border-border',
-        className,
-      )}
-    >
+    <div className={cn('w-full overflow-x-auto rounded-card border border-border', className)}>
       <table className="w-full border-collapse text-sm">
         <thead>
           <tr className="border-b border-border bg-surface-subtle">
@@ -109,12 +104,11 @@ export function Table<T>({
                 {columns.map((col) => (
                   <td
                     key={col.key}
-                    className={cn(
-                      'px-4 py-3 text-fg-secondary',
-                      alignClass[col.align ?? 'left'],
-                    )}
+                    className={cn('px-4 py-3 text-fg-secondary', alignClass[col.align ?? 'left'])}
                   >
-                    {col.render ? col.render(row, idx) : ((row as Record<string, ReactNode>)[col.key] ?? '-')}
+                    {col.render
+                      ? col.render(row, idx)
+                      : ((row as Record<string, ReactNode>)[col.key] ?? '-')}
                   </td>
                 ))}
               </tr>

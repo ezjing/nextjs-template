@@ -211,9 +211,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
         hoverable
         onRowClick={(row) => onSelectId?.(row.id, row.name)}
         rowClassName={(row) =>
-          row.id === selectedId
-            ? 'bg-primary-subtle !hover:bg-primary-subtle'
-            : undefined
+          row.id === selectedId ? 'bg-primary-subtle !hover:bg-primary-subtle' : undefined
         }
       />
 

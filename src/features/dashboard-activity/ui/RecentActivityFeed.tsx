@@ -1,4 +1,11 @@
-import { AlertCircle, CheckCircle, ShoppingCart, Star, UserPlus, type LucideIcon } from 'lucide-react';
+import {
+  AlertCircle,
+  CheckCircle,
+  ShoppingCart,
+  Star,
+  UserPlus,
+  type LucideIcon,
+} from 'lucide-react';
 
 interface ActivityItem {
   id: number;

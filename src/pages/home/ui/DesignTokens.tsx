@@ -75,8 +75,16 @@ const COLOR_GROUPS: { title: string; tokens: ColorToken[] }[] = [
 ];
 
 const RADIUS_TOKENS = [
-  { usage: 'rounded-control-xs', desc: '글자 줄, 작은 아이콘 버튼', value: 'var(--radius-control-xs)' },
-  { usage: 'rounded-control-sm', desc: 'Tabs 항목, 체크박스, 날짜 칸', value: 'var(--radius-control-sm)' },
+  {
+    usage: 'rounded-control-xs',
+    desc: '글자 줄, 작은 아이콘 버튼',
+    value: 'var(--radius-control-xs)',
+  },
+  {
+    usage: 'rounded-control-sm',
+    desc: 'Tabs 항목, 체크박스, 날짜 칸',
+    value: 'var(--radius-control-sm)',
+  },
   { usage: 'rounded-control', desc: '버튼, 입력창', value: 'var(--radius-control)' },
   { usage: 'rounded-card', desc: '카드, 모달', value: 'var(--radius-card)' },
   { usage: 'rounded-full', desc: '아바타, 배지', value: '9999px' },
@@ -102,21 +110,31 @@ function Swatch({ token }: { token: ColorToken }) {
   return (
     <div className="flex items-center gap-3">
       {token.kind === 'fill' && (
-        <div className="size-10 shrink-0 rounded-control border border-border" style={{ background: color }} />
+        <div
+          className="size-10 shrink-0 rounded-control border border-border"
+          style={{ background: color }}
+        />
       )}
       {token.kind === 'text' && (
         <div
           className="flex size-10 shrink-0 items-center justify-center rounded-control border border-border text-sm font-semibold"
           style={{
             color,
-            background: onPrimary ? 'var(--primary)' : onInverse ? 'var(--surface-inverse)' : 'var(--surface)',
+            background: onPrimary
+              ? 'var(--primary)'
+              : onInverse
+                ? 'var(--surface-inverse)'
+                : 'var(--surface)',
           }}
         >
           Aa
         </div>
       )}
       {token.kind === 'border' && (
-        <div className="size-10 shrink-0 rounded-control border-2 bg-surface" style={{ borderColor: color }} />
+        <div
+          className="size-10 shrink-0 rounded-control border-2 bg-surface"
+          style={{ borderColor: color }}
+        />
       )}
       <div className="min-w-0">
         <p className="truncate font-mono text-xs font-semibold text-fg">{token.name}</p>

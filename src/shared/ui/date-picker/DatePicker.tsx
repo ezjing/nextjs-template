@@ -127,9 +127,7 @@ export function DatePicker({
           'flex h-control-md w-full items-center justify-between gap-2 rounded-control border bg-surface px-3 text-sm transition-colors duration-150',
           'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
           'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
-          error
-            ? 'border-danger focus:ring-danger'
-            : 'border-border-strong',
+          error ? 'border-danger focus:ring-danger' : 'border-border-strong',
           className,
         )}
       >

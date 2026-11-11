@@ -23,26 +23,22 @@ export interface AlertProps {
 const config: Record<AlertVariant, { icon: IconType; classes: string; iconClass: string }> = {
   success: {
     icon: 'checkCircle',
-    classes:
-      'border-success-border bg-success-subtle text-success-fg',
+    classes: 'border-success-border bg-success-subtle text-success-fg',
     iconClass: 'text-success-fg',
   },
   warning: {
     icon: 'alertTriangle',
-    classes:
-      'border-warning-border bg-warning-subtle text-warning-fg',
+    classes: 'border-warning-border bg-warning-subtle text-warning-fg',
     iconClass: 'text-warning-fg',
   },
   error: {
     icon: 'alertCircle',
-    classes:
-      'border-danger-border bg-danger-subtle text-danger-fg',
+    classes: 'border-danger-border bg-danger-subtle text-danger-fg',
     iconClass: 'text-danger-fg',
   },
   info: {
     icon: 'info',
-    classes:
-      'border-info-border bg-info-subtle text-info-fg',
+    classes: 'border-info-border bg-info-subtle text-info-fg',
     iconClass: 'text-info-fg',
   },
 };
@@ -59,13 +55,18 @@ export function Alert({
   const { icon, classes, iconClass } = config[variant];
 
   return (
-    <div className={cn('flex items-start gap-3 rounded-card border px-4 py-3', classes, className)} role="alert">
+    <div
+      className={cn('flex items-start gap-3 rounded-card border px-4 py-3', classes, className)}
+      role="alert"
+    >
       {!hideIcon && <Icon name={icon} size={18} className={cn('mt-0.5 shrink-0', iconClass)} />}
 
       <div className="flex-1">
         {title && <p className="text-sm font-semibold leading-snug">{title}</p>}
         {children && (
-          <div className={cn('text-sm leading-relaxed', title && 'mt-0.5 opacity-90')}>{children}</div>
+          <div className={cn('text-sm leading-relaxed', title && 'mt-0.5 opacity-90')}>
+            {children}
+          </div>
         )}
       </div>
 

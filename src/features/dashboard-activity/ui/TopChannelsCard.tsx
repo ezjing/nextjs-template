@@ -29,9 +29,7 @@ export function TopChannelsCard() {
           <li key={ch.name}>
             <div className="mb-1 flex items-center justify-between text-sm">
               <span className="font-medium text-fg-secondary">{ch.name}</span>
-              <span className="text-fg-muted">
-                {ch.sessions.toLocaleString()}
-              </span>
+              <span className="text-fg-muted">{ch.sessions.toLocaleString()}</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
               <div

@@ -44,12 +44,8 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
 
   const labelNode = (label || description) && (
     <span className="flex flex-col gap-0.5">
-      {label && (
-        <span className="text-sm font-medium text-fg-secondary">{label}</span>
-      )}
-      {description && (
-        <span className="text-xs text-fg-muted">{description}</span>
-      )}
+      {label && <span className="text-sm font-medium text-fg-secondary">{label}</span>}
+      {description && <span className="text-xs text-fg-muted">{description}</span>}
     </span>
   );
 

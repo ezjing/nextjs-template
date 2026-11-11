@@ -94,16 +94,11 @@ export function Dialog({
           <div className="flex items-start justify-between gap-4 border-b border-border px-6 py-4">
             <div>
               {title && (
-                <h2
-                  id="dialog-title"
-                  className="text-base font-semibold text-fg"
-                >
+                <h2 id="dialog-title" className="text-base font-semibold text-fg">
                   {title}
                 </h2>
               )}
-              {description && (
-                <p className="mt-1 text-sm text-fg-muted">{description}</p>
-              )}
+              {description && <p className="mt-1 text-sm text-fg-muted">{description}</p>}
             </div>
             <button
               type="button"
@@ -132,9 +127,7 @@ export function Dialog({
         {children ? <div className="flex-1 overflow-y-auto px-6 py-4">{children}</div> : null}
 
         {/* 푸터 */}
-        {footer && (
-          <div className="border-t border-border px-6 py-4">{footer}</div>
-        )}
+        {footer && <div className="border-t border-border px-6 py-4">{footer}</div>}
       </div>
     </div>,
     document.body,

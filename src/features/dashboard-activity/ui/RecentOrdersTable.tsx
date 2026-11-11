@@ -73,9 +73,7 @@ export function RecentOrdersTable() {
     <div className="rounded-card border border-border bg-surface shadow-card">
       <div className="flex items-center justify-between border-b border-border px-5 py-4">
         <h3 className="text-base font-semibold text-fg">최근 주문</h3>
-        <button className="text-sm text-primary-fg hover:underline">
-          전체 보기
-        </button>
+        <button className="text-sm text-primary-fg hover:underline">전체 보기</button>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -93,19 +91,12 @@ export function RecentOrdersTable() {
           </thead>
           <tbody className="divide-y divide-border">
             {ORDERS.map((order) => (
-              <tr
-                key={order.id}
-                className="transition-colors hover:bg-surface-subtle"
-              >
-                <td className="px-5 py-3 font-mono font-medium text-fg-secondary">
-                  {order.id}
-                </td>
+              <tr key={order.id} className="transition-colors hover:bg-surface-subtle">
+                <td className="px-5 py-3 font-mono font-medium text-fg-secondary">{order.id}</td>
                 <td className="px-5 py-3 text-fg-secondary">{order.customer}</td>
                 <td className="px-5 py-3 text-fg-secondary">{order.product}</td>
                 <td className="px-5 py-3 text-fg-muted">{order.date}</td>
-                <td className="px-5 py-3 font-medium text-fg-secondary">
-                  {order.amount}
-                </td>
+                <td className="px-5 py-3 font-medium text-fg-secondary">{order.amount}</td>
                 <td className="px-5 py-3">
                   <span
                     className={cn(

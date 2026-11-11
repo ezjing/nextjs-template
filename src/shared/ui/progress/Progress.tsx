@@ -55,7 +55,12 @@ export function Progress({
         aria-valuemax={100}
       >
         {indeterminate ? (
-          <div className={cn('progress-indeterminate absolute inset-y-0 w-1/3 rounded-full', barColor[variant])} />
+          <div
+            className={cn(
+              'progress-indeterminate absolute inset-y-0 w-1/3 rounded-full',
+              barColor[variant],
+            )}
+          />
         ) : (
           <div
             className={cn('h-full rounded-full transition-[width] duration-300', barColor[variant])}

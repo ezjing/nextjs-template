@@ -74,9 +74,7 @@ export function Accordion({ items, type = 'single', defaultValue, className }: A
               )}
             >
               <div className="overflow-hidden">
-                <div className="px-4 pb-4 pt-0 text-sm text-fg-secondary">
-                  {item.content}
-                </div>
+                <div className="px-4 pb-4 pt-0 text-sm text-fg-secondary">{item.content}</div>
               </div>
             </div>
           </div>

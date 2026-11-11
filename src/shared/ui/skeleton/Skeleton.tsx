@@ -33,7 +33,12 @@ export function Skeleton({
         {Array.from({ length: lines }).map((_, i) => (
           <span
             key={i}
-            className={cn(base, 'block h-3.5 rounded-control-xs', i === lines - 1 && 'w-4/5', className)}
+            className={cn(
+              base,
+              'block h-3.5 rounded-control-xs',
+              i === lines - 1 && 'w-4/5',
+              className,
+            )}
             style={i === lines - 1 ? undefined : { width }}
           />
         ))}

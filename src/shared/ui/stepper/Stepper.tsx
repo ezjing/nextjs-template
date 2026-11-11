@@ -22,13 +22,7 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
   const isVertical = orientation === 'vertical';
 
   return (
-    <ol
-      className={cn(
-        'flex',
-        isVertical ? 'flex-col gap-0' : 'w-full items-start',
-        className,
-      )}
-    >
+    <ol className={cn('flex', isVertical ? 'flex-col gap-0' : 'w-full items-start', className)}>
       {steps.map((step, idx) => {
         const completed = idx < current;
         const active = idx === current;
@@ -43,13 +37,19 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
               !isVertical && !isLast && 'relative',
             )}
           >
-            <div className={cn('flex', isVertical ? 'flex-col items-center' : 'w-full items-center')}>
+            <div
+              className={cn('flex', isVertical ? 'flex-col items-center' : 'w-full items-center')}
+            >
               {/* 가로형 왼쪽 라인 */}
               {!isVertical && (
                 <span
                   className={cn(
                     'h-0.5 flex-1',
-                    idx === 0 ? 'opacity-0' : completed || active ? 'bg-primary' : 'bg-surface-strong',
+                    idx === 0
+                      ? 'opacity-0'
+                      : completed || active
+                        ? 'bg-primary'
+                        : 'bg-surface-strong',
                   )}
                 />
               )}
@@ -87,14 +87,7 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
             </div>
 
             <div className={cn(isVertical ? 'pb-6 pt-1' : 'mt-2')}>
-              <p
-                className={cn(
-                  'text-sm font-medium',
-                  active
-                    ? 'text-fg'
-                    : 'text-fg-muted',
-                )}
-              >
+              <p className={cn('text-sm font-medium', active ? 'text-fg' : 'text-fg-muted')}>
                 {step.label}
               </p>
               {step.description && (

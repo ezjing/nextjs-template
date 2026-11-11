@@ -27,7 +27,13 @@ export interface DropdownProps {
   menuClassName?: string;
 }
 
-export function Dropdown({ trigger, items, align = 'start', className, menuClassName }: DropdownProps) {
+export function Dropdown({
+  trigger,
+  items,
+  align = 'start',
+  className,
+  menuClassName,
+}: DropdownProps) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

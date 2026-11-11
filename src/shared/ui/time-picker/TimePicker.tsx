@@ -109,7 +109,13 @@ export function TimePicker({
   };
 
   const displayHourValue =
-    selectedHour === null ? null : use24Hour ? selectedHour : selectedHour % 12 === 0 ? 12 : selectedHour % 12;
+    selectedHour === null
+      ? null
+      : use24Hour
+        ? selectedHour
+        : selectedHour % 12 === 0
+          ? 12
+          : selectedHour % 12;
 
   const displayValue = formatDisplay(value, use24Hour);
 
@@ -133,9 +139,7 @@ export function TimePicker({
           'flex h-control-md w-full items-center justify-between gap-2 rounded-control border bg-surface px-3 text-sm transition-colors duration-150',
           'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
           'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
-          error
-            ? 'border-danger focus:ring-danger'
-            : 'border-border-strong',
+          error ? 'border-danger focus:ring-danger' : 'border-border-strong',
           className,
         )}
       >

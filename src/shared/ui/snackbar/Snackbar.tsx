@@ -61,7 +61,10 @@ export function useSnackbar(): SnackbarContextValue {
   return ctx;
 }
 
-const variantConfig: Record<SnackbarVariant, { icon: IconType; classes: string; iconClass: string }> = {
+const variantConfig: Record<
+  SnackbarVariant,
+  { icon: IconType; classes: string; iconClass: string }
+> = {
   success: {
     icon: 'checkCircle',
     classes: 'border-success-border bg-success-subtle text-success-fg',
@@ -193,7 +196,11 @@ export function SnackbarProvider({
                     config.classes,
                   )}
                 >
-                  <Icon name={config.icon} size={18} className={cn('mt-0.5 shrink-0', config.iconClass)} />
+                  <Icon
+                    name={config.icon}
+                    size={18}
+                    className={cn('mt-0.5 shrink-0', config.iconClass)}
+                  />
                   <div className="flex-1 text-sm font-medium leading-snug">{item.message}</div>
 
                   {item.actionLabel && (

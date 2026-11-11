@@ -42,14 +42,8 @@ export function Card({
       {hasHeader && (
         <div className="flex items-start justify-between gap-4 border-b border-border px-5 py-4">
           <div className="min-w-0">
-            {title && (
-              <h3 className="truncate text-base font-semibold text-fg">
-                {title}
-              </h3>
-            )}
-            {description && (
-              <p className="mt-0.5 text-sm text-fg-muted">{description}</p>
-            )}
+            {title && <h3 className="truncate text-base font-semibold text-fg">{title}</h3>}
+            {description && <p className="mt-0.5 text-sm text-fg-muted">{description}</p>}
           </div>
           {actions && <div className="shrink-0">{actions}</div>}
         </div>
@@ -57,9 +51,7 @@ export function Card({
 
       <div className={cn(padded && 'px-5 py-4')}>{children}</div>
 
-      {footer && (
-        <div className="border-t border-border px-5 py-3">{footer}</div>
-      )}
+      {footer && <div className="border-t border-border px-5 py-3">{footer}</div>}
     </div>
   );
 }
