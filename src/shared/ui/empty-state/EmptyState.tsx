@@ -41,16 +41,16 @@ export function EmptyState({
     >
       <div
         className={cn(
-          'flex items-center justify-center rounded-full bg-slate-100 text-slate-400 dark:bg-slate-700 dark:text-slate-500',
+          'flex items-center justify-center rounded-full bg-surface-muted text-fg-subtle',
           iconBox[size],
         )}
       >
         {typeof icon === 'string' ? <Icon name={icon as IconType} size={iconSize[size]} /> : icon}
       </div>
       <div className="space-y-1">
-        <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{title}</p>
+        <p className="text-sm font-semibold text-fg-secondary">{title}</p>
         {description && (
-          <p className="text-sm text-slate-500 dark:text-slate-400">{description}</p>
+          <p className="text-sm text-fg-muted">{description}</p>
         )}
       </div>
       {action && <div className="mt-1">{action}</div>}

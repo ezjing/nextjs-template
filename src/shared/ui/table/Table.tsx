@@ -55,19 +55,19 @@ export function Table<T>({
   return (
     <div
       className={cn(
-        'w-full overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700',
+        'w-full overflow-x-auto rounded-xl border border-border',
         className,
       )}
     >
       <table className="w-full border-collapse text-sm">
         <thead>
-          <tr className="border-b border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800/50">
+          <tr className="border-b border-border bg-surface-subtle">
             {columns.map((col) => (
               <th
                 key={col.key}
                 style={{ width: col.width }}
                 className={cn(
-                  'px-4 py-3 font-semibold text-slate-600 dark:text-slate-300',
+                  'px-4 py-3 font-semibold text-fg-secondary',
                   alignClass[col.align ?? 'left'],
                 )}
               >
@@ -77,7 +77,7 @@ export function Table<T>({
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">
+        <tbody className="divide-y divide-border">
           {loading ? (
             Array.from({ length: loadingRows }).map((_, r) => (
               <tr key={`sk-${r}`}>
@@ -100,8 +100,8 @@ export function Table<T>({
                 key={rowKey(row, idx)}
                 onClick={onRowClick ? () => onRowClick(row, idx) : undefined}
                 className={cn(
-                  'bg-white dark:bg-slate-800',
-                  hoverable && 'transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50',
+                  'bg-surface',
+                  hoverable && 'transition-colors hover:bg-surface-subtle',
                   onRowClick && 'cursor-pointer',
                   rowClassName?.(row, idx),
                 )}
@@ -110,7 +110,7 @@ export function Table<T>({
                   <td
                     key={col.key}
                     className={cn(
-                      'px-4 py-3 text-slate-700 dark:text-slate-200',
+                      'px-4 py-3 text-fg-secondary',
                       alignClass[col.align ?? 'left'],
                     )}
                   >

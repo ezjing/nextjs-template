@@ -104,8 +104,8 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
           className={cn(
             'inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium',
             row.useYn === 'Y'
-              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-              : 'bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
+              ? 'bg-success-subtle text-success-fg'
+              : 'bg-surface-muted text-fg-muted',
           )}
         >
           {row.useYn === 'Y' ? '사용' : '미사용'}
@@ -124,7 +124,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
               e.stopPropagation();
               openEdit(row);
             }}
-            className="rounded p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-violet-600 dark:hover:bg-slate-700 dark:hover:text-violet-400"
+            className="rounded p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-primary-fg"
             aria-label="수정"
           >
             <Pencil className="h-3.5 w-3.5" />
@@ -134,7 +134,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
               e.stopPropagation();
               handleDelete(row);
             }}
-            className="rounded p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-rose-600 dark:hover:bg-slate-700 dark:hover:text-rose-400"
+            className="rounded p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-danger-fg"
             aria-label="삭제"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -146,8 +146,8 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-red-200 bg-red-50 px-6 py-12 dark:border-red-800/40 dark:bg-red-900/20">
-        <p className="text-sm text-red-600 dark:text-red-400">
+      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-danger-border bg-danger-subtle px-6 py-12">
+        <p className="text-sm text-danger-fg">
           {error instanceof Error ? error.message : '회원 목록을 불러오는 중 오류가 발생했습니다.'}
         </p>
         <Button
@@ -175,7 +175,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
             onChange={(e) => setAuthCd(e.target.value as AuthCd)}
             className="w-40"
           />
-          <p className="pb-2 text-sm text-slate-500 dark:text-slate-400">
+          <p className="pb-2 text-sm text-fg-muted">
             {isFetching ? '불러오는 중...' : `총 ${members.length}명`}
           </p>
         </div>
@@ -212,7 +212,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
         onRowClick={(row) => onSelectId?.(row.id, row.name)}
         rowClassName={(row) =>
           row.id === selectedId
-            ? 'bg-violet-50 dark:bg-violet-900/20 !hover:bg-violet-100'
+            ? 'bg-primary-subtle !hover:bg-primary-subtle'
             : undefined
         }
       />

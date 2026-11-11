@@ -20,6 +20,8 @@ const COLOR_GROUPS: { title: string; tokens: ColorToken[] }[] = [
       { name: 'surface', usage: 'bg-surface', kind: 'fill' },
       { name: 'surface-muted', usage: 'bg-surface-muted', kind: 'fill' },
       { name: 'surface-subtle', usage: 'bg-surface-subtle', kind: 'fill' },
+      { name: 'surface-strong', usage: 'bg-surface-strong', kind: 'fill' },
+      { name: 'surface-inverse', usage: 'bg-surface-inverse', kind: 'fill' },
       { name: 'overlay', usage: 'bg-overlay', kind: 'fill' },
     ],
   },
@@ -31,6 +33,7 @@ const COLOR_GROUPS: { title: string; tokens: ColorToken[] }[] = [
       { name: 'fg-muted', usage: 'text-fg-muted', kind: 'text' },
       { name: 'fg-subtle', usage: 'text-fg-subtle', kind: 'text' },
       { name: 'fg-on-primary', usage: 'text-fg-on-primary', kind: 'text' },
+      { name: 'fg-inverse', usage: 'text-fg-inverse', kind: 'text' },
     ],
   },
   {
@@ -92,6 +95,7 @@ const CONTROL_HEIGHT_TOKENS = [
 function Swatch({ token }: { token: ColorToken }) {
   const color = `var(--${token.name})`;
   const onPrimary = token.name === 'fg-on-primary';
+  const onInverse = token.name === 'fg-inverse';
 
   return (
     <div className="flex items-center gap-3">
@@ -101,7 +105,10 @@ function Swatch({ token }: { token: ColorToken }) {
       {token.kind === 'text' && (
         <div
           className="flex size-10 shrink-0 items-center justify-center rounded-control border border-border text-sm font-semibold"
-          style={{ color, background: onPrimary ? 'var(--primary)' : 'var(--surface)' }}
+          style={{
+            color,
+            background: onPrimary ? 'var(--primary)' : onInverse ? 'var(--surface-inverse)' : 'var(--surface)',
+          }}
         >
           Aa
         </div>

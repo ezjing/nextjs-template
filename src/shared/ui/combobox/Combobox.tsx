@@ -84,7 +84,7 @@ export function Combobox({
       className={cn('relative flex flex-col gap-1', fullWidth && 'w-full', wrapperClassName)}
     >
       {label && (
-        <label htmlFor={fieldId} className="text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label htmlFor={fieldId} className="text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
@@ -92,16 +92,15 @@ export function Combobox({
       <div
         onClick={openMenu}
         className={cn(
-          'flex h-control-md w-full cursor-text items-center gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
-          'focus-within:ring-2 focus-within:ring-violet-500 focus-within:border-transparent',
-          'dark:bg-slate-800',
-          disabled && 'cursor-not-allowed bg-slate-50 dark:bg-slate-800/50',
+          'flex h-control-md w-full cursor-text items-center gap-2 rounded-lg border bg-surface px-3 text-sm transition-colors duration-150',
+          'focus-within:ring-2 focus-within:ring-ring focus-within:border-transparent',
+          disabled && 'cursor-not-allowed bg-surface-subtle',
           error
-            ? 'border-rose-500 focus-within:ring-rose-500 dark:border-rose-500'
-            : 'border-slate-300 dark:border-slate-600',
+            ? 'border-danger focus-within:ring-danger'
+            : 'border-border-strong',
         )}
       >
-        <Icon name="search" size={16} className="shrink-0 text-slate-400" />
+        <Icon name="search" size={16} className="shrink-0 text-fg-subtle" />
 
         {open ? (
           <input
@@ -111,10 +110,10 @@ export function Combobox({
             disabled={disabled}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={selected?.label ?? placeholder}
-            className="w-full bg-transparent text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-slate-100"
+            className="w-full bg-transparent text-fg placeholder:text-fg-subtle focus:outline-none"
           />
         ) : (
-          <span className={cn('flex-1 truncate', selected ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400')}>
+          <span className={cn('flex-1 truncate', selected ? 'text-fg' : 'text-fg-subtle')}>
             {selected?.label ?? placeholder}
           </span>
         )}
@@ -127,24 +126,23 @@ export function Combobox({
               e.stopPropagation();
               onChange?.(null);
             }}
-            className="shrink-0 rounded p-0.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            className="shrink-0 rounded p-0.5 text-fg-subtle hover:text-fg-secondary"
           >
             <Icon name="x" size={14} />
           </button>
         )}
-        <Icon name="chevronDown" size={16} className={cn('shrink-0 text-slate-400 transition-transform', open && 'rotate-180')} />
+        <Icon name="chevronDown" size={16} className={cn('shrink-0 text-fg-subtle transition-transform', open && 'rotate-180')} />
       </div>
 
       {open && (
         <ul
           role="listbox"
           className={cn(
-            'absolute top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white p-1 shadow-lg',
-            'dark:border-slate-700 dark:bg-slate-800',
+            'absolute top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-xl border border-border bg-surface p-1 shadow-lg',
           )}
         >
           {filtered.length === 0 ? (
-            <li className="px-3 py-6 text-center text-sm text-slate-400">{emptyText}</li>
+            <li className="px-3 py-6 text-center text-sm text-fg-subtle">{emptyText}</li>
           ) : (
             filtered.map((opt) => {
               const isSelected = opt.value === value;
@@ -161,8 +159,8 @@ export function Combobox({
                       'flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors',
                       'disabled:cursor-not-allowed disabled:opacity-40',
                       isSelected
-                        ? 'bg-violet-50 font-medium text-violet-700 dark:bg-violet-500/15 dark:text-violet-300'
-                        : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700',
+                        ? 'bg-primary-subtle font-medium text-primary-fg'
+                        : 'text-fg-secondary hover:bg-surface-muted',
                     )}
                   >
                     {opt.label}
@@ -176,11 +174,11 @@ export function Combobox({
       )}
 
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}
-      {!error && hint && <p className="text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
+      {!error && hint && <p className="text-xs text-fg-muted">{hint}</p>}
     </div>
   );
 }

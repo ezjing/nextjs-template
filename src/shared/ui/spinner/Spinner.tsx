@@ -26,12 +26,12 @@ export function Spinner({ size = 'md', label = '로딩 중', showLabel = false, 
     <span className={cn('inline-flex items-center gap-2', className)} role="status" aria-live="polite">
       <span
         className={cn(
-          'inline-block animate-spin rounded-full border-current border-t-transparent text-violet-600',
+          'inline-block animate-spin rounded-full border-current border-t-transparent text-primary-fg',
           sizeMap[size],
         )}
       />
       {showLabel ? (
-        <span className="text-sm text-slate-600 dark:text-slate-300">{label}</span>
+        <span className="text-sm text-fg-secondary">{label}</span>
       ) : (
         <span className="sr-only">{label}</span>
       )}

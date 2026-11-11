@@ -17,8 +17,8 @@ export function CommunityUsersPage() {
   return (
     <>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">회원 목록</h1>
-        <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+        <h1 className="text-2xl font-bold text-fg">회원 목록</h1>
+        <p className="mt-0.5 text-sm text-fg-muted">
           TB_BS_MEMBER 테이블의 전체 회원을 조회합니다.
         </p>
       </div>

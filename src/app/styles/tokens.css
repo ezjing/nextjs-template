@@ -137,6 +137,8 @@
   --surface: var(--color-white);
   --surface-muted: var(--neutral-100);
   --surface-subtle: var(--neutral-50);
+  --surface-strong: var(--neutral-200);
+  --surface-inverse: var(--neutral-900);
   --overlay: color-mix(in oklab, var(--color-black) 50%, transparent);
 
   /* 글자 */
@@ -145,6 +147,7 @@
   --fg-muted: var(--neutral-500);
   --fg-subtle: var(--neutral-400);
   --fg-on-primary: var(--color-white);
+  --fg-inverse: var(--color-white);
 
   /* 테두리 / 포커스 */
   --border: var(--neutral-200);
@@ -202,11 +205,13 @@
   --surface: var(--neutral-800);
   --surface-muted: var(--neutral-700);
   --surface-subtle: color-mix(in oklab, var(--neutral-800) 50%, transparent);
+  --surface-strong: var(--neutral-600);
+  --surface-inverse: var(--neutral-700);
 
   --fg: var(--neutral-100);
   --fg-secondary: var(--neutral-300);
   --fg-muted: var(--neutral-400);
-  --fg-subtle: var(--neutral-500);
+  --fg-subtle: var(--neutral-400); /* 기존 코드 대부분이 다크에서도 400 유지 */
 
   --border: var(--neutral-700);
   --border-strong: var(--neutral-600);
@@ -239,6 +244,8 @@
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
   --color-surface-subtle: var(--surface-subtle);
+  --color-surface-strong: var(--surface-strong);
+  --color-surface-inverse: var(--surface-inverse);
   --color-overlay: var(--overlay);
 
   --color-fg: var(--fg);
@@ -246,6 +253,7 @@
   --color-fg-muted: var(--fg-muted);
   --color-fg-subtle: var(--fg-subtle);
   --color-fg-on-primary: var(--fg-on-primary);
+  --color-fg-inverse: var(--fg-inverse);
 
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);

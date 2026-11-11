@@ -21,12 +21,12 @@ export interface TagProps {
 }
 
 const variants: Record<TagVariant, string> = {
-  default: 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-200',
-  primary: 'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300',
-  success: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300',
-  warning: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300',
-  error: 'bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300',
-  info: 'bg-sky-100 text-sky-700 dark:bg-sky-500/20 dark:text-sky-300',
+  default: 'bg-surface-muted text-fg-secondary',
+  primary: 'bg-primary-subtle text-primary-fg',
+  success: 'bg-success-subtle text-success-fg',
+  warning: 'bg-warning-subtle text-warning-fg',
+  error: 'bg-danger-subtle text-danger-fg',
+  info: 'bg-info-subtle text-info-fg',
 };
 
 const sizes: Record<TagSize, string> = {
@@ -67,7 +67,7 @@ export function Tag({
             e.stopPropagation();
             onRemove();
           }}
-          className="ml-0.5 inline-flex items-center justify-center rounded-full p-0.5 transition-colors hover:bg-black/10 dark:hover:bg-white/10"
+          className="ml-0.5 inline-flex items-center justify-center rounded-full p-0.5 transition-colors hover:bg-fg/10"
           aria-label="삭제"
         >
           <Icon name="x" size={removeIconSize[size]} />

@@ -77,7 +77,7 @@ const eslintConfig = defineConfig([
   {
     files: ["src/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
     rules: {
-      "no-restricted-syntax": ["warn", ...designTokenRules],
+      "no-restricted-syntax": ["error", ...designTokenRules],
     },
   },
   prettier,

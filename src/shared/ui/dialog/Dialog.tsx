@@ -77,39 +77,38 @@ export function Dialog({
       onClick={handleBackdropClick}
     >
       {/* 백드롭 */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" aria-hidden="true" />
+      <div className="absolute inset-0 bg-overlay backdrop-blur-sm" aria-hidden="true" />
 
       {/* 패널 */}
       <div
         ref={panelRef}
         className={cn(
-          'relative z-10 w-full rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5',
+          'relative z-10 w-full rounded-xl bg-surface shadow-xl ring-1 ring-border/5',
           'flex flex-col max-h-[90vh]',
-          'dark:bg-slate-800 dark:ring-slate-700',
           sizes[size],
           className,
         )}
       >
         {/* 헤더 */}
         {(title || description) && (
-          <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-4 dark:border-slate-700">
+          <div className="flex items-start justify-between gap-4 border-b border-border px-6 py-4">
             <div>
               {title && (
                 <h2
                   id="dialog-title"
-                  className="text-base font-semibold text-slate-900 dark:text-slate-100"
+                  className="text-base font-semibold text-fg"
                 >
                   {title}
                 </h2>
               )}
               {description && (
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{description}</p>
+                <p className="mt-1 text-sm text-fg-muted">{description}</p>
               )}
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="shrink-0 rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300"
+              className="shrink-0 rounded-lg p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-secondary"
               aria-label="닫기"
             >
               <svg
@@ -134,7 +133,7 @@ export function Dialog({
 
         {/* 푸터 */}
         {footer && (
-          <div className="border-t border-slate-200 px-6 py-4 dark:border-slate-700">{footer}</div>
+          <div className="border-t border-border px-6 py-4">{footer}</div>
         )}
       </div>
     </div>,

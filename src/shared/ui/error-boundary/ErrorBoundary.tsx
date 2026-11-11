@@ -60,8 +60,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
 function DefaultFallback({ error, onReset }: { error: Error | null; onReset: () => void }) {
   return (
-    <div className="flex min-h-[200px] flex-col items-center justify-center gap-4 rounded-xl border border-rose-200 bg-rose-50 p-8 text-center">
-      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-100">
+    <div className="flex min-h-[200px] flex-col items-center justify-center gap-4 rounded-xl border border-danger-border bg-danger-subtle p-8 text-center">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-danger-subtle">
         <svg
           width="24"
           height="24"
@@ -71,7 +71,7 @@ function DefaultFallback({ error, onReset }: { error: Error | null; onReset: () 
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-rose-600"
+          className="text-danger-fg"
           aria-hidden="true"
         >
           <circle cx="12" cy="12" r="10" />
@@ -80,13 +80,13 @@ function DefaultFallback({ error, onReset }: { error: Error | null; onReset: () 
         </svg>
       </div>
       <div>
-        <p className="text-sm font-semibold text-rose-700">렌더링 오류가 발생했습니다.</p>
-        {error?.message && <p className="mt-1 text-xs text-rose-500">{error.message}</p>}
+        <p className="text-sm font-semibold text-danger-fg">렌더링 오류가 발생했습니다.</p>
+        {error?.message && <p className="mt-1 text-xs text-danger-fg">{error.message}</p>}
       </div>
       <button
         type="button"
         onClick={onReset}
-        className="rounded-lg border border-rose-300 px-4 py-2 text-xs font-medium text-rose-600 transition-colors hover:bg-rose-100"
+        className="rounded-lg border border-danger-border px-4 py-2 text-xs font-medium text-danger-fg transition-colors hover:bg-danger-subtle"
       >
         다시 시도
       </button>

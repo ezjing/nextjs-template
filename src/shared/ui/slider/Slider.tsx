@@ -43,12 +43,12 @@ export function Slider({
       {(label || showValue) && (
         <div className="flex items-center justify-between">
           {label && (
-            <label htmlFor={id} className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            <label htmlFor={id} className="text-sm font-medium text-fg-secondary">
               {label}
             </label>
           )}
           {showValue && (
-            <span className="text-sm font-medium tabular-nums text-slate-600 dark:text-slate-300">
+            <span className="text-sm font-medium tabular-nums text-fg-secondary">
               {formatValue ? formatValue(value) : value}
             </span>
           )}
@@ -65,9 +65,9 @@ export function Slider({
         disabled={disabled}
         onChange={(e) => onChange?.(Number(e.target.value))}
         className={cn(
-          'h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 dark:bg-slate-700',
-          'accent-violet-600',
-          'focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2',
+          'h-2 w-full cursor-pointer appearance-none rounded-full bg-surface-strong',
+          'accent-primary',
+          'focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
           'disabled:cursor-not-allowed disabled:opacity-50',
           className,
         )}

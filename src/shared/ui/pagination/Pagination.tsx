@@ -58,7 +58,7 @@ export function Pagination({
     <nav className={cn('flex items-center gap-1', className)} aria-label="페이지네이션">
       <button
         type="button"
-        className={cn(btnBase, 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700')}
+        className={cn(btnBase, 'text-fg-muted hover:bg-surface-muted')}
         onClick={() => onChange(page - 1)}
         disabled={page <= 1}
         aria-label="이전 페이지"
@@ -68,7 +68,7 @@ export function Pagination({
 
       {pages.map((p, idx) =>
         typeof p === 'string' ? (
-          <span key={`dots-${idx}`} className="inline-flex h-9 min-w-9 items-center justify-center text-slate-400">
+          <span key={`dots-${idx}`} className="inline-flex h-9 min-w-9 items-center justify-center text-fg-subtle">
             {DOTS}
           </span>
         ) : (
@@ -80,8 +80,8 @@ export function Pagination({
             className={cn(
               btnBase,
               p === page
-                ? 'bg-violet-600 text-white hover:bg-violet-700'
-                : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700',
+                ? 'bg-primary text-fg-on-primary hover:bg-primary-hover'
+                : 'text-fg-secondary hover:bg-surface-muted',
             )}
           >
             {p}
@@ -91,7 +91,7 @@ export function Pagination({
 
       <button
         type="button"
-        className={cn(btnBase, 'text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700')}
+        className={cn(btnBase, 'text-fg-muted hover:bg-surface-muted')}
         onClick={() => onChange(page + 1)}
         disabled={page >= totalPages}
         aria-label="다음 페이지"

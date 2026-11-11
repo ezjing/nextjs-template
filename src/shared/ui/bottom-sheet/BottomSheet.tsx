@@ -106,7 +106,7 @@ export function BottomSheet({
       {/* 백드롭 */}
       <div
         className={cn(
-          'absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-250',
+          'absolute inset-0 bg-overlay backdrop-blur-sm transition-opacity duration-250',
           open && !closing ? 'opacity-100' : 'opacity-0',
         )}
         aria-hidden="true"
@@ -118,9 +118,8 @@ export function BottomSheet({
         ref={sheetRef}
         style={{ transform: `translateY(${dragOffset}px)` }}
         className={cn(
-          'relative z-10 w-full rounded-t-2xl bg-white shadow-2xl ring-1 ring-slate-900/5',
+          'relative z-10 w-full rounded-t-2xl bg-surface shadow-2xl ring-1 ring-border/5',
           'flex flex-col',
-          'dark:bg-slate-800 dark:ring-slate-700',
           heightClasses[height],
           'transition-transform',
           open && !closing ? 'duration-300 translate-y-0' : 'duration-250 translate-y-full',
@@ -138,11 +137,11 @@ export function BottomSheet({
           onTouchMove={handleDragMove}
           onTouchEnd={handleDragEnd}
         >
-          <div className="h-1 w-10 rounded-full bg-slate-300 dark:bg-slate-600" />
+          <div className="h-1 w-10 rounded-full bg-surface-strong" />
           {title && (
             <h2
               id="bottom-sheet-title"
-              className="text-sm font-semibold text-slate-900 dark:text-slate-100"
+              className="text-sm font-semibold text-fg"
             >
               {title}
             </h2>
@@ -154,7 +153,7 @@ export function BottomSheet({
 
         {/* 푸터 */}
         {footer && (
-          <div className="border-t border-slate-200 px-4 py-3 dark:border-slate-700">{footer}</div>
+          <div className="border-t border-border px-4 py-3">{footer}</div>
         )}
       </div>
     </div>,

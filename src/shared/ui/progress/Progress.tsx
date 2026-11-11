@@ -19,10 +19,10 @@ export interface ProgressProps {
 }
 
 const barColor: Record<ProgressVariant, string> = {
-  primary: 'bg-violet-600',
-  success: 'bg-emerald-500',
-  warning: 'bg-amber-500',
-  error: 'bg-rose-500',
+  primary: 'bg-primary',
+  success: 'bg-success',
+  warning: 'bg-warning',
+  error: 'bg-danger',
 };
 
 const heights: Record<ProgressSize, string> = {
@@ -46,7 +46,7 @@ export function Progress({
     <div className={cn('flex items-center gap-3', className)}>
       <div
         className={cn(
-          'relative w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700',
+          'relative w-full overflow-hidden rounded-full bg-surface-strong',
           heights[size],
         )}
         role="progressbar"
@@ -64,7 +64,7 @@ export function Progress({
         )}
       </div>
       {showLabel && !indeterminate && (
-        <span className="w-9 shrink-0 text-right text-xs font-medium tabular-nums text-slate-600 dark:text-slate-300">
+        <span className="w-9 shrink-0 text-right text-xs font-medium tabular-nums text-fg-secondary">
           {Math.round(percent)}%
         </span>
       )}

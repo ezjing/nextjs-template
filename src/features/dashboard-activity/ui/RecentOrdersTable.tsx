@@ -63,47 +63,47 @@ const ORDERS: Order[] = [
 ];
 
 const STATUS_STYLE: Record<OrderStatus, string> = {
-  완료: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-  처리중: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
-  취소: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+  완료: 'bg-success-subtle text-success-fg',
+  처리중: 'bg-info-subtle text-info-fg',
+  취소: 'bg-danger-subtle text-danger-fg',
 };
 
 export function RecentOrdersTable() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <div className="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-gray-700">
-        <h3 className="text-base font-semibold text-gray-800 dark:text-white">최근 주문</h3>
-        <button className="text-sm text-violet-600 hover:underline dark:text-violet-400">
+    <div className="rounded-xl border border-border bg-surface shadow-sm">
+      <div className="flex items-center justify-between border-b border-border px-5 py-4">
+        <h3 className="text-base font-semibold text-fg">최근 주문</h3>
+        <button className="text-sm text-primary-fg hover:underline">
           전체 보기
         </button>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100 dark:border-gray-700">
+            <tr className="border-b border-border">
               {['주문번호', '고객', '상품', '날짜', '금액', '상태'].map((h) => (
                 <th
                   key={h}
-                  className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500"
+                  className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wider text-fg-subtle"
                 >
                   {h}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
+          <tbody className="divide-y divide-border">
             {ORDERS.map((order) => (
               <tr
                 key={order.id}
-                className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/30"
+                className="transition-colors hover:bg-surface-subtle"
               >
-                <td className="px-5 py-3 font-mono font-medium text-gray-700 dark:text-gray-200">
+                <td className="px-5 py-3 font-mono font-medium text-fg-secondary">
                   {order.id}
                 </td>
-                <td className="px-5 py-3 text-gray-600 dark:text-gray-300">{order.customer}</td>
-                <td className="px-5 py-3 text-gray-600 dark:text-gray-300">{order.product}</td>
-                <td className="px-5 py-3 text-gray-500 dark:text-gray-400">{order.date}</td>
-                <td className="px-5 py-3 font-medium text-gray-700 dark:text-gray-200">
+                <td className="px-5 py-3 text-fg-secondary">{order.customer}</td>
+                <td className="px-5 py-3 text-fg-secondary">{order.product}</td>
+                <td className="px-5 py-3 text-fg-muted">{order.date}</td>
+                <td className="px-5 py-3 font-medium text-fg-secondary">
                   {order.amount}
                 </td>
                 <td className="px-5 py-3">

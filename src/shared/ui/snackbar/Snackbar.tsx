@@ -64,23 +64,23 @@ export function useSnackbar(): SnackbarContextValue {
 const variantConfig: Record<SnackbarVariant, { icon: IconType; classes: string; iconClass: string }> = {
   success: {
     icon: 'checkCircle',
-    classes: 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-200',
-    iconClass: 'text-emerald-500',
+    classes: 'border-success-border bg-success-subtle text-success-fg',
+    iconClass: 'text-success-fg',
   },
   warning: {
     icon: 'alertTriangle',
-    classes: 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200',
-    iconClass: 'text-amber-500',
+    classes: 'border-warning-border bg-warning-subtle text-warning-fg',
+    iconClass: 'text-warning-fg',
   },
   error: {
     icon: 'alertCircle',
-    classes: 'border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-200',
-    iconClass: 'text-rose-500',
+    classes: 'border-danger-border bg-danger-subtle text-danger-fg',
+    iconClass: 'text-danger-fg',
   },
   info: {
     icon: 'info',
-    classes: 'border-sky-200 bg-sky-50 text-sky-800 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-200',
-    iconClass: 'text-sky-500',
+    classes: 'border-info-border bg-info-subtle text-info-fg',
+    iconClass: 'text-info-fg',
   },
 };
 

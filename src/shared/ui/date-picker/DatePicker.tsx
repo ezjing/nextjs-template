@@ -113,7 +113,7 @@ export function DatePicker({
       className={cn('relative flex flex-col gap-1', fullWidth && 'w-full', wrapperClassName)}
     >
       {label && (
-        <label htmlFor={fieldId} className="text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label htmlFor={fieldId} className="text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
@@ -124,18 +124,17 @@ export function DatePicker({
         disabled={disabled}
         onClick={toggleOpen}
         className={cn(
-          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
-          'focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent',
-          'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
-          'dark:bg-slate-800 dark:text-slate-100',
+          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-surface px-3 text-sm transition-colors duration-150',
+          'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
+          'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
           error
-            ? 'border-rose-500 focus:ring-rose-500 dark:border-rose-500'
-            : 'border-slate-300 dark:border-slate-600',
+            ? 'border-danger focus:ring-danger'
+            : 'border-border-strong',
           className,
         )}
       >
-        <span className={cn('flex items-center gap-2', !displayValue && 'text-slate-400')}>
-          <Icon name="calendar" size={16} className="text-slate-400" />
+        <span className={cn('flex items-center gap-2', !displayValue && 'text-fg-subtle')}>
+          <Icon name="calendar" size={16} className="text-fg-subtle" />
           {displayValue || placeholder}
         </span>
         {clearable && value && !disabled && (
@@ -147,7 +146,7 @@ export function DatePicker({
               e.stopPropagation();
               onChange?.(null);
             }}
-            className="rounded p-0.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            className="rounded p-0.5 text-fg-subtle hover:text-fg-secondary"
           >
             <Icon name="x" size={14} />
           </span>
@@ -157,8 +156,7 @@ export function DatePicker({
       {open && (
         <div
           className={cn(
-            'absolute top-full z-50 mt-1 w-72 rounded-xl border border-slate-200 bg-white p-3 shadow-lg',
-            'dark:border-slate-700 dark:bg-slate-800',
+            'absolute top-full z-50 mt-1 w-72 rounded-xl border border-border bg-surface p-3 shadow-lg',
           )}
         >
           {/* 헤더: 월 이동 */}
@@ -166,18 +164,18 @@ export function DatePicker({
             <button
               type="button"
               onClick={() => goMonth(-1)}
-              className="rounded-md p-1.5 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700"
+              className="rounded-md p-1.5 text-fg-muted hover:bg-surface-muted"
               aria-label="이전 달"
             >
               <Icon name="chevronLeft" size={16} />
             </button>
-            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+            <span className="text-sm font-semibold text-fg">
               {year}년 {month + 1}월
             </span>
             <button
               type="button"
               onClick={() => goMonth(1)}
-              className="rounded-md p-1.5 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-700"
+              className="rounded-md p-1.5 text-fg-muted hover:bg-surface-muted"
               aria-label="다음 달"
             >
               <Icon name="chevronRight" size={16} />
@@ -191,7 +189,7 @@ export function DatePicker({
                 key={w}
                 className={cn(
                   'flex h-7 items-center justify-center text-xs font-medium',
-                  i === 0 ? 'text-rose-500' : i === 6 ? 'text-sky-500' : 'text-slate-400',
+                  i === 0 ? 'text-danger-fg' : i === 6 ? 'text-info-fg' : 'text-fg-subtle',
                 )}
               >
                 {w}
@@ -214,11 +212,11 @@ export function DatePicker({
                   onClick={() => handleSelect(d)}
                   className={cn(
                     'flex h-8 items-center justify-center rounded-md text-sm transition-colors',
-                    'hover:bg-violet-100 dark:hover:bg-violet-500/20',
-                    selected && 'bg-violet-600 font-semibold text-white hover:bg-violet-600',
-                    !selected && isToday && 'font-semibold text-violet-600 dark:text-violet-300',
-                    !selected && !isToday && 'text-slate-700 dark:text-slate-200',
-                    dimmed && 'cursor-not-allowed text-slate-300 hover:bg-transparent dark:text-slate-600',
+                    'hover:bg-primary-subtle',
+                    selected && 'bg-primary font-semibold text-fg-on-primary hover:bg-primary',
+                    !selected && isToday && 'font-semibold text-primary-fg',
+                    !selected && !isToday && 'text-fg-secondary',
+                    dimmed && 'cursor-not-allowed text-fg-subtle hover:bg-transparent',
                   )}
                 >
                   {d.getDate()}
@@ -228,11 +226,11 @@ export function DatePicker({
           </div>
 
           {/* 푸터 */}
-          <div className="mt-2 flex justify-end border-t border-slate-100 pt-2 dark:border-slate-700">
+          <div className="mt-2 flex justify-end border-t border-border pt-2">
             <button
               type="button"
               onClick={() => handleSelect(new Date())}
-              className="rounded-md px-2 py-1 text-xs font-medium text-violet-600 hover:bg-violet-50 dark:text-violet-300 dark:hover:bg-violet-500/10"
+              className="rounded-md px-2 py-1 text-xs font-medium text-primary-fg hover:bg-primary-subtle"
             >
               오늘
             </button>
@@ -241,11 +239,11 @@ export function DatePicker({
       )}
 
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}
-      {!error && hint && <p className="text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
+      {!error && hint && <p className="text-xs text-fg-muted">{hint}</p>}
     </div>
   );
 }

@@ -47,19 +47,18 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
             type="checkbox"
             disabled={disabled}
             className={cn(
-              'peer appearance-none rounded-md border bg-white transition-colors duration-150',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-1',
-              'checked:border-violet-600 checked:bg-violet-600',
+              'peer appearance-none rounded-md border bg-surface transition-colors duration-150',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+              'checked:border-primary checked:bg-primary',
               'disabled:cursor-not-allowed',
-              'dark:bg-slate-800 dark:checked:bg-violet-600',
-              error ? 'border-rose-500' : 'border-slate-300 dark:border-slate-600',
+              error ? 'border-danger' : 'border-border-strong',
               boxSizes[size],
               className,
             )}
             {...props}
           />
           <svg
-            className="pointer-events-none absolute hidden text-white peer-checked:block"
+            className="pointer-events-none absolute hidden text-fg-on-primary peer-checked:block"
             width={iconSizes[size]}
             height={iconSizes[size]}
             viewBox="0 0 24 24"
@@ -77,17 +76,17 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         {(label || description) && (
           <span className="flex flex-col gap-0.5">
             {label && (
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
+              <span className="text-sm font-medium text-fg-secondary">{label}</span>
             )}
             {description && (
-              <span className="text-xs text-slate-500 dark:text-slate-400">{description}</span>
+              <span className="text-xs text-fg-muted">{description}</span>
             )}
           </span>
         )}
       </label>
 
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}

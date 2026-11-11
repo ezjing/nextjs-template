@@ -27,10 +27,10 @@ const sizeMap: Record<AvatarSize, string> = {
 };
 
 const statusColor: Record<AvatarStatus, string> = {
-  online: 'bg-emerald-500',
-  offline: 'bg-slate-400',
-  busy: 'bg-rose-500',
-  away: 'bg-amber-500',
+  online: 'bg-success',
+  offline: 'bg-fg-subtle',
+  busy: 'bg-danger',
+  away: 'bg-warning',
 };
 
 const statusSize: Record<AvatarSize, string> = {
@@ -66,7 +66,7 @@ export function Avatar({
       <span
         className={cn(
           'inline-flex items-center justify-center overflow-hidden font-semibold',
-          'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300',
+          'bg-primary-subtle text-primary-fg',
           sizeMap[size],
           radius,
         )}
@@ -87,7 +87,7 @@ export function Avatar({
       {status && (
         <span
           className={cn(
-            'absolute bottom-0 right-0 rounded-full ring-2 ring-white dark:ring-slate-900',
+            'absolute bottom-0 right-0 rounded-full ring-2 ring-surface',
             statusColor[status],
             statusSize[size],
           )}

@@ -7,7 +7,7 @@
  * function MyComponent() {
  *   return (
  *     <div>
- *       <Icon name="home" size={20} className="text-blue-500" />
+ *       <Icon name="home" size={20} className="text-info-fg" />
  *       <Icon name="settings" />
  *     </div>
  *   );

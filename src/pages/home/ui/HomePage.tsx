@@ -134,11 +134,11 @@ export function HomePage() {
   ];
 
   return (
-    <main className="min-h-screen bg-slate-50 p-8">
+    <main className="min-h-screen bg-bg p-8">
       <div className="mx-auto max-w-2xl space-y-10">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Step 5 — 기초 컴포넌트</h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <h1 className="text-2xl font-bold text-fg">Step 5 — 기초 컴포넌트</h1>
+          <p className="mt-1 text-sm text-fg-muted">
             shared/ui 에 등록된 공통 UI 컴포넌트 쇼케이스입니다.
           </p>
         </div>
@@ -147,7 +147,7 @@ export function HomePage() {
 
         {/* Button */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Button</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Button</h2>
           <div className="flex flex-wrap gap-3">
             <Button variant="primary">Primary</Button>
             <Button variant="secondary">Secondary</Button>
@@ -170,7 +170,7 @@ export function HomePage() {
 
         {/* Input */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Input</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Input</h2>
           <Input
             label="이메일"
             type="email"
@@ -196,7 +196,7 @@ export function HomePage() {
 
         {/* Input — Floating Label */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
             Input · Floating Label
           </h2>
           <Input
@@ -218,7 +218,7 @@ export function HomePage() {
 
         {/* Input — File Attachment */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
             File Attachment
           </h2>
           <FileInput
@@ -234,7 +234,7 @@ export function HomePage() {
 
         {/* Textarea */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Textarea</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Textarea</h2>
           <Textarea
             label="메모"
             placeholder="내용을 입력하세요..."
@@ -253,7 +253,7 @@ export function HomePage() {
 
         {/* Select */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Select</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Select</h2>
           <Select
             label="역할 선택"
             options={ROLE_OPTIONS}
@@ -273,7 +273,7 @@ export function HomePage() {
 
         {/* Checkbox */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Checkbox</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Checkbox</h2>
           <Checkbox
             label="이용약관에 동의합니다"
             description="서비스 이용을 위해 필수로 동의해야 합니다."
@@ -290,7 +290,7 @@ export function HomePage() {
 
         {/* Radio */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Radio</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Radio</h2>
           <RadioGroup label="요금제 선택" value={plan} onChange={setPlan} name="plan">
             <Radio value="guest" label="게스트" description="기본 기능만 사용" />
             <Radio value="user" label="일반 사용자" description="대부분의 기능 사용" />
@@ -300,7 +300,7 @@ export function HomePage() {
 
         {/* Toggle */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Toggle</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Toggle</h2>
           <Toggle
             label="다크 모드"
             description="화면을 어두운 테마로 표시합니다."
@@ -320,7 +320,7 @@ export function HomePage() {
 
         {/* Badge */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Badge</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Badge</h2>
           <div className="flex flex-wrap items-center gap-2">
             <Badge>Default</Badge>
             <Badge variant="primary">Primary</Badge>
@@ -348,7 +348,7 @@ export function HomePage() {
 
         {/* DatePicker / TimePicker */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
             DatePicker · TimePicker
           </h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -373,7 +373,7 @@ export function HomePage() {
 
         {/* Snackbar */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Snackbar</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Snackbar</h2>
           <div className="flex flex-wrap gap-3">
             <Button
               variant="outline"
@@ -409,7 +409,7 @@ export function HomePage() {
 
         {/* Spinner */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Spinner</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Spinner</h2>
           <div className="flex items-center gap-6">
             <Spinner size="sm" />
             <Spinner size="md" />
@@ -420,7 +420,7 @@ export function HomePage() {
 
         {/* Progress */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Progress</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Progress</h2>
           <Progress value={30} showLabel />
           <Progress value={70} variant="success" showLabel />
           <Progress value={90} variant="warning" showLabel />
@@ -429,7 +429,7 @@ export function HomePage() {
 
         {/* Skeleton */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Skeleton</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Skeleton</h2>
           <div className="flex items-center gap-3">
             <Skeleton variant="circle" width={48} height={48} />
             <div className="flex-1">
@@ -441,7 +441,7 @@ export function HomePage() {
 
         {/* Avatar */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Avatar</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Avatar</h2>
           <div className="flex items-center gap-4">
             <Avatar name="김철수" size="sm" />
             <Avatar name="이영희" size="md" status="online" />
@@ -453,7 +453,7 @@ export function HomePage() {
 
         {/* Tooltip */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Tooltip</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Tooltip</h2>
           <div className="flex flex-wrap gap-4">
             <Tooltip content="위쪽 툴팁입니다" placement="top">
               <Button variant="outline">Top</Button>
@@ -471,30 +471,30 @@ export function HomePage() {
 
         {/* Tabs */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Tabs</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Tabs</h2>
           <Tabs
             value={activeTab}
             onChange={setActiveTab}
             items={[
-              { value: 'profile', label: '프로필', icon: <Icon name="user" size={16} />, content: <p className="text-sm text-slate-600 dark:text-slate-300">프로필 탭 내용입니다.</p> },
-              { value: 'settings', label: '설정', icon: <Icon name="settings" size={16} />, content: <p className="text-sm text-slate-600 dark:text-slate-300">설정 탭 내용입니다.</p> },
-              { value: 'noti', label: '알림', content: <p className="text-sm text-slate-600 dark:text-slate-300">알림 탭 내용입니다.</p>, disabled: true },
+              { value: 'profile', label: '프로필', icon: <Icon name="user" size={16} />, content: <p className="text-sm text-fg-secondary">프로필 탭 내용입니다.</p> },
+              { value: 'settings', label: '설정', icon: <Icon name="settings" size={16} />, content: <p className="text-sm text-fg-secondary">설정 탭 내용입니다.</p> },
+              { value: 'noti', label: '알림', content: <p className="text-sm text-fg-secondary">알림 탭 내용입니다.</p>, disabled: true },
             ]}
           />
           <Tabs
             variant="pill"
             fullWidth
             items={[
-              { value: 'day', label: '일간', content: <p className="text-sm text-slate-600 dark:text-slate-300">일간 통계</p> },
-              { value: 'week', label: '주간', content: <p className="text-sm text-slate-600 dark:text-slate-300">주간 통계</p> },
-              { value: 'month', label: '월간', content: <p className="text-sm text-slate-600 dark:text-slate-300">월간 통계</p> },
+              { value: 'day', label: '일간', content: <p className="text-sm text-fg-secondary">일간 통계</p> },
+              { value: 'week', label: '주간', content: <p className="text-sm text-fg-secondary">주간 통계</p> },
+              { value: 'month', label: '월간', content: <p className="text-sm text-fg-secondary">월간 통계</p> },
             ]}
           />
         </section>
 
         {/* Alert */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Alert</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Alert</h2>
           <Alert variant="success" title="저장 완료" >변경사항이 정상적으로 저장되었습니다.</Alert>
           <Alert variant="warning" title="주의">입력값을 다시 한 번 확인해주세요.</Alert>
           {alertOpen && (
@@ -507,7 +507,7 @@ export function HomePage() {
 
         {/* Tag */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Tag · Chip</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Tag · Chip</h2>
           <div className="flex flex-wrap items-center gap-2">
             <Tag variant="primary">기본</Tag>
             <Tag variant="success">성공</Tag>
@@ -519,13 +519,13 @@ export function HomePage() {
                 {t}
               </Tag>
             ))}
-            {tags.length === 0 && <span className="text-sm text-slate-400">모든 태그를 삭제했습니다.</span>}
+            {tags.length === 0 && <span className="text-sm text-fg-subtle">모든 태그를 삭제했습니다.</span>}
           </div>
         </section>
 
         {/* Card */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Card</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Card</h2>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Card
               title="기본 카드"
@@ -546,19 +546,19 @@ export function HomePage() {
               }
               footer={<Button size="sm" fullWidth>자세히 보기</Button>}
             >
-              <p className="text-sm text-slate-600 dark:text-slate-300">
+              <p className="text-sm text-fg-secondary">
                 카드 본문 영역입니다. 헤더, 본문, 푸터로 구성됩니다.
               </p>
             </Card>
             <Card title="호버 카드" hoverable>
-              <p className="text-sm text-slate-600 dark:text-slate-300">마우스를 올리면 그림자가 강조됩니다.</p>
+              <p className="text-sm text-fg-secondary">마우스를 올리면 그림자가 강조됩니다.</p>
             </Card>
           </div>
         </section>
 
         {/* Dropdown */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Dropdown</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Dropdown</h2>
           <Dropdown
             trigger={<Button variant="outline" rightIcon={<Icon name="chevronDown" size={16} />}>메뉴 열기</Button>}
             items={[
@@ -571,13 +571,13 @@ export function HomePage() {
 
         {/* Accordion */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Accordion</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Accordion</h2>
           <Accordion items={FAQ_ITEMS} defaultValue="q1" />
         </section>
 
         {/* Combobox */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Combobox</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Combobox</h2>
           <Combobox
             label="국가 검색"
             options={COUNTRY_OPTIONS}
@@ -591,7 +591,7 @@ export function HomePage() {
 
         {/* Slider */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Slider</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Slider</h2>
           <Slider
             label="볼륨"
             value={volume}
@@ -604,13 +604,13 @@ export function HomePage() {
 
         {/* Stepper */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Stepper</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Stepper</h2>
           <Stepper steps={STEPS} current={2} />
         </section>
 
         {/* Table */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Table</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Table</h2>
           <div className="flex gap-2">
             <Button size="sm" variant="outline" onClick={() => setTableLoading((v) => !v)}>
               {tableLoading ? '로딩 끄기' : '로딩 보기'}
@@ -627,14 +627,14 @@ export function HomePage() {
 
         {/* Pagination */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">Pagination</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">Pagination</h2>
           <Pagination page={page} totalPages={10} onChange={setPage} />
         </section>
 
         {/* EmptyState */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">EmptyState</h2>
-          <div className="rounded-xl border border-slate-200 dark:border-slate-700">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">EmptyState</h2>
+          <div className="rounded-xl border border-border">
             <EmptyState
               title="아직 데이터가 없습니다"
               description="첫 항목을 추가하여 시작해보세요."
@@ -645,7 +645,7 @@ export function HomePage() {
 
         {/* Dialog / BottomSheet / Drawer */}
         <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-400">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">
             Dialog · BottomSheet · Drawer
           </h2>
           <div className="flex flex-wrap gap-3">

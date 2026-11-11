@@ -119,7 +119,7 @@ export function TimePicker({
       className={cn('relative flex flex-col gap-1', fullWidth && 'w-full', wrapperClassName)}
     >
       {label && (
-        <label htmlFor={fieldId} className="text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label htmlFor={fieldId} className="text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
@@ -130,18 +130,17 @@ export function TimePicker({
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-white px-3 text-sm transition-colors duration-150',
-          'focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent',
-          'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
-          'dark:bg-slate-800 dark:text-slate-100',
+          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-surface px-3 text-sm transition-colors duration-150',
+          'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
+          'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
           error
-            ? 'border-rose-500 focus:ring-rose-500 dark:border-rose-500'
-            : 'border-slate-300 dark:border-slate-600',
+            ? 'border-danger focus:ring-danger'
+            : 'border-border-strong',
           className,
         )}
       >
-        <span className={cn('flex items-center gap-2', !displayValue && 'text-slate-400')}>
-          <Icon name="clock" size={16} className="text-slate-400" />
+        <span className={cn('flex items-center gap-2', !displayValue && 'text-fg-subtle')}>
+          <Icon name="clock" size={16} className="text-fg-subtle" />
           {displayValue || placeholder}
         </span>
         {clearable && value && !disabled && (
@@ -153,7 +152,7 @@ export function TimePicker({
               e.stopPropagation();
               onChange?.(null);
             }}
-            className="rounded p-0.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            className="rounded p-0.5 text-fg-subtle hover:text-fg-secondary"
           >
             <Icon name="x" size={14} />
           </span>
@@ -163,8 +162,7 @@ export function TimePicker({
       {open && (
         <div
           className={cn(
-            'absolute top-full z-50 mt-1 flex w-auto rounded-xl border border-slate-200 bg-white p-2 shadow-lg',
-            'dark:border-slate-700 dark:bg-slate-800',
+            'absolute top-full z-50 mt-1 flex w-auto rounded-xl border border-border bg-surface p-2 shadow-lg',
           )}
         >
           {!use24Hour && (
@@ -181,7 +179,7 @@ export function TimePicker({
             onSelect={handleHour}
             render={(h) => (use24Hour ? pad(h) : String(h))}
           />
-          <div className="flex items-center px-1 text-slate-400">:</div>
+          <div className="flex items-center px-1 text-fg-subtle">:</div>
           <TimeColumn
             items={minutes}
             isSelected={(m) => m === selectedMinute}
@@ -192,11 +190,11 @@ export function TimePicker({
       )}
 
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}
-      {!error && hint && <p className="text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
+      {!error && hint && <p className="text-xs text-fg-muted">{hint}</p>}
     </div>
   );
 }
@@ -231,10 +229,10 @@ function TimeColumn<T>({ items, isSelected, onSelect, render }: TimeColumnProps<
             onClick={() => onSelect(item)}
             className={cn(
               'shrink-0 rounded-md px-2 py-1.5 text-center text-sm transition-colors',
-              'hover:bg-violet-100 dark:hover:bg-violet-500/20',
+              'hover:bg-primary-subtle',
               selected
-                ? 'bg-violet-600 font-semibold text-white hover:bg-violet-600'
-                : 'text-slate-700 dark:text-slate-200',
+                ? 'bg-primary font-semibold text-fg-on-primary hover:bg-primary'
+                : 'text-fg-secondary',
             )}
           >
             {render(item)}

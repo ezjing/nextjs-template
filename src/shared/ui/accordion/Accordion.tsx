@@ -37,8 +37,7 @@ export function Accordion({ items, type = 'single', defaultValue, className }: A
   return (
     <div
       className={cn(
-        'divide-y divide-slate-200 overflow-hidden rounded-xl border border-slate-200',
-        'dark:divide-slate-700 dark:border-slate-700',
+        'divide-y divide-border overflow-hidden rounded-xl border border-border',
         className,
       )}
     >
@@ -53,8 +52,8 @@ export function Accordion({ items, type = 'single', defaultValue, className }: A
               aria-expanded={isOpen}
               className={cn(
                 'flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left text-sm font-medium transition-colors',
-                'hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-slate-800',
-                'text-slate-800 dark:text-slate-100',
+                'hover:bg-surface-subtle disabled:cursor-not-allowed disabled:opacity-40',
+                'text-fg',
               )}
             >
               <span>{item.title}</span>
@@ -62,7 +61,7 @@ export function Accordion({ items, type = 'single', defaultValue, className }: A
                 name="chevronDown"
                 size={18}
                 className={cn(
-                  'shrink-0 text-slate-400 transition-transform duration-200',
+                  'shrink-0 text-fg-subtle transition-transform duration-200',
                   isOpen && 'rotate-180',
                 )}
               />
@@ -75,7 +74,7 @@ export function Accordion({ items, type = 'single', defaultValue, className }: A
               )}
             >
               <div className="overflow-hidden">
-                <div className="px-4 pb-4 pt-0 text-sm text-slate-600 dark:text-slate-300">
+                <div className="px-4 pb-4 pt-0 text-sm text-fg-secondary">
                   {item.content}
                 </div>
               </div>

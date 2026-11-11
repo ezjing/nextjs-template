@@ -49,7 +49,7 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
                 <span
                   className={cn(
                     'h-0.5 flex-1',
-                    idx === 0 ? 'opacity-0' : completed || active ? 'bg-violet-600' : 'bg-slate-200 dark:bg-slate-700',
+                    idx === 0 ? 'opacity-0' : completed || active ? 'bg-primary' : 'bg-surface-strong',
                   )}
                 />
               )}
@@ -57,9 +57,9 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
               <span
                 className={cn(
                   'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition-colors',
-                  completed && 'border-violet-600 bg-violet-600 text-white',
-                  active && 'border-violet-600 bg-white text-violet-600 dark:bg-slate-800',
-                  !completed && !active && 'border-slate-300 bg-white text-slate-400 dark:border-slate-600 dark:bg-slate-800',
+                  completed && 'border-primary bg-primary text-fg-on-primary',
+                  active && 'border-primary bg-surface text-primary-fg',
+                  !completed && !active && 'border-border-strong bg-surface text-fg-subtle',
                 )}
               >
                 {completed ? <Icon name="check" size={16} /> : idx + 1}
@@ -70,7 +70,7 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
                 <span
                   className={cn(
                     'h-0.5 flex-1',
-                    isLast ? 'opacity-0' : completed ? 'bg-violet-600' : 'bg-slate-200 dark:bg-slate-700',
+                    isLast ? 'opacity-0' : completed ? 'bg-primary' : 'bg-surface-strong',
                   )}
                 />
               )}
@@ -80,7 +80,7 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
                 <span
                   className={cn(
                     'my-1 w-0.5 flex-1',
-                    completed ? 'bg-violet-600' : 'bg-slate-200 dark:bg-slate-700',
+                    completed ? 'bg-primary' : 'bg-surface-strong',
                   )}
                 />
               )}
@@ -91,14 +91,14 @@ export function Stepper({ steps, current, orientation = 'horizontal', className 
                 className={cn(
                   'text-sm font-medium',
                   active
-                    ? 'text-slate-900 dark:text-slate-100'
-                    : 'text-slate-500 dark:text-slate-400',
+                    ? 'text-fg'
+                    : 'text-fg-muted',
                 )}
               >
                 {step.label}
               </p>
               {step.description && (
-                <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">{step.description}</p>
+                <p className="mt-0.5 text-xs text-fg-subtle">{step.description}</p>
               )}
             </div>
           </li>

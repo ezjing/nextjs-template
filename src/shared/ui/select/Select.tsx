@@ -40,7 +40,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   return (
     <div className={cn('flex flex-col gap-1', fullWidth && 'w-full', wrapperClassName)}>
       {label && (
-        <label htmlFor={selectId} className="text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label htmlFor={selectId} className="text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
@@ -50,14 +50,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
           ref={ref}
           id={selectId}
           className={cn(
-            'h-control-md w-full appearance-none rounded-lg border bg-white pl-3 pr-9 py-2 text-sm text-slate-900',
+            'h-control-md w-full appearance-none rounded-lg border bg-surface pl-3 pr-9 py-2 text-sm text-fg',
             'transition-colors duration-150',
-            'focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent',
-            'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400',
-            'dark:bg-slate-800 dark:text-slate-100',
+            'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
+            'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
             error
-              ? 'border-rose-500 focus:ring-rose-500 dark:border-rose-500'
-              : 'border-slate-300 dark:border-slate-600',
+              ? 'border-danger focus:ring-danger'
+              : 'border-border-strong',
             className,
           )}
           {...props}
@@ -75,7 +74,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
         </select>
 
         {/* 커스텀 화살표 */}
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-fg-subtle">
           <svg
             width="14"
             height="14"
@@ -92,11 +91,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       </div>
 
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}
-      {!error && hint && <p className="text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
+      {!error && hint && <p className="text-xs text-fg-muted">{hint}</p>}
     </div>
   );
 });

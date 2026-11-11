@@ -99,7 +99,7 @@ export function Drawer({
       {/* 백드롭 */}
       <div
         className={cn(
-          'absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-250',
+          'absolute inset-0 bg-overlay backdrop-blur-sm transition-opacity duration-250',
           visible ? 'opacity-100' : 'opacity-0',
         )}
         aria-hidden="true"
@@ -109,8 +109,7 @@ export function Drawer({
       {/* 패널 */}
       <div
         className={cn(
-          'absolute flex flex-col bg-white shadow-2xl ring-1 ring-slate-900/5 transition-transform duration-250 ease-out',
-          'dark:bg-slate-800 dark:ring-slate-700',
+          'absolute flex flex-col bg-surface shadow-2xl ring-1 ring-border/5 transition-transform duration-250 ease-out',
           positionBase[side],
           isHorizontal ? horizontalSize[size] : verticalSize[size],
           isHorizontal ? 'max-w-[90vw]' : 'max-h-[90vh]',
@@ -119,12 +118,12 @@ export function Drawer({
         )}
       >
         {title && (
-          <div className="flex items-center justify-between gap-4 border-b border-slate-200 px-5 py-4 dark:border-slate-700">
-            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
+          <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4">
+            <h2 className="text-base font-semibold text-fg">{title}</h2>
             <button
               type="button"
               onClick={handleClose}
-              className="rounded-lg p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-700 dark:hover:text-slate-300"
+              className="rounded-lg p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-secondary"
               aria-label="닫기"
             >
               <Icon name="x" size={18} />
@@ -135,7 +134,7 @@ export function Drawer({
         <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
 
         {footer && (
-          <div className="border-t border-slate-200 px-5 py-4 dark:border-slate-700">{footer}</div>
+          <div className="border-t border-border px-5 py-4">{footer}</div>
         )}
       </div>
     </div>,

@@ -13,27 +13,27 @@ const CHANNELS: Channel[] = [
 ];
 
 const BAR_COLORS = [
-  'bg-violet-500',
-  'bg-blue-500',
-  'bg-emerald-500',
-  'bg-orange-400',
-  'bg-gray-400',
+  'bg-chart-1',
+  'bg-chart-2',
+  'bg-chart-3',
+  'bg-chart-4',
+  'bg-fg-subtle', // 기타 — 중립 회색
 ];
 
 export function TopChannelsCard() {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <h3 className="mb-4 text-base font-semibold text-gray-800 dark:text-white">상위 채널</h3>
+    <div className="rounded-xl border border-border bg-surface p-5 shadow-sm">
+      <h3 className="mb-4 text-base font-semibold text-fg">상위 채널</h3>
       <ul className="space-y-3">
         {CHANNELS.map((ch, i) => (
           <li key={ch.name}>
             <div className="mb-1 flex items-center justify-between text-sm">
-              <span className="font-medium text-gray-600 dark:text-gray-300">{ch.name}</span>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="font-medium text-fg-secondary">{ch.name}</span>
+              <span className="text-fg-muted">
                 {ch.sessions.toLocaleString()}
               </span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-100 dark:bg-gray-700">
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
               <div
                 className={`h-full rounded-full ${BAR_COLORS[i]}`}
                 style={{ width: `${ch.percent}%` }}

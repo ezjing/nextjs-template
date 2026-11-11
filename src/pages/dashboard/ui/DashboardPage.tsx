@@ -13,17 +13,17 @@ export function DashboardPage() {
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">대시보드</h1>
-          <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
+          <h1 className="text-2xl font-bold text-fg">대시보드</h1>
+          <p className="mt-0.5 text-sm text-fg-muted">
             비즈니스 현황을 한눈에 확인하세요
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700">
+          <button className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-sm font-medium text-fg-secondary shadow-sm hover:bg-surface-subtle">
             <CalendarDays className="h-4 w-4" />
             <span>이번 달</span>
           </button>
-          <button className="flex items-center gap-2 rounded-lg bg-violet-600 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-violet-700">
+          <button className="flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-fg-on-primary shadow-sm hover:bg-primary-hover">
             <Plus className="h-4 w-4" />
             <span>뷰 추가</span>
           </button>

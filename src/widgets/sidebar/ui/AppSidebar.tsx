@@ -106,8 +106,8 @@ function NavGroup({ item, setSidebarExpanded }: NavGroupProps) {
         className={cn(
           'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
           isChildActive
-            ? 'bg-violet-50 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400'
-            : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50',
+            ? 'bg-primary-subtle text-primary-fg'
+            : 'text-fg-secondary hover:bg-surface-muted',
         )}
       >
         <item.icon className="h-5 w-5 shrink-0" />
@@ -130,8 +130,8 @@ function NavGroup({ item, setSidebarExpanded }: NavGroupProps) {
                   className={cn(
                     'block rounded-lg px-3 py-1.5 text-sm transition-colors',
                     isActive
-                      ? 'text-violet-600 dark:text-violet-400'
-                      : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
+                      ? 'text-primary-fg'
+                      : 'text-fg-muted hover:text-fg-secondary',
                   )}
                 >
                   {child.label}
@@ -202,7 +202,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
       {/* 모바일 backdrop */}
       <div
         className={cn(
-          'fixed inset-0 z-40 bg-gray-900/50 transition-opacity lg:hidden',
+          'fixed inset-0 z-40 bg-overlay transition-opacity lg:hidden',
           sidebarOpen ? 'opacity-100' : 'pointer-events-none opacity-0',
         )}
         aria-hidden="true"
@@ -213,7 +213,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
         id="sidebar"
         ref={sidebar}
         className={cn(
-          'no-scrollbar fixed left-0 top-0 z-40 flex h-screen w-64 flex-col overflow-y-scroll bg-white transition-all duration-300 ease-in-out dark:bg-gray-800 lg:static lg:left-auto lg:top-auto lg:translate-x-0 lg:overflow-y-auto',
+          'no-scrollbar fixed left-0 top-0 z-40 flex h-screen w-64 flex-col overflow-y-scroll bg-surface transition-all duration-300 ease-in-out lg:static lg:left-auto lg:top-auto lg:translate-x-0 lg:overflow-y-auto',
           sidebarOpen ? 'translate-x-0' : '-translate-x-64',
           !sidebarExpanded && 'lg:w-[70px]',
         )}
@@ -221,12 +221,12 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
         {/* 헤더 */}
         <div className="flex items-center justify-between px-4 py-5">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600">
-              <Zap className="h-5 w-5 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+              <Zap className="h-5 w-5 text-fg-on-primary" />
             </div>
             <span
               className={cn(
-                'sidebar-label text-lg font-bold text-gray-800 dark:text-white',
+                'sidebar-label text-lg font-bold text-fg',
                 !sidebarExpanded && 'lg:hidden',
               )}
             >
@@ -237,7 +237,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
           {/* 모바일 닫기 버튼 */}
           <button
             ref={trigger}
-            className="text-gray-400 hover:text-gray-600 lg:hidden"
+            className="text-fg-subtle hover:text-fg-secondary lg:hidden"
             onClick={() => setSidebarOpen(!sidebarOpen)}
           >
             <PanelLeftClose className="h-5 w-5" />
@@ -245,13 +245,13 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
         </div>
 
         {/* 구분선 */}
-        <div className="mx-4 mb-4 border-t border-gray-200 dark:border-gray-700" />
+        <div className="mx-4 mb-4 border-t border-border" />
 
         {/* 네비게이션 */}
         <nav className="flex-1 px-3">
           <p
             className={cn(
-              'sidebar-label mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400',
+              'sidebar-label mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-fg-subtle',
               !sidebarExpanded && 'lg:hidden',
             )}
           >
@@ -268,8 +268,8 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                       pathname === item.path
-                        ? 'bg-violet-50 text-violet-600 dark:bg-violet-900/20 dark:text-violet-400'
-                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700/50',
+                        ? 'bg-primary-subtle text-primary-fg'
+                        : 'text-fg-secondary hover:bg-surface-muted',
                     )}
                   >
                     <item.icon className="h-5 w-5 shrink-0" />
@@ -277,7 +277,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
                       {item.label}
                     </span>
                     {item.badge && (
-                      <span className="sidebar-label flex h-5 w-5 items-center justify-center rounded-full bg-violet-500 text-xs text-white">
+                      <span className="sidebar-label flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-fg-on-primary">
                         {item.badge}
                       </span>
                     )}
@@ -292,7 +292,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
         <div className="mt-auto hidden p-4 lg:block">
           <button
             onClick={() => setSidebarExpanded(!sidebarExpanded)}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-500 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-fg-muted hover:bg-surface-subtle"
           >
             {sidebarExpanded ? (
               <>

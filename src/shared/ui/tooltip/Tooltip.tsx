@@ -68,15 +68,14 @@ export function Tooltip({
           id={id}
           role="tooltip"
           className={cn(
-            'pointer-events-none absolute z-[70] w-max max-w-xs rounded-md bg-slate-900 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg',
-            'dark:bg-slate-700',
+            'pointer-events-none absolute z-[70] w-max max-w-xs rounded-md bg-surface-inverse px-2.5 py-1.5 text-xs font-medium text-fg-inverse shadow-lg',
             placementClasses[placement],
             className,
           )}
         >
           {content}
           <span
-            className={cn('absolute h-2 w-2 rotate-45 bg-slate-900 dark:bg-slate-700', arrowClasses[placement])}
+            className={cn('absolute h-2 w-2 rotate-45 bg-surface-inverse', arrowClasses[placement])}
           />
         </span>
       )}

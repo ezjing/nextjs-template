@@ -52,15 +52,14 @@ export function Dropdown({ trigger, items, align = 'start', className, menuClass
         <div
           role="menu"
           className={cn(
-            'absolute top-full z-50 mt-1 min-w-44 overflow-hidden rounded-xl border border-slate-200 bg-white p-1 shadow-lg',
-            'dark:border-slate-700 dark:bg-slate-800',
+            'absolute top-full z-50 mt-1 min-w-44 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-lg',
             align === 'end' ? 'right-0' : 'left-0',
             menuClassName,
           )}
         >
           {items.map((item, idx) => (
             <div key={idx}>
-              {item.divider && <div className="my-1 h-px bg-slate-100 dark:bg-slate-700" />}
+              {item.divider && <div className="my-1 h-px bg-surface-muted" />}
               <button
                 type="button"
                 role="menuitem"
@@ -73,8 +72,8 @@ export function Dropdown({ trigger, items, align = 'start', className, menuClass
                   'flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition-colors',
                   'disabled:cursor-not-allowed disabled:opacity-40',
                   item.danger
-                    ? 'text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10'
-                    : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-700',
+                    ? 'text-danger-fg hover:bg-danger-subtle'
+                    : 'text-fg-secondary hover:bg-surface-muted',
                 )}
               >
                 {item.icon && <span className="shrink-0">{item.icon}</span>}

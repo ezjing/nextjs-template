@@ -67,7 +67,7 @@ export function FileInput({
   return (
     <div className={cn('flex flex-col gap-1', fullWidth && 'w-full', wrapperClassName)}>
       {label && (
-        <label htmlFor={fieldId} className="text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label htmlFor={fieldId} className="text-sm font-medium text-fg-secondary">
           {label}
         </label>
       )}
@@ -83,16 +83,16 @@ export function FileInput({
         className={cn(
           'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-4 py-6 text-center transition-colors',
           dragging
-            ? 'border-violet-500 bg-violet-50 dark:bg-violet-500/10'
-            : 'border-slate-300 bg-slate-50 hover:border-violet-400 hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800/50 dark:hover:bg-slate-800',
-          error && 'border-rose-500',
+            ? 'border-primary bg-primary-subtle'
+            : 'border-border-strong bg-surface-subtle hover:border-primary hover:bg-surface-muted',
+          error && 'border-danger',
           disabled && 'cursor-not-allowed opacity-60',
           className,
         )}
       >
-        <Icon name="upload" size={22} className="text-slate-400" />
-        <p className="text-sm text-slate-500 dark:text-slate-400">{placeholder}</p>
-        {accept && <p className="text-xs text-slate-400">허용 형식: {accept}</p>}
+        <Icon name="upload" size={22} className="text-fg-subtle" />
+        <p className="text-sm text-fg-muted">{placeholder}</p>
+        {accept && <p className="text-xs text-fg-subtle">허용 형식: {accept}</p>}
 
         <input
           ref={inputRef}
@@ -114,13 +114,13 @@ export function FileInput({
           {value.map((file, idx) => (
             <li
               key={`${file.name}-${idx}`}
-              className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 dark:border-slate-700 dark:bg-slate-800"
+              className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2"
             >
-              <Icon name="fileText" size={16} className="shrink-0 text-violet-500" />
-              <span className="flex-1 truncate text-sm text-slate-700 dark:text-slate-200">
+              <Icon name="fileText" size={16} className="shrink-0 text-primary-fg" />
+              <span className="flex-1 truncate text-sm text-fg-secondary">
                 {file.name}
               </span>
-              <span className="shrink-0 text-xs text-slate-400">{formatSize(file.size)}</span>
+              <span className="shrink-0 text-xs text-fg-subtle">{formatSize(file.size)}</span>
               {!disabled && (
                 <button
                   type="button"
@@ -128,7 +128,7 @@ export function FileInput({
                     e.stopPropagation();
                     removeAt(idx);
                   }}
-                  className="shrink-0 rounded p-0.5 text-slate-400 transition-colors hover:text-rose-500"
+                  className="shrink-0 rounded p-0.5 text-fg-subtle transition-colors hover:text-danger-fg"
                   aria-label={`${file.name} 삭제`}
                 >
                   <Icon name="x" size={15} />
@@ -140,11 +140,11 @@ export function FileInput({
       )}
 
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}
-      {!error && hint && <p className="text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
+      {!error && hint && <p className="text-xs text-fg-muted">{hint}</p>}
     </div>
   );
 }

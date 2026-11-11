@@ -58,6 +58,8 @@
 | `surface` | `bg-surface` | white | gray-800 | 카드, 패널, 모달, 입력창 | `bg-white`(36) / `dark:bg-slate-800`(22) |
 | `surface-muted` | `bg-surface-muted` | gray-100 | gray-700 | hover 배경, secondary 버튼 | `bg-slate-100`, `hover:bg-slate-100`(13) / `dark:bg-slate-700`(14) |
 | `surface-subtle` | `bg-surface-subtle` | gray-50 | gray-800/50 | disabled 입력창, 약한 강조 | `disabled:bg-slate-50`(6) / `dark:bg-slate-800/50` |
+| `surface-strong` | `bg-surface-strong` | gray-200 | gray-600 | 진한 면: Skeleton, Progress·Slider 트랙, Toggle 꺼짐, Secondary 버튼 hover | `bg-slate-200`, `bg-slate-300` |
+| `surface-inverse` | `bg-surface-inverse` | gray-900 | gray-700 | 반전 면: Tooltip | `bg-slate-900 dark:bg-slate-700` |
 | `overlay` | `bg-overlay` | black/50 | black/50 | 모달·드로어 뒤 dim | `bg-black/50` |
 
 ### 글자
@@ -67,7 +69,8 @@
 | `fg` | `text-fg` | gray-900 | gray-100 | 제목, 강조 본문 | `text-slate-900`(14), `text-gray-800`(14) / `dark:text-slate-100`(16) |
 | `fg-secondary` | `text-fg-secondary` | gray-700 | gray-300 | 일반 본문, 라벨 | `text-slate-700`(23) / `dark:text-slate-300`(29) |
 | `fg-muted` | `text-fg-muted` | gray-500 | gray-400 | 보조 설명, 캡션 | `text-slate-500`(26), `text-gray-500`(19) / `dark:text-slate-400`(25) |
-| `fg-subtle` | `text-fg-subtle` | gray-400 | gray-500 | placeholder, 비활성 글자, 아이콘 | `text-slate-400`(63) |
+| `fg-subtle` | `text-fg-subtle` | gray-400 | gray-400 | placeholder, 비활성 글자, 아이콘 | `text-slate-400`(63) |
+| `fg-inverse` | `text-fg-inverse` | white | white | 반전 면 위 글자 | Tooltip `text-white` |
 | `fg-on-primary` | `text-fg-on-primary` | white | white | 색 배경 위 글자 | `text-white`(27) |
 
 ### 테두리 / 포커스
@@ -166,7 +169,7 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 | 4 | `text-[11px]`, `text-[10px]` 임의 크기 | 4곳 | 이번에는 토큰화하지 않음 | |
 
 > 1·2번은 Semantic 토큰이 가리키는 Primitive만 바꾸면 되므로, 디자이너가 Figma에서 다르게 정하면 `tokens.css`의 값만 바꾸면 됩니다.
-> shared/ui 컴포넌트는 아직 slate·rose를 쓰고 있어서, 토큰으로 바꾸는 시점에 회색은 아주 약간 중립적으로, 빨간색은 약간 덜 분홍빛으로 바뀝니다.
+> 토큰 교체(2026-11-11)로 shared/ui 의 slate·rose 가 gray·red 로 바뀌었습니다.
 
 ## 코드 적용 현황
 
@@ -174,17 +177,16 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 - [x] `shared/lib/cn.ts` — tailwind-merge가 `rounded-control`, `shadow-card`, `h-control-md` 등을 인식하도록 설정
 - [x] 브랜드 블록 (`--brand-*`, `--neutral-*`, `--brand-radius`, `--brand-font-*`)
 - [x] 입력 요소 높이 토큰 — Button, Input, Select, Combobox, DatePicker, TimePicker 적용 (값 동일, 화면 변화 없음)
-- [x] lint 규칙 — 팔레트 색·임의 색 사용 시 **경고** (`eslint.config.mjs`의 `designTokenRules`)
+- [x] lint 규칙 — 팔레트 색·임의 색 사용 금지 (`eslint.config.mjs`의 `designTokenRules`)
 - [x] `/showcase` 토큰 견본 섹션 (`src/pages/home/ui/DesignTokens.tsx`)
 - [x] 차트 토큰 `chart-1` ~ `chart-5` + 대시보드 차트 3개 적용 (`src/features/dashboard-charts`)
 - [ ] Figma Variables 구성 (디자이너)
-- [ ] shared/ui 컴포넌트 색을 토큰 클래스로 교체
-- [ ] features / widgets / pages 교체
-- [ ] 교체가 끝나면 lint 규칙을 경고 → 에러로 올리기
+- [x] shared/ui, features, widgets, pages 전체를 토큰 클래스로 교체 (팔레트 색 사용 0곳)
+- [x] lint 규칙 경고 → **에러**
 
 ## lint 규칙
 
-`src/`, `app/`의 `.ts`, `.tsx`에서 아래 패턴이 있으면 경고합니다.
+`src/`, `app/`의 `.ts`, `.tsx`에서 아래 패턴이 있으면 **에러**입니다.
 
 | 잡는 것 | 예 | 대신 |
 |---|---|---|
@@ -192,7 +194,8 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 | 임의 색 | `text-[#333]`, `bg-[rgb(0,0,0)]` | 필요한 토큰을 Figma와 협의해 추가 |
 
 - 인라인 `style={{ color: 'var(--fg)' }}`처럼 CSS 변수를 쓰는 것은 허용합니다.
-- 2026-11-11 기준 기존 코드에 경고 약 470개가 있습니다. 컴포넌트를 토큰으로 교체하면서 줄여 나갑니다.
+- 장식용 색(KPI 아이콘, 채널 막대 등)도 `chart-1` ~ `chart-5`를 씁니다.
+- 꼭 필요한 예외는 해당 줄에 `// eslint-disable-next-line no-restricted-syntax`와 이유를 적습니다.
 
 ## 사용 예
 

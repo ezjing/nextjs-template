@@ -45,10 +45,10 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
   const labelNode = (label || description) && (
     <span className="flex flex-col gap-0.5">
       {label && (
-        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
+        <span className="text-sm font-medium text-fg-secondary">{label}</span>
       )}
       {description && (
-        <span className="text-xs text-slate-500 dark:text-slate-400">{description}</span>
+        <span className="text-xs text-fg-muted">{description}</span>
       )}
     </span>
   );
@@ -75,16 +75,15 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
         />
         <span
           className={cn(
-            'rounded-full bg-slate-300 transition-colors duration-200',
-            'peer-checked:bg-violet-600',
-            'peer-focus-visible:ring-2 peer-focus-visible:ring-violet-500 peer-focus-visible:ring-offset-2',
-            'dark:bg-slate-600 dark:peer-checked:bg-violet-600',
+            'rounded-full bg-surface-strong transition-colors duration-200',
+            'peer-checked:bg-primary',
+            'peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2',
             trackSizes[size],
           )}
         />
         <span
           className={cn(
-            'pointer-events-none absolute left-0.5 rounded-full bg-white shadow-sm transition-transform duration-200',
+            'pointer-events-none absolute left-0.5 rounded-full bg-fg-on-primary shadow-sm transition-transform duration-200',
             thumbSizes[size],
           )}
         />

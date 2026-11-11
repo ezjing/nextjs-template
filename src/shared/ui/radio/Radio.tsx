@@ -66,27 +66,26 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
             props.onChange?.(e);
           }}
           className={cn(
-            'peer appearance-none rounded-full border bg-white transition-colors duration-150',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-1',
-            'checked:border-violet-600',
+            'peer appearance-none rounded-full border bg-surface transition-colors duration-150',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
+            'checked:border-primary',
             'disabled:cursor-not-allowed',
-            'dark:bg-slate-800',
-            'border-slate-300 dark:border-slate-600',
+            'border-border-strong',
             dotSizes[size],
             className,
           )}
           {...props}
         />
-        <span className="pointer-events-none absolute hidden h-1/2 w-1/2 rounded-full bg-violet-600 peer-checked:block" />
+        <span className="pointer-events-none absolute hidden h-1/2 w-1/2 rounded-full bg-primary peer-checked:block" />
       </span>
 
       {(label || description) && (
         <span className="flex flex-col gap-0.5">
           {label && (
-            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
+            <span className="text-sm font-medium text-fg-secondary">{label}</span>
           )}
           {description && (
-            <span className="text-xs text-slate-500 dark:text-slate-400">{description}</span>
+            <span className="text-xs text-fg-muted">{description}</span>
           )}
         </span>
       )}
@@ -123,7 +122,7 @@ export function RadioGroup({
   return (
     <fieldset className={cn('flex flex-col gap-2', className)}>
       {label && (
-        <legend className="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">
+        <legend className="mb-1 text-sm font-medium text-fg-secondary">
           {label}
         </legend>
       )}
@@ -133,11 +132,11 @@ export function RadioGroup({
         </div>
       </RadioGroupContext.Provider>
       {error && (
-        <p className="text-xs text-rose-500" role="alert">
+        <p className="text-xs text-danger-fg" role="alert">
           {error}
         </p>
       )}
-      {!error && hint && <p className="text-xs text-slate-500 dark:text-slate-400">{hint}</p>}
+      {!error && hint && <p className="text-xs text-fg-muted">{hint}</p>}
     </fieldset>
   );
 }

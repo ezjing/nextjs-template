@@ -25,7 +25,7 @@ export function Skeleton({
   animate = true,
   className,
 }: SkeletonProps) {
-  const base = cn('bg-slate-200 dark:bg-slate-700', animate && 'animate-pulse');
+  const base = cn('bg-surface-strong', animate && 'animate-pulse');
 
   if (variant === 'text' && lines > 1) {
     return (
