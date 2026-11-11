@@ -1,11 +1,3 @@
-import { findFcmByMemberId } from '../api/memberFcmQueries';
-import {
-  findMembersByAuthCd,
-  insertMember,
-  softDeleteMember,
-  updateMember,
-} from '../api/memberQueries';
-
 import type { MemberFcm } from './memberFcmTypes';
 import {
   AUTH_CD_LIST,
@@ -15,6 +7,13 @@ import {
   type MemberCreateResult,
   type MemberUpdateInput,
 } from './memberTypes';
+import { findFcmByMemberId } from '../api/memberFcmQueries';
+import {
+  findMembersByAuthCd,
+  insertMember,
+  softDeleteMember,
+  updateMember,
+} from '../api/memberQueries';
 
 /** Service 단계에서 발생하는, HTTP 상태로 변환 가능한 도메인 에러 */
 export class MemberServiceError extends Error {

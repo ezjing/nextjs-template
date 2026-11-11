@@ -4,7 +4,6 @@ import { SERVER_ENV } from '../config/env';
 
 declare global {
   // Next.js dev 모드에서 HMR 시 풀이 중복 생성되지 않도록 global에 캐싱
-  // eslint-disable-next-line no-var
   var _mysqlPool: mysql.Pool | undefined;
 }
 
