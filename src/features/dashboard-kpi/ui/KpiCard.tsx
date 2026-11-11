@@ -15,10 +15,10 @@ export function KpiCard({ title, value, change, changeLabel, icon: Icon, iconBg 
   const isPositive = change >= 0;
 
   return (
-    <div className="rounded-xl border border-border bg-surface p-5 shadow-sm">
+    <div className="rounded-card border border-border bg-surface p-5 shadow-card">
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-fg-muted">{title}</p>
-        <div className={cn('flex h-10 w-10 items-center justify-center rounded-lg', iconBg)}>
+        <div className={cn('flex h-10 w-10 items-center justify-center rounded-control', iconBg)}>
           <Icon className="h-5 w-5 text-fg-on-primary" />
         </div>
       </div>

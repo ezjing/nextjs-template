@@ -109,7 +109,7 @@ export function Drawer({
       {/* 패널 */}
       <div
         className={cn(
-          'absolute flex flex-col bg-surface shadow-2xl ring-1 ring-border/5 transition-transform duration-250 ease-out',
+          'absolute flex flex-col bg-surface shadow-modal ring-1 ring-fg/5 transition-transform duration-250 ease-out',
           positionBase[side],
           isHorizontal ? horizontalSize[size] : verticalSize[size],
           isHorizontal ? 'max-w-[90vw]' : 'max-h-[90vh]',
@@ -123,7 +123,7 @@ export function Drawer({
             <button
               type="button"
               onClick={handleClose}
-              className="rounded-lg p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-secondary"
+              className="rounded-control p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-secondary"
               aria-label="닫기"
             >
               <Icon name="x" size={18} />

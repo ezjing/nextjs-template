@@ -33,8 +33,8 @@ export function Card({
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-xl border border-border bg-surface shadow-sm',
-        hoverable && 'transition-shadow hover:shadow-md',
+        'overflow-hidden rounded-card border border-border bg-surface shadow-card',
+        hoverable && 'transition-shadow hover:shadow-popover',
         className,
       )}
       {...props}

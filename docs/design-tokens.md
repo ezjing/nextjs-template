@@ -44,7 +44,7 @@
 |---|---|---|
 | `--brand-50` ~ `--brand-950` | violet | primary, ring 등 브랜드 색 전체 |
 | `--neutral-50` ~ `--neutral-950` | gray | 배경, 글자, 테두리 전체 |
-| `--brand-radius` | 0.5rem | `rounded-control`(= 값), `rounded-card`(= 1.5배) |
+| `--brand-radius` | 0.5rem | `rounded-control-xs`(0.5배), `rounded-control-sm`(0.75배), `rounded-control`(= 값), `rounded-card`(1.5배) |
 | `--brand-font-sans` | 시스템 폰트 | `font-sans`, 기본 글꼴 |
 | `--brand-font-display` | Pretendard | `font-display` |
 
@@ -128,17 +128,19 @@
 
 | 토큰 | 클래스 | 값 | 용도 | 현재 코드 근거 |
 |---|---|---|---|---|
-| `radius-control` | `rounded-control` | `--brand-radius` (8px) | 버튼, 입력창, 드롭다운 항목 | `rounded-lg`(33) |
-| `radius-card` | `rounded-card` | `--brand-radius` × 1.5 (12px) | 카드, 모달, 패널 | `rounded-xl`(25) |
+| `radius-control-xs` | `rounded-control-xs` | `--brand-radius` × 0.5 (4px) | Skeleton 글자 줄, 작은 아이콘 버튼, kbd | `rounded`(9) |
+| `radius-control-sm` | `rounded-control-sm` | `--brand-radius` × 0.75 (6px) | Tabs 항목, Tooltip, 체크박스, 날짜 칸, 닫기 버튼, 사각 Badge | `rounded-md`(11) |
+| `radius-control` | `rounded-control` | `--brand-radius` (8px) | 버튼, 입력창, 메뉴·드롭다운 항목, 아이콘 상자 | `rounded-lg`(33) |
+| `radius-card` | `rounded-card` | `--brand-radius` × 1.5 (12px) | 카드, 다이얼로그, 팝업, BottomSheet 윗모서리(`rounded-t-card`) | `rounded-xl`(20), `rounded-t-2xl`(1) |
 | `radius-full` | `rounded-full` | 9999px | 아바타, 배지, 토글 | Tailwind 기본 그대로 |
 
 ## 3. 그림자 (Shadow)
 
 | 토큰 | 클래스 | 값 | 용도 | 현재 코드 근거 |
 |---|---|---|---|---|
-| `shadow-card` | `shadow-card` | = Tailwind `shadow-sm` | 카드 | `shadow-sm`(12) |
-| `shadow-popover` | `shadow-popover` | = Tailwind `shadow-lg` | 드롭다운, 툴팁, 스낵바 | `shadow-lg`(10) |
-| `shadow-modal` | `shadow-modal` | = Tailwind `shadow-2xl` | 모달, 드로어 | `shadow-2xl`(2) |
+| `shadow-card` | `shadow-card` | = Tailwind `shadow-sm` | 카드, Tabs 선택 항목, Toggle 손잡이 | `shadow-sm`(9) |
+| `shadow-popover` | `shadow-popover` | = Tailwind `shadow-lg` | 드롭다운, 툴팁, 스낵바, Card hover | `shadow-lg`(8), `hover:shadow-md`(1) |
+| `shadow-modal` | `shadow-modal` | = Tailwind `shadow-2xl` | 다이얼로그, 드로어, BottomSheet | `shadow-2xl`(2), `shadow-xl`(1) |
 
 ## 4. 입력 요소 높이 (Control)
 
@@ -183,6 +185,7 @@ Button, Input, Select, Combobox, DatePicker, TimePicker가 같은 높이 토큰�
 - [ ] Figma Variables 구성 (디자이너)
 - [x] shared/ui, features, widgets, pages 전체를 토큰 클래스로 교체 (팔레트 색 사용 0곳)
 - [x] lint 규칙 경고 → **에러**
+- [x] 모서리·그림자 전체를 토큰으로 교체 (`rounded-lg/xl/md`, `shadow-sm/lg/xl/2xl` 사용 0곳)
 
 ## lint 규칙
 

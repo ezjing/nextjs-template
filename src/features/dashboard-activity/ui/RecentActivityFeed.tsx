@@ -54,7 +54,7 @@ const ACTIVITIES: ActivityItem[] = [
 
 export function RecentActivityFeed() {
   return (
-    <div className="rounded-xl border border-border bg-surface p-5 shadow-sm">
+    <div className="rounded-card border border-border bg-surface p-5 shadow-card">
       <h3 className="mb-4 text-base font-semibold text-fg">최근 활동</h3>
       <ul className="space-y-4">
         {ACTIVITIES.map((activity) => (

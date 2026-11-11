@@ -52,7 +52,7 @@
   --neutral-900: var(--color-gray-900);
   --neutral-950: var(--color-gray-950);
 
-  /* 모서리 기본값 — rounded-control 은 이 값, rounded-card 는 1.5배 */
+  /* 모서리 기본값 — rounded-control 은 이 값, -xs 0.5배 / -sm 0.75배 / card 1.5배 */
   --brand-radius: 0.5rem;
 
   /* 글꼴 — 웹폰트를 쓰려면 폰트 파일을 불러오는 코드(app/layout.tsx 등)도 필요합니다 */
@@ -295,7 +295,13 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  /* 모서리 — 브랜드 블록의 --brand-radius 기준 */
+  /* 모서리 — 브랜드 블록의 --brand-radius 기준 (기본 8px 일 때 4 / 6 / 8 / 12px)
+   * rounded-control-xs : 아주 작은 요소 (Skeleton 글자 줄, 작은 아이콘 버튼, kbd)
+   * rounded-control-sm : 작은 요소 (Tabs 항목, Tooltip, 체크박스, 날짜 칸, 닫기 버튼)
+   * rounded-control    : 버튼, 입력창, 메뉴 항목
+   * rounded-card       : 카드, 다이얼로그, 팝업 */
+  --radius-control-xs: calc(var(--brand-radius) * 0.5);
+  --radius-control-sm: calc(var(--brand-radius) * 0.75);
   --radius-control: var(--brand-radius);
   --radius-card: calc(var(--brand-radius) * 1.5);
 

@@ -33,7 +33,7 @@ export function Skeleton({
         {Array.from({ length: lines }).map((_, i) => (
           <span
             key={i}
-            className={cn(base, 'block h-3.5 rounded', i === lines - 1 && 'w-4/5', className)}
+            className={cn(base, 'block h-3.5 rounded-control-xs', i === lines - 1 && 'w-4/5', className)}
             style={i === lines - 1 ? undefined : { width }}
           />
         ))}
@@ -46,8 +46,8 @@ export function Skeleton({
     variant === 'circle'
       ? 'rounded-full'
       : variant === 'rect'
-        ? 'rounded-lg'
-        : 'rounded h-3.5';
+        ? 'rounded-control'
+        : 'rounded-control-xs h-3.5';
 
   return <span className={cn(base, 'block', shape, className)} style={style} />;
 }

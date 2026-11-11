@@ -92,7 +92,7 @@ export function Combobox({
       <div
         onClick={openMenu}
         className={cn(
-          'flex h-control-md w-full cursor-text items-center gap-2 rounded-lg border bg-surface px-3 text-sm transition-colors duration-150',
+          'flex h-control-md w-full cursor-text items-center gap-2 rounded-control border bg-surface px-3 text-sm transition-colors duration-150',
           'focus-within:ring-2 focus-within:ring-ring focus-within:border-transparent',
           disabled && 'cursor-not-allowed bg-surface-subtle',
           error
@@ -126,7 +126,7 @@ export function Combobox({
               e.stopPropagation();
               onChange?.(null);
             }}
-            className="shrink-0 rounded p-0.5 text-fg-subtle hover:text-fg-secondary"
+            className="shrink-0 rounded-control-xs p-0.5 text-fg-subtle hover:text-fg-secondary"
           >
             <Icon name="x" size={14} />
           </button>
@@ -138,7 +138,7 @@ export function Combobox({
         <ul
           role="listbox"
           className={cn(
-            'absolute top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-xl border border-border bg-surface p-1 shadow-lg',
+            'absolute top-full z-50 mt-1 max-h-60 w-full overflow-y-auto rounded-card border border-border bg-surface p-1 shadow-popover',
           )}
         >
           {filtered.length === 0 ? (
@@ -156,7 +156,7 @@ export function Combobox({
                       close();
                     }}
                     className={cn(
-                      'flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                      'flex w-full items-center justify-between gap-2 rounded-control px-3 py-2 text-left text-sm transition-colors',
                       'disabled:cursor-not-allowed disabled:opacity-40',
                       isSelected
                         ? 'bg-primary-subtle font-medium text-primary-fg'

@@ -118,7 +118,7 @@ export function BottomSheet({
         ref={sheetRef}
         style={{ transform: `translateY(${dragOffset}px)` }}
         className={cn(
-          'relative z-10 w-full rounded-t-2xl bg-surface shadow-2xl ring-1 ring-border/5',
+          'relative z-10 w-full rounded-t-card bg-surface shadow-modal ring-1 ring-fg/5',
           'flex flex-col',
           heightClasses[height],
           'transition-transform',

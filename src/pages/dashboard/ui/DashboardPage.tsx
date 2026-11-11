@@ -19,11 +19,11 @@ export function DashboardPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2 text-sm font-medium text-fg-secondary shadow-sm hover:bg-surface-subtle">
+          <button className="flex items-center gap-2 rounded-control border border-border bg-surface px-3 py-2 text-sm font-medium text-fg-secondary shadow-card hover:bg-surface-subtle">
             <CalendarDays className="h-4 w-4" />
             <span>이번 달</span>
           </button>
-          <button className="flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-fg-on-primary shadow-sm hover:bg-primary-hover">
+          <button className="flex items-center gap-2 rounded-control bg-primary px-3 py-2 text-sm font-medium text-fg-on-primary shadow-card hover:bg-primary-hover">
             <Plus className="h-4 w-4" />
             <span>뷰 추가</span>
           </button>

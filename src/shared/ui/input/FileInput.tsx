@@ -81,7 +81,7 @@ export function FileInput({
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
         className={cn(
-          'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-4 py-6 text-center transition-colors',
+          'flex cursor-pointer flex-col items-center justify-center gap-2 rounded-control border-2 border-dashed px-4 py-6 text-center transition-colors',
           dragging
             ? 'border-primary bg-primary-subtle'
             : 'border-border-strong bg-surface-subtle hover:border-primary hover:bg-surface-muted',
@@ -114,7 +114,7 @@ export function FileInput({
           {value.map((file, idx) => (
             <li
               key={`${file.name}-${idx}`}
-              className="flex items-center gap-2 rounded-lg border border-border bg-surface px-3 py-2"
+              className="flex items-center gap-2 rounded-control border border-border bg-surface px-3 py-2"
             >
               <Icon name="fileText" size={16} className="shrink-0 text-primary-fg" />
               <span className="flex-1 truncate text-sm text-fg-secondary">
@@ -128,7 +128,7 @@ export function FileInput({
                     e.stopPropagation();
                     removeAt(idx);
                   }}
-                  className="shrink-0 rounded p-0.5 text-fg-subtle transition-colors hover:text-danger-fg"
+                  className="shrink-0 rounded-control-xs p-0.5 text-fg-subtle transition-colors hover:text-danger-fg"
                   aria-label={`${file.name} 삭제`}
                 >
                   <Icon name="x" size={15} />

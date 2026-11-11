@@ -52,7 +52,7 @@ export function Pagination({
   const pages = getPages(page, totalPages, siblingCount);
 
   const btnBase =
-    'inline-flex h-9 min-w-9 items-center justify-center rounded-lg px-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40';
+    'inline-flex h-9 min-w-9 items-center justify-center rounded-control px-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-40';
 
   return (
     <nav className={cn('flex items-center gap-1', className)} aria-label="페이지네이션">

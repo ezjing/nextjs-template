@@ -47,7 +47,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
             type="checkbox"
             disabled={disabled}
             className={cn(
-              'peer appearance-none rounded-md border bg-surface transition-colors duration-150',
+              'peer appearance-none rounded-control-sm border bg-surface transition-colors duration-150',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1',
               'checked:border-primary checked:bg-primary',
               'disabled:cursor-not-allowed',

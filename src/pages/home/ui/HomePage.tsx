@@ -634,7 +634,7 @@ export function HomePage() {
         {/* EmptyState */}
         <section className="space-y-3">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-fg-subtle">EmptyState</h2>
-          <div className="rounded-xl border border-border">
+          <div className="rounded-card border border-border">
             <EmptyState
               title="아직 데이터가 없습니다"
               description="첫 항목을 추가하여 시작해보세요."

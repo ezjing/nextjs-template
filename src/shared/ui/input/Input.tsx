@@ -55,7 +55,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             // 플로팅 라벨 동작을 위해 공백 placeholder 사용 (peer-placeholder-shown 판별용)
             placeholder={placeholder ?? ' '}
             className={cn(
-              'peer h-12 w-full rounded-lg border bg-surface px-3 pt-4 pb-1 text-sm text-fg',
+              'peer h-12 w-full rounded-control border bg-surface px-3 pt-4 pb-1 text-sm text-fg',
               'transition-colors duration-150 placeholder:text-transparent',
               'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
               'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
@@ -121,7 +121,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           id={inputId}
           placeholder={placeholder}
           className={cn(
-            'h-control-md w-full rounded-lg border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-subtle',
+            'h-control-md w-full rounded-control border bg-surface px-3 py-2 text-sm text-fg placeholder:text-fg-subtle',
             'transition-colors duration-150',
             'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
             'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',

@@ -75,6 +75,8 @@ const COLOR_GROUPS: { title: string; tokens: ColorToken[] }[] = [
 ];
 
 const RADIUS_TOKENS = [
+  { usage: 'rounded-control-xs', desc: '글자 줄, 작은 아이콘 버튼', value: 'var(--radius-control-xs)' },
+  { usage: 'rounded-control-sm', desc: 'Tabs 항목, 체크박스, 날짜 칸', value: 'var(--radius-control-sm)' },
   { usage: 'rounded-control', desc: '버튼, 입력창', value: 'var(--radius-control)' },
   { usage: 'rounded-card', desc: '카드, 모달', value: 'var(--radius-card)' },
   { usage: 'rounded-full', desc: '아바타, 배지', value: '9999px' },

@@ -70,7 +70,7 @@ const STATUS_STYLE: Record<OrderStatus, string> = {
 
 export function RecentOrdersTable() {
   return (
-    <div className="rounded-xl border border-border bg-surface shadow-sm">
+    <div className="rounded-card border border-border bg-surface shadow-card">
       <div className="flex items-center justify-between border-b border-border px-5 py-4">
         <h3 className="text-base font-semibold text-fg">최근 주문</h3>
         <button className="text-sm text-primary-fg hover:underline">

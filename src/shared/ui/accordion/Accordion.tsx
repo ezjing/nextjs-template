@@ -37,7 +37,7 @@ export function Accordion({ items, type = 'single', defaultValue, className }: A
   return (
     <div
       className={cn(
-        'divide-y divide-border overflow-hidden rounded-xl border border-border',
+        'divide-y divide-border overflow-hidden rounded-card border border-border',
         className,
       )}
     >

@@ -60,7 +60,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
 function DefaultFallback({ error, onReset }: { error: Error | null; onReset: () => void }) {
   return (
-    <div className="flex min-h-[200px] flex-col items-center justify-center gap-4 rounded-xl border border-danger-border bg-danger-subtle p-8 text-center">
+    <div className="flex min-h-[200px] flex-col items-center justify-center gap-4 rounded-card border border-danger-border bg-danger-subtle p-8 text-center">
       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-danger-subtle">
         <svg
           width="24"
@@ -86,7 +86,7 @@ function DefaultFallback({ error, onReset }: { error: Error | null; onReset: () 
       <button
         type="button"
         onClick={onReset}
-        className="rounded-lg border border-danger-border px-4 py-2 text-xs font-medium text-danger-fg transition-colors hover:bg-danger-subtle"
+        className="rounded-control border border-danger-border px-4 py-2 text-xs font-medium text-danger-fg transition-colors hover:bg-danger-subtle"
       >
         다시 시도
       </button>

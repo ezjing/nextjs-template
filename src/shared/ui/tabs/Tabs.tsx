@@ -54,7 +54,7 @@ export function Tabs({
           'flex',
           variant === 'line'
             ? 'gap-1 border-b border-border'
-            : 'gap-1 rounded-lg bg-surface-muted p-1',
+            : 'gap-1 rounded-control bg-surface-muted p-1',
           fullWidth && 'w-full',
         )}
       >
@@ -79,9 +79,9 @@ export function Tabs({
                         : 'border-transparent text-fg-muted hover:text-fg-secondary',
                     )
                   : cn(
-                      'rounded-md px-3.5 py-1.5',
+                      'rounded-control-sm px-3.5 py-1.5',
                       selected
-                        ? 'bg-surface text-fg shadow-sm'
+                        ? 'bg-surface text-fg shadow-card'
                         : 'text-fg-muted hover:text-fg-secondary',
                     ),
               )}

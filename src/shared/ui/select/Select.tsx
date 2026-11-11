@@ -50,7 +50,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
           ref={ref}
           id={selectId}
           className={cn(
-            'h-control-md w-full appearance-none rounded-lg border bg-surface pl-3 pr-9 py-2 text-sm text-fg',
+            'h-control-md w-full appearance-none rounded-control border bg-surface pl-3 pr-9 py-2 text-sm text-fg',
             'transition-colors duration-150',
             'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
             'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',

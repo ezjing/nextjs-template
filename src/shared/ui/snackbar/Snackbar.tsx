@@ -189,7 +189,7 @@ export function SnackbarProvider({
                   key={item.id}
                   role="status"
                   className={cn(
-                    'snackbar-enter pointer-events-auto flex w-full min-w-[16rem] max-w-md items-start gap-3 rounded-xl border px-4 py-3 shadow-lg',
+                    'snackbar-enter pointer-events-auto flex w-full min-w-[16rem] max-w-md items-start gap-3 rounded-card border px-4 py-3 shadow-popover',
                     config.classes,
                   )}
                 >
@@ -212,7 +212,7 @@ export function SnackbarProvider({
                   <button
                     type="button"
                     onClick={() => dismiss(item.id)}
-                    className="-mr-1 shrink-0 rounded-md p-0.5 opacity-60 transition-opacity hover:opacity-100"
+                    className="-mr-1 shrink-0 rounded-control-sm p-0.5 opacity-60 transition-opacity hover:opacity-100"
                     aria-label="닫기"
                   >
                     <Icon name="x" size={16} />

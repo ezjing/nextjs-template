@@ -104,7 +104,7 @@ function NavGroup({ item, setSidebarExpanded }: NavGroupProps) {
           setSidebarExpanded(true);
         }}
         className={cn(
-          'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+          'flex w-full items-center gap-3 rounded-control px-3 py-2 text-sm font-medium transition-colors',
           isChildActive
             ? 'bg-primary-subtle text-primary-fg'
             : 'text-fg-secondary hover:bg-surface-muted',
@@ -128,7 +128,7 @@ function NavGroup({ item, setSidebarExpanded }: NavGroupProps) {
                 <Link
                   href={child.path}
                   className={cn(
-                    'block rounded-lg px-3 py-1.5 text-sm transition-colors',
+                    'block rounded-control px-3 py-1.5 text-sm transition-colors',
                     isActive
                       ? 'text-primary-fg'
                       : 'text-fg-muted hover:text-fg-secondary',
@@ -221,7 +221,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
         {/* 헤더 */}
         <div className="flex items-center justify-between px-4 py-5">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+            <div className="flex h-8 w-8 items-center justify-center rounded-control bg-primary">
               <Zap className="h-5 w-5 text-fg-on-primary" />
             </div>
             <span
@@ -266,7 +266,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
                   <Link
                     href={item.path ?? '/'}
                     className={cn(
-                      'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                      'flex items-center gap-3 rounded-control px-3 py-2 text-sm font-medium transition-colors',
                       pathname === item.path
                         ? 'bg-primary-subtle text-primary-fg'
                         : 'text-fg-secondary hover:bg-surface-muted',
@@ -292,7 +292,7 @@ export function AppSidebar({ sidebarOpen, setSidebarOpen }: AppSidebarProps) {
         <div className="mt-auto hidden p-4 lg:block">
           <button
             onClick={() => setSidebarExpanded(!sidebarExpanded)}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-border px-3 py-2 text-sm text-fg-muted hover:bg-surface-subtle"
+            className="flex w-full items-center justify-center gap-2 rounded-control border border-border px-3 py-2 text-sm text-fg-muted hover:bg-surface-subtle"
           >
             {sidebarExpanded ? (
               <>

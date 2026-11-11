@@ -68,7 +68,7 @@ export function Tooltip({
           id={id}
           role="tooltip"
           className={cn(
-            'pointer-events-none absolute z-[70] w-max max-w-xs rounded-md bg-surface-inverse px-2.5 py-1.5 text-xs font-medium text-fg-inverse shadow-lg',
+            'pointer-events-none absolute z-[70] w-max max-w-xs rounded-control-sm bg-surface-inverse px-2.5 py-1.5 text-xs font-medium text-fg-inverse shadow-popover',
             placementClasses[placement],
             className,
           )}

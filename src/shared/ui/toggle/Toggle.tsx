@@ -83,7 +83,7 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
         />
         <span
           className={cn(
-            'pointer-events-none absolute left-0.5 rounded-full bg-fg-on-primary shadow-sm transition-transform duration-200',
+            'pointer-events-none absolute left-0.5 rounded-full bg-fg-on-primary shadow-card transition-transform duration-200',
             thumbSizes[size],
           )}
         />

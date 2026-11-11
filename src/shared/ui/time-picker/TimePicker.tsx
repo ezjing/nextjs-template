@@ -130,7 +130,7 @@ export function TimePicker({
         disabled={disabled}
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-surface px-3 text-sm transition-colors duration-150',
+          'flex h-control-md w-full items-center justify-between gap-2 rounded-control border bg-surface px-3 text-sm transition-colors duration-150',
           'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
           'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
           error
@@ -152,7 +152,7 @@ export function TimePicker({
               e.stopPropagation();
               onChange?.(null);
             }}
-            className="rounded p-0.5 text-fg-subtle hover:text-fg-secondary"
+            className="rounded-control-xs p-0.5 text-fg-subtle hover:text-fg-secondary"
           >
             <Icon name="x" size={14} />
           </span>
@@ -162,7 +162,7 @@ export function TimePicker({
       {open && (
         <div
           className={cn(
-            'absolute top-full z-50 mt-1 flex w-auto rounded-xl border border-border bg-surface p-2 shadow-lg',
+            'absolute top-full z-50 mt-1 flex w-auto rounded-card border border-border bg-surface p-2 shadow-popover',
           )}
         >
           {!use24Hour && (
@@ -228,7 +228,7 @@ function TimeColumn<T>({ items, isSelected, onSelect, render }: TimeColumnProps<
             type="button"
             onClick={() => onSelect(item)}
             className={cn(
-              'shrink-0 rounded-md px-2 py-1.5 text-center text-sm transition-colors',
+              'shrink-0 rounded-control-sm px-2 py-1.5 text-center text-sm transition-colors',
               'hover:bg-primary-subtle',
               selected
                 ? 'bg-primary font-semibold text-fg-on-primary hover:bg-primary'

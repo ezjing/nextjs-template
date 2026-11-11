@@ -65,7 +65,7 @@ export function MemberFcmTable({ selectedId, selectedName }: MemberFcmTableProps
       </div>
 
       {isError ? (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-danger-border bg-danger-subtle px-6 py-8">
+        <div className="flex flex-col items-center justify-center gap-4 rounded-card border border-danger-border bg-danger-subtle px-6 py-8">
           <p className="text-sm text-danger-fg">
             {error instanceof Error ? error.message : 'FCM 토큰 조회 중 오류가 발생했습니다.'}
           </p>

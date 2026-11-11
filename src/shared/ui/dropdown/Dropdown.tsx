@@ -52,7 +52,7 @@ export function Dropdown({ trigger, items, align = 'start', className, menuClass
         <div
           role="menu"
           className={cn(
-            'absolute top-full z-50 mt-1 min-w-44 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-lg',
+            'absolute top-full z-50 mt-1 min-w-44 overflow-hidden rounded-card border border-border bg-surface p-1 shadow-popover',
             align === 'end' ? 'right-0' : 'left-0',
             menuClassName,
           )}
@@ -69,7 +69,7 @@ export function Dropdown({ trigger, items, align = 'start', className, menuClass
                   setOpen(false);
                 }}
                 className={cn(
-                  'flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition-colors',
+                  'flex w-full items-center gap-2.5 rounded-control px-3 py-2 text-left text-sm transition-colors',
                   'disabled:cursor-not-allowed disabled:opacity-40',
                   item.danger
                     ? 'text-danger-fg hover:bg-danger-subtle'

@@ -83,7 +83,7 @@ export function Dialog({
       <div
         ref={panelRef}
         className={cn(
-          'relative z-10 w-full rounded-xl bg-surface shadow-xl ring-1 ring-border/5',
+          'relative z-10 w-full rounded-card bg-surface shadow-modal ring-1 ring-fg/5',
           'flex flex-col max-h-[90vh]',
           sizes[size],
           className,
@@ -108,7 +108,7 @@ export function Dialog({
             <button
               type="button"
               onClick={onClose}
-              className="shrink-0 rounded-lg p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-secondary"
+              className="shrink-0 rounded-control p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-secondary"
               aria-label="닫기"
             >
               <svg

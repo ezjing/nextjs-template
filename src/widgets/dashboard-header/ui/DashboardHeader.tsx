@@ -26,14 +26,14 @@ function NotificationDropdown() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="relative rounded-lg p-2 text-fg-muted hover:bg-surface-muted"
+        className="relative rounded-control p-2 text-fg-muted hover:bg-surface-muted"
       >
         <Bell className="h-5 w-5" />
         <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-danger" />
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 z-50 w-80 rounded-xl border border-border bg-surface shadow-lg">
+        <div className="absolute right-0 top-10 z-50 w-80 rounded-card border border-border bg-surface shadow-popover">
           <div className="flex items-center justify-between border-b border-border px-4 py-3">
             <h3 className="text-sm font-semibold text-fg">알림</h3>
             <button className="text-xs text-primary-fg hover:underline">모두 읽음</button>
@@ -81,7 +81,7 @@ function UserMenu() {
     <div className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-surface-muted"
+        className="flex items-center gap-2 rounded-control px-2 py-1.5 text-sm hover:bg-surface-muted"
       >
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-semibold text-fg-on-primary">
           A
@@ -91,7 +91,7 @@ function UserMenu() {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-10 z-50 w-44 rounded-xl border border-border bg-surface py-1 shadow-lg">
+        <div className="absolute right-0 top-10 z-50 w-44 rounded-card border border-border bg-surface py-1 shadow-popover">
           {items.map((item) => (
             <button
               key={item.label}
@@ -130,7 +130,7 @@ export function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeader
         {/* 왼쪽: 햄버거 + 검색 */}
         <div className="flex items-center gap-3">
           <button
-            className="rounded-lg p-2 text-fg-muted hover:bg-surface-muted lg:hidden"
+            className="rounded-control p-2 text-fg-muted hover:bg-surface-muted lg:hidden"
             onClick={(e) => {
               e.stopPropagation();
               setSidebarOpen(!sidebarOpen);
@@ -139,10 +139,10 @@ export function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeader
             <Menu className="h-5 w-5" />
           </button>
 
-          <button className="flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm text-fg-muted hover:border-border-strong">
+          <button className="flex items-center gap-2 rounded-control border border-border px-3 py-1.5 text-sm text-fg-muted hover:border-border-strong">
             <Search className="h-4 w-4" />
             <span className="hidden sm:block">검색...</span>
-            <kbd className="hidden rounded bg-surface-muted px-1.5 py-0.5 text-xs text-fg-subtle sm:block">
+            <kbd className="hidden rounded-control-xs bg-surface-muted px-1.5 py-0.5 text-xs text-fg-subtle sm:block">
               ⌘K
             </kbd>
           </button>
@@ -152,12 +152,12 @@ export function DashboardHeader({ sidebarOpen, setSidebarOpen }: DashboardHeader
         <div className="flex items-center gap-1">
           <button
             onClick={toggleDark}
-            className="rounded-lg p-2 text-fg-muted hover:bg-surface-muted"
+            className="rounded-control p-2 text-fg-muted hover:bg-surface-muted"
           >
             {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
 
-          <button className="rounded-lg p-2 text-fg-muted hover:bg-surface-muted">
+          <button className="rounded-control p-2 text-fg-muted hover:bg-surface-muted">
             <HelpCircle className="h-5 w-5" />
           </button>
 

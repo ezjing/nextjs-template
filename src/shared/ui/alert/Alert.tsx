@@ -59,7 +59,7 @@ export function Alert({
   const { icon, classes, iconClass } = config[variant];
 
   return (
-    <div className={cn('flex items-start gap-3 rounded-xl border px-4 py-3', classes, className)} role="alert">
+    <div className={cn('flex items-start gap-3 rounded-card border px-4 py-3', classes, className)} role="alert">
       {!hideIcon && <Icon name={icon} size={18} className={cn('mt-0.5 shrink-0', iconClass)} />}
 
       <div className="flex-1">
@@ -75,7 +75,7 @@ export function Alert({
         <button
           type="button"
           onClick={onClose}
-          className="-mr-1 shrink-0 rounded-md p-0.5 opacity-60 transition-opacity hover:opacity-100"
+          className="-mr-1 shrink-0 rounded-control-sm p-0.5 opacity-60 transition-opacity hover:opacity-100"
           aria-label="닫기"
         >
           <Icon name="x" size={16} />

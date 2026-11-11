@@ -65,7 +65,7 @@ export function Badge({
     <span
       className={cn(
         'inline-flex items-center font-medium whitespace-nowrap',
-        pill ? 'rounded-full' : 'rounded-md',
+        pill ? 'rounded-full' : 'rounded-control-sm',
         variants[variant],
         sizes[size],
         className,

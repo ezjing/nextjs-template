@@ -124,7 +124,7 @@ export function DatePicker({
         disabled={disabled}
         onClick={toggleOpen}
         className={cn(
-          'flex h-control-md w-full items-center justify-between gap-2 rounded-lg border bg-surface px-3 text-sm transition-colors duration-150',
+          'flex h-control-md w-full items-center justify-between gap-2 rounded-control border bg-surface px-3 text-sm transition-colors duration-150',
           'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
           'disabled:cursor-not-allowed disabled:bg-surface-subtle disabled:text-fg-subtle',
           error
@@ -146,7 +146,7 @@ export function DatePicker({
               e.stopPropagation();
               onChange?.(null);
             }}
-            className="rounded p-0.5 text-fg-subtle hover:text-fg-secondary"
+            className="rounded-control-xs p-0.5 text-fg-subtle hover:text-fg-secondary"
           >
             <Icon name="x" size={14} />
           </span>
@@ -156,7 +156,7 @@ export function DatePicker({
       {open && (
         <div
           className={cn(
-            'absolute top-full z-50 mt-1 w-72 rounded-xl border border-border bg-surface p-3 shadow-lg',
+            'absolute top-full z-50 mt-1 w-72 rounded-card border border-border bg-surface p-3 shadow-popover',
           )}
         >
           {/* 헤더: 월 이동 */}
@@ -164,7 +164,7 @@ export function DatePicker({
             <button
               type="button"
               onClick={() => goMonth(-1)}
-              className="rounded-md p-1.5 text-fg-muted hover:bg-surface-muted"
+              className="rounded-control-sm p-1.5 text-fg-muted hover:bg-surface-muted"
               aria-label="이전 달"
             >
               <Icon name="chevronLeft" size={16} />
@@ -175,7 +175,7 @@ export function DatePicker({
             <button
               type="button"
               onClick={() => goMonth(1)}
-              className="rounded-md p-1.5 text-fg-muted hover:bg-surface-muted"
+              className="rounded-control-sm p-1.5 text-fg-muted hover:bg-surface-muted"
               aria-label="다음 달"
             >
               <Icon name="chevronRight" size={16} />
@@ -211,7 +211,7 @@ export function DatePicker({
                   disabled={dimmed}
                   onClick={() => handleSelect(d)}
                   className={cn(
-                    'flex h-8 items-center justify-center rounded-md text-sm transition-colors',
+                    'flex h-8 items-center justify-center rounded-control-sm text-sm transition-colors',
                     'hover:bg-primary-subtle',
                     selected && 'bg-primary font-semibold text-fg-on-primary hover:bg-primary',
                     !selected && isToday && 'font-semibold text-primary-fg',
@@ -230,7 +230,7 @@ export function DatePicker({
             <button
               type="button"
               onClick={() => handleSelect(new Date())}
-              className="rounded-md px-2 py-1 text-xs font-medium text-primary-fg hover:bg-primary-subtle"
+              className="rounded-control-sm px-2 py-1 text-xs font-medium text-primary-fg hover:bg-primary-subtle"
             >
               오늘
             </button>

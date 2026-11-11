@@ -124,7 +124,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
               e.stopPropagation();
               openEdit(row);
             }}
-            className="rounded p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-primary-fg"
+            className="rounded-control-xs p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-primary-fg"
             aria-label="수정"
           >
             <Pencil className="h-3.5 w-3.5" />
@@ -134,7 +134,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
               e.stopPropagation();
               handleDelete(row);
             }}
-            className="rounded p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-danger-fg"
+            className="rounded-control-xs p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-danger-fg"
             aria-label="삭제"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -146,7 +146,7 @@ export function MemberTable({ selectedId, onSelectId }: MemberTableProps) {
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-danger-border bg-danger-subtle px-6 py-12">
+      <div className="flex flex-col items-center justify-center gap-4 rounded-card border border-danger-border bg-danger-subtle px-6 py-12">
         <p className="text-sm text-danger-fg">
           {error instanceof Error ? error.message : '회원 목록을 불러오는 중 오류가 발생했습니다.'}
         </p>

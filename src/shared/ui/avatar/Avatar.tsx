@@ -59,7 +59,7 @@ export function Avatar({
 }: AvatarProps) {
   const [errored, setErrored] = useState(false);
   const showImage = src && !errored;
-  const radius = shape === 'circle' ? 'rounded-full' : 'rounded-lg';
+  const radius = shape === 'circle' ? 'rounded-full' : 'rounded-control';
 
   return (
     <span className={cn('relative inline-flex shrink-0', className)}>
