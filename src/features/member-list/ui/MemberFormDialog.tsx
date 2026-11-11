@@ -1,8 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import type { Member, MemberCreateInput, MemberUpdateInput } from '@/entities/member/model/memberTypes';
+import type {
+  Member,
+  MemberCreateInput,
+  MemberUpdateInput,
+} from '@/entities/member/model/memberTypes';
 import { Button } from '@/shared/ui/button/Button';
 import { Dialog } from '@/shared/ui/dialog/Dialog';
 import { Input } from '@/shared/ui/input/Input';
@@ -22,6 +26,8 @@ const USE_YN_OPTIONS = [
   { value: 'N', label: '미사용' },
 ];
 
+const FORM_ID = 'member-form';
+
 const EMPTY_FORM = {
   coCd: '',
   id: '',
@@ -39,41 +45,85 @@ const EMPTY_FORM = {
   approvalYn: 'N',
 };
 
-export function MemberFormDialog({ open, onClose, member, onSubmit, loading }: MemberFormDialogProps) {
-  const isEdit = !!member;
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [errors, setErrors] = useState<Partial<Record<keyof typeof EMPTY_FORM, string>>>({});
+type FormState = typeof EMPTY_FORM;
 
-  useEffect(() => {
-    if (open) {
-      if (member) {
-        setForm({
-          coCd: member.coCd ?? '',
-          id: member.id ?? '',
-          name: member.name ?? '',
-          pw: '',
-          employeeNo: member.employeeNo ?? '',
-          tel: member.tel ?? '',
-          depCd: member.depCd ?? '',
-          position: member.position ?? '',
-          rank: member.rank ?? '',
-          authCd: member.authCd ?? '',
-          custCd: member.custCd ?? '',
-          useYn: member.useYn ?? 'Y',
-          tbmYn: member.tbmYn ?? 'N',
-          approvalYn: member.approvalYn ?? 'N',
-        });
-      } else {
-        setForm(EMPTY_FORM);
-      }
-      setErrors({});
-    }
-  }, [open, member]);
-
-  const set = (key: keyof typeof EMPTY_FORM) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setForm((prev) => ({ ...prev, [key]: e.target.value }));
-    setErrors((prev) => ({ ...prev, [key]: undefined }));
+/** 수정이면 회원 값으로, 등록이면 빈 값으로 폼 초기값을 만든다 */
+function toFormState(member?: Member): FormState {
+  if (!member) return EMPTY_FORM;
+  return {
+    coCd: member.coCd ?? '',
+    id: member.id ?? '',
+    name: member.name ?? '',
+    pw: '',
+    employeeNo: member.employeeNo ?? '',
+    tel: member.tel ?? '',
+    depCd: member.depCd ?? '',
+    position: member.position ?? '',
+    rank: member.rank ?? '',
+    authCd: member.authCd ?? '',
+    custCd: member.custCd ?? '',
+    useYn: member.useYn ?? 'Y',
+    tbmYn: member.tbmYn ?? 'N',
+    approvalYn: member.approvalYn ?? 'N',
   };
+}
+
+/**
+ * 회원 등록/수정 다이얼로그
+ * - 폼 상태는 MemberForm 이 가진다. Dialog 는 닫히면 내용을 렌더링하지 않으므로
+ *   열릴 때마다 MemberForm 이 새로 만들어지고, 초기값도 그때 한 번만 계산된다.
+ */
+export function MemberFormDialog({
+  open,
+  onClose,
+  member,
+  onSubmit,
+  loading,
+}: MemberFormDialogProps) {
+  const isEdit = !!member;
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      title={isEdit ? '회원 수정' : '회원 등록'}
+      size="lg"
+      footer={
+        <div className="flex justify-end gap-2">
+          <Button variant="outline" onClick={onClose} disabled={loading}>
+            취소
+          </Button>
+          <Button form={FORM_ID} type="submit" loading={loading}>
+            {isEdit ? '수정' : '등록'}
+          </Button>
+        </div>
+      }
+    >
+      {/* 열린 상태에서 대상 회원이 바뀌면 key 로 폼을 새로 만든다 */}
+      <MemberForm
+        key={member ? `${member.coCd}:${member.id}` : 'new'}
+        member={member}
+        onSubmit={onSubmit}
+      />
+    </Dialog>
+  );
+}
+
+interface MemberFormProps {
+  member?: Member;
+  onSubmit: MemberFormDialogProps['onSubmit'];
+}
+
+function MemberForm({ member, onSubmit }: MemberFormProps) {
+  const isEdit = !!member;
+  const [form, setForm] = useState(() => toFormState(member));
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
+
+  const set =
+    (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setForm((prev) => ({ ...prev, [key]: e.target.value }));
+      setErrors((prev) => ({ ...prev, [key]: undefined }));
+    };
 
   const validate = () => {
     const next: typeof errors = {};
@@ -128,69 +178,65 @@ export function MemberFormDialog({ open, onClose, member, onSubmit, loading }: M
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      title={isEdit ? '회원 수정' : '회원 등록'}
-      size="lg"
-      footer={
-        <div className="flex justify-end gap-2">
-          <Button variant="outline" onClick={onClose} disabled={loading}>
-            취소
-          </Button>
-          <Button form="member-form" type="submit" loading={loading}>
-            {isEdit ? '수정' : '등록'}
-          </Button>
-        </div>
-      }
-    >
-      <form id="member-form" onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-        {/* 등록 전용 필드 */}
-        {!isEdit && (
-          <>
-            <Input label="회사코드 *" value={form.coCd} onChange={set('coCd')} error={errors.coCd} fullWidth />
-            <Input label="ID *" value={form.id} onChange={set('id')} error={errors.id} fullWidth />
-            <Input label="비밀번호 *" type="password" value={form.pw} onChange={set('pw')} error={errors.pw} fullWidth />
-          </>
-        )}
+    <form id={FORM_ID} onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+      {/* 등록 전용 필드 */}
+      {!isEdit && (
+        <>
+          <Input
+            label="회사코드 *"
+            value={form.coCd}
+            onChange={set('coCd')}
+            error={errors.coCd}
+            fullWidth
+          />
+          <Input label="ID *" value={form.id} onChange={set('id')} error={errors.id} fullWidth />
+          <Input
+            label="비밀번호 *"
+            type="password"
+            value={form.pw}
+            onChange={set('pw')}
+            error={errors.pw}
+            fullWidth
+          />
+        </>
+      )}
 
-        {/* 공통 필드 */}
-        <Input
-          label="이름 *"
-          value={form.name}
-          onChange={set('name')}
-          error={errors.name}
-          fullWidth
-          className={!isEdit ? '' : 'col-span-2'}
-        />
-        <Input label="사번" value={form.employeeNo} onChange={set('employeeNo')} fullWidth />
-        <Input label="연락처" value={form.tel} onChange={set('tel')} fullWidth />
-        <Input label="부서코드" value={form.depCd} onChange={set('depCd')} fullWidth />
-        <Input label="직위" value={form.position} onChange={set('position')} fullWidth />
-        <Input label="직급" value={form.rank} onChange={set('rank')} fullWidth />
-        <Input label="권한코드" value={form.authCd} onChange={set('authCd')} fullWidth />
-        <Select
-          label="사용여부"
-          options={USE_YN_OPTIONS}
-          value={form.useYn}
-          onChange={set('useYn')}
-          fullWidth
-        />
-        <Select
-          label="TBM여부"
-          options={USE_YN_OPTIONS}
-          value={form.tbmYn}
-          onChange={set('tbmYn')}
-          fullWidth
-        />
-        <Select
-          label="승인여부"
-          options={USE_YN_OPTIONS}
-          value={form.approvalYn}
-          onChange={set('approvalYn')}
-          fullWidth
-        />
-      </form>
-    </Dialog>
+      {/* 공통 필드 */}
+      <Input
+        label="이름 *"
+        value={form.name}
+        onChange={set('name')}
+        error={errors.name}
+        fullWidth
+        className={!isEdit ? '' : 'col-span-2'}
+      />
+      <Input label="사번" value={form.employeeNo} onChange={set('employeeNo')} fullWidth />
+      <Input label="연락처" value={form.tel} onChange={set('tel')} fullWidth />
+      <Input label="부서코드" value={form.depCd} onChange={set('depCd')} fullWidth />
+      <Input label="직위" value={form.position} onChange={set('position')} fullWidth />
+      <Input label="직급" value={form.rank} onChange={set('rank')} fullWidth />
+      <Input label="권한코드" value={form.authCd} onChange={set('authCd')} fullWidth />
+      <Select
+        label="사용여부"
+        options={USE_YN_OPTIONS}
+        value={form.useYn}
+        onChange={set('useYn')}
+        fullWidth
+      />
+      <Select
+        label="TBM여부"
+        options={USE_YN_OPTIONS}
+        value={form.tbmYn}
+        onChange={set('tbmYn')}
+        fullWidth
+      />
+      <Select
+        label="승인여부"
+        options={USE_YN_OPTIONS}
+        value={form.approvalYn}
+        onChange={set('approvalYn')}
+        fullWidth
+      />
+    </form>
   );
 }
