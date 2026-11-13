@@ -44,7 +44,7 @@ app/api/<도메인>/<리소스>/
 // app/api/community/users/route.ts
 import { NextResponse } from 'next/server';
 
-import { XxxServiceError, getItems, createItem } from '@/entities/xxx/model/xxxService';
+import { XxxServiceError, getItems, createItem } from '@/entities/xxx/server';
 
 export async function GET(request: Request) {
   try {

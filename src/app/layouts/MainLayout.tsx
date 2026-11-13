@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 
-import { DashboardHeader } from '@/widgets/dashboard-header/ui/DashboardHeader';
-import { AppSidebar } from '@/widgets/sidebar/ui/AppSidebar';
+import { AppSidebar } from './AppSidebar';
+import { DashboardHeader } from './DashboardHeader';
 
 interface MainLayoutProps {
   children: ReactNode;

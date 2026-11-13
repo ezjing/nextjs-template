@@ -112,8 +112,8 @@ const token = true; // has 없음
 ## 슬라이스 폴더명 — kebab-case
 
 ```
-features/dashboard-kpi/
 features/ui-preferences/
+pages/community/users/
 entities/user/
 ```
 

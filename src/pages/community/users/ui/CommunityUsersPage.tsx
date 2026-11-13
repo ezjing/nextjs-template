@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import { MemberFcmTable } from '@/features/member-list/ui/MemberFcmTable';
-import { MemberTable } from '@/features/member-list/ui/MemberTable';
+import { MemberFcmTable } from './MemberFcmTable';
+import { MemberTable } from './MemberTable';
 
 export function CommunityUsersPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);

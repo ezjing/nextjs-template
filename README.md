@@ -29,13 +29,12 @@ Next.js 의 라우팅 폴더(`app`, `pages`)와 FSD 레이어를 분리합니다
 │  ├─ showcase/page.tsx          # "/showcase" → @/pages/home (컴포넌트·토큰 견본)
 │  └─ api/                       # Route Handler (Controller) — 예: api/community/users
 ├─ pages/                        # 의도적으로 빈 폴더 (아래 참고)
-├─ docs/                         # 문서 — design-tokens.md
+├─ docs/                         # 문서 — design-tokens.md, fsd-architecture.md
 ├─ .cursor/rules/                # AI 코딩 도구 규칙 (아래 참고)
 └─ src/                          # FSD 레이어
-   ├─ app/                       # 앱 전역: providers, styles(globals.css, tokens.css)
-   ├─ pages/                     # FSD 페이지: dashboard, community/users, login, home
-   ├─ widgets/                   # sidebar, dashboard-header, layout(MainLayout)
-   ├─ features/                  # auth, ui-preferences, dashboard-*, member-list
+   ├─ app/                       # 앱 전역: providers, layouts(MainLayout·사이드바·헤더), styles
+   ├─ pages/                     # FSD 페이지: dashboard, community/users, login, home (화면 전용 UI·훅 포함)
+   ├─ features/                  # 여러 화면이 재사용하는 행동: auth, ui-preferences
    ├─ entities/                  # member, user
    └─ shared/                    # api, config, constants, lib, ui(공통 컴포넌트 32종)
 ```
@@ -56,13 +55,16 @@ export { DashboardPage as default, metadata } from '@/pages/dashboard';
 
 ### FSD import 방향 규칙
 
-`eslint-plugin-import` 의 `no-restricted-paths` 로 레이어 간 import 방향을 강제합니다.
+[FSD 공식 문서](https://fsd.how) 를 따르며, 전체 규칙은 [docs/fsd-architecture.md](docs/fsd-architecture.md) 에 있습니다.
 
 ```
-app > pages > widgets > features > entities > shared
+app > pages > features > entities > shared
 ```
 
-(상위 레이어만 하위 레이어를 참조할 수 있으며, 역방향 import 는 오류로 처리됩니다.)
+- 상위 레이어만 하위 레이어를 참조할 수 있습니다. 같은 레이어의 다른 슬라이스끼리도 import 할 수 없습니다.
+- `widgets`·`processes` 레이어는 쓰지 않습니다. 화면 전용 UI 는 `pages`, 재사용 행동은 `features`, 앱 공통 레이아웃은 `src/app/layouts` 에 둡니다.
+- 다른 슬라이스는 `index.ts`(public API)로만 import 합니다. DB 접근 코드는 `entities/<도메인>/server.ts` 로 공개하고 `app/api/**` 에서만 씁니다.
+- 위반은 lint 에러로 처리되고 커밋 전 검사에서 막힙니다.
 
 ### 서버(API) 구조
 
@@ -76,6 +78,7 @@ DB 를 쓰는 API 는 Route Handler 에서 Service, Queries 순서로 역할을 
 | 클라이언트 호출 | `src/entities/<도메인>/api/<도메인>Api.ts` | axios 로 `/api/...` 호출 |
 
 `shared/lib/db.ts`, `*Service.ts`, `*Queries.ts` 는 서버 전용입니다. 클라이언트 컴포넌트에서 import 하지 않습니다.
+Route Handler 는 Service 를 `@/entities/<도메인>/server` 로 import 합니다 (클라이언트용 공개 API 는 `@/entities/<도메인>`).
 
 ### 경로 별칭
 

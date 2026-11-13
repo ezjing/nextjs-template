@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 
-import type {
-  Member,
-  MemberCreateInput,
-  MemberUpdateInput,
-} from '@/entities/member/model/memberTypes';
+import type { Member, MemberCreateInput, MemberUpdateInput } from '@/entities/member';
 import { Button } from '@/shared/ui/button/Button';
 import { Dialog } from '@/shared/ui/dialog/Dialog';
 import { Input } from '@/shared/ui/input/Input';

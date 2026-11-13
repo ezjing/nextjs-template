@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import type { User } from '@/entities/user/model/userTypes';
+import type { User } from '@/entities/user';
 
 export interface AuthState {
   user: User | null;

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { getMemberFcmTokens } from '@/entities/member/model/memberService';
+import { getMemberFcmTokens } from '@/entities/member/server';
 
 export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {

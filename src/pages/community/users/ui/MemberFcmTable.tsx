@@ -2,7 +2,7 @@
 
 import { RefreshCw } from 'lucide-react';
 
-import type { MemberFcm } from '@/entities/member/model/memberFcmTypes';
+import type { MemberFcm } from '@/entities/member';
 import { Button } from '@/shared/ui/button/Button';
 import { Table, type TableColumn } from '@/shared/ui/table/Table';
 

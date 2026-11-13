@@ -1,11 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import {
-  MemberServiceError,
-  createMemberWithFcm,
-  getMembers,
-} from '@/entities/member/model/memberService';
-import { AUTH_CD } from '@/entities/member/model/memberTypes';
+import { AUTH_CD } from '@/entities/member';
+import { MemberServiceError, createMemberWithFcm, getMembers } from '@/entities/member/server';
 
 export async function GET(request: Request) {
   try {

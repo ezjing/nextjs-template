@@ -10,7 +10,7 @@ import {
   type Member,
   type MemberCreateInput,
   type MemberUpdateInput,
-} from '@/entities/member/model/memberTypes';
+} from '@/entities/member';
 import { cn } from '@/shared/lib/cn';
 import { Button } from '@/shared/ui/button/Button';
 import { Select } from '@/shared/ui/select/Select';

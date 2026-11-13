@@ -1,4 +1,4 @@
-import type { User } from '@/entities/user/model/userTypes';
+import type { User } from '@/entities/user';
 import client from '@/shared/api/client';
 
 export interface LoginCredentials {

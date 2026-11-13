@@ -25,6 +25,8 @@ alwaysApply: false
 
 ```
 src/entities/<도메인>/
+├── index.ts                    # public API (클라이언트·서버 공용: Api, 타입)
+├── server.ts                   # 서버 전용 public API (Service) — app/api/** 에서만 import
 ├── model/
 │   ├── <도메인>Types.ts       # Model — 타입·인터페이스
 │   └── <도메인>Service.ts     # Service — 업무 규칙·오케스트레이션
@@ -205,8 +207,8 @@ export async function softDeleteMember(id: string): Promise<number> {
 'use client';
 import pool from '@/shared/lib/db'; // 빌드 에러
 import { SERVER_ENV } from '@/shared/config/env'; // 빌드 에러
-import { getMembers } from '@/entities/member/model/memberService'; // 빌드 에러
+import { getMembers } from '@/entities/member/server'; // 빌드 에러 + lint 에러
 
 // ✅ 클라이언트는 axios(memberApi)를 통해 /api/... 호출
-import { memberApi } from '@/entities/member/api/memberApi';
+import { memberApi } from '@/entities/member';
 ```

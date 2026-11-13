@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { memberApi } from '@/entities/member/api/memberApi';
-import type { AuthCd } from '@/entities/member/model/memberTypes';
+import { memberApi } from '@/entities/member';
+import type { AuthCd } from '@/entities/member';
 import { QUERY_KEYS } from '@/shared/constants/queryKeys';
 
 export function useMemberListQuery(authCd: AuthCd) {

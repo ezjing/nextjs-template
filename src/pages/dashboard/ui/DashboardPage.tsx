@@ -1,12 +1,12 @@
 import { CalendarDays, Plus } from 'lucide-react';
 
-import { RecentActivityFeed } from '@/features/dashboard-activity/ui/RecentActivityFeed';
-import { RecentOrdersTable } from '@/features/dashboard-activity/ui/RecentOrdersTable';
-import { TopChannelsCard } from '@/features/dashboard-activity/ui/TopChannelsCard';
-import { CategoryDonutChart } from '@/features/dashboard-charts/ui/CategoryDonutChart';
-import { RevenueChart } from '@/features/dashboard-charts/ui/RevenueChart';
-import { SalesBarChart } from '@/features/dashboard-charts/ui/SalesBarChart';
-import { KpiSection } from '@/features/dashboard-kpi/ui/KpiSection';
+import { CategoryDonutChart } from './CategoryDonutChart';
+import { KpiSection } from './KpiSection';
+import { RecentActivityFeed } from './RecentActivityFeed';
+import { RecentOrdersTable } from './RecentOrdersTable';
+import { RevenueChart } from './RevenueChart';
+import { SalesBarChart } from './SalesBarChart';
+import { TopChannelsCard } from './TopChannelsCard';
 
 export function DashboardPage() {
   return (

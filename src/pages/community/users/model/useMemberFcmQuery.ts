@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { memberFcmApi } from '@/entities/member/api/memberFcmApi';
+import { memberFcmApi } from '@/entities/member';
 import { QUERY_KEYS } from '@/shared/constants/queryKeys';
 
 export function useMemberFcmQuery(id: string | null) {

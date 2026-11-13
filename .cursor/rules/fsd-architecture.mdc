@@ -1,73 +1,61 @@
 ---
-description: FSD 레이어 간 import 방향 규칙 (Next.js App Router)
+description: FSD 아키텍처 규칙 (레이어·슬라이스·public API) — 모든 작업에서 반드시 준수
 alwaysApply: true
 ---
 
 # FSD 아키텍처 규칙
 
-레이어 순서: `app → pages → widgets → features → entities → shared`
-위 방향(아래→위)으로 import하면 안 됩니다. (`eslint-plugin-import` 의 `no-restricted-paths` 로 강제)
+전체 명세와 근거: `docs/fsd-architecture.md` (FSD 공식 문서 https://fsd.how 기준).
+위반은 대부분 `npm run lint` 에러이며 커밋 전 검사에서 막힙니다. lint 를 끄거나 우회하지 않습니다.
 
-## Next.js 와 FSD 폴더 분리
-
-- 라우팅은 **루트 `app/`** (App Router) 가 담당하며, 페이지 코드를 직접 두지 않고 `src/pages` 를 re-export 합니다.
-- FSD 레이어는 모두 **`src/`** 아래에 위치합니다. (`@/*` → `src/*`)
-- 루트의 빈 `pages/` 폴더는 Next.js 가 `src/pages` 를 Pages Router 로 오인하지 않게 하기 위한 것이므로 비워 둡니다.
+## 레이어와 방향
 
 ```
-app/(main)/page.tsx                   // "/" 라우트 (re-export 전용, MainLayout 적용 그룹)
-└─ export { DashboardPage as default, metadata } from '@/pages/dashboard';
-
-src/pages/dashboard/
-├─ index.ts                           // public API (page + metadata)
-└─ ui/DashboardPage.tsx               // 실제 페이지 컴포넌트
+app > pages > features > entities > shared      (위 → 아래로만 import)
 ```
 
-## 허용되는 import 방향
+- **`widgets`, `processes` 레이어는 쓰지 않습니다.** (`src/widgets` 에 파일을 만들면 lint 에러)
+- 같은 레이어의 다른 슬라이스는 import 금지. entities 끼리만 `@/entities/a/@x/b` 허용.
 
-```
-app      → pages, widgets, features, entities, shared
-pages    → widgets, features, entities, shared
-widgets  → features, entities, shared
-features → entities, shared
-entities → shared
-shared   → shared 내부만
-```
+## 어디에 둘지 — 페이지 우선
 
-## 금지 예시
+| 코드 | 위치 |
+| --- | --- |
+| 한 화면에서만 쓰는 UI·조회/저장 훅 | `pages/<화면>/ui`, `pages/<화면>/model` |
+| **여러 화면에서** 재사용하는 사용자 행동 | `features/<기능>` |
+| 업무 개념의 타입·API 호출·서버 로직 | `entities/<도메인>` |
+| 업무와 무관한 공통 컴포넌트·유틸 | `shared` |
+| 모든 화면을 감싸는 레이아웃 (사이드바·헤더) | `app/layouts` |
+
+처음엔 page 안에 두고, 두 번째 화면이 같은 행동을 필요로 할 때 features 로 옮깁니다.
+
+## 세그먼트
+
+`ui` · `model` · `api` · `lib` · `config` — 목적을 나타내는 이름만 씁니다. (`components`, `hooks`, `types`, `utils` ❌)
+
+## Public API
 
 ```ts
-// ❌ shared → app import 금지
-// src/shared/ui/button/Button.tsx
-import { AppProviders } from '@/app/providers/AppProviders';
+// ✅ 다른 슬라이스는 index.ts 로
+import { useAuth } from '@/features/auth';
+import { memberApi, type Member } from '@/entities/member';
 
-// ❌ features/A → features/B 직접 import 금지
-// src/features/auth/model/useAuth.ts
-import { useSelectMember } from '@/features/member-select/model/useSelectMember';
+// ✅ 같은 슬라이스 안은 상대 경로
+import { useMemberListQuery } from '../model/useMemberListQuery';
 
-// ❌ pages/A → pages/B import 금지
-import { LoginPage } from '@/pages/login';
-```
+// ✅ 서버 전용(DB) 코드는 server.ts 로, app/api/** 에서만
+import { getMembers } from '@/entities/member/server';
 
-## 올바른 예시
-
-```ts
-// ✅ pages → widgets → features → shared 순서
-// src/pages/dashboard/ui/DashboardPage.tsx
-import { KpiSection } from '@/features/dashboard-kpi/ui/KpiSection';
-import { AppSidebar } from '@/widgets/sidebar/ui/AppSidebar';
+// ✅ shared 는 슬라이스가 없으므로 파일 직접
 import { Button } from '@/shared/ui/button/Button';
+
+// ❌ 다른 슬라이스 내부 파일 직접 import
+import { useAuth } from '@/features/auth/model/useAuth';
+// ❌ features → features, pages → pages
+import { useLogin } from '@/features/auth'; // (features/other 안에서)
+// ❌ 위 레이어 import
+import { DashboardPage } from '@/pages/dashboard'; // (features 안에서)
 ```
 
-## 세그먼트 구조
-
-각 슬라이스(slice) 안은 역할에 따라 나눕니다.
-
-- `ui/` — UI components, date formatter, styles 등 UI 표현과 직접 관련된 코드
-- `api/` — request functions, data types, mappers 등 백엔드 통신 및 데이터 로직
-- `model/` — schema, interfaces, store, business logic 등 애플리케이션 도메인 모델
-- `lib/` — 해당 slice에서 여러 모듈이 함께 사용하는 공통 library code
-- `config/` — configuration files, feature flags 등 환경/기능 설정
-- `index.ts` — 슬라이스 public API (pages 슬라이스는 필수, 그 외 권장)
-
-파일을 새로 만들 때 반드시 이 세그먼트 중 하나에 위치시킵니다.
+- 슬라이스(pages·features·entities)를 만들면 루트에 `index.ts` 를 만들고 공개할 이름만 하나씩 export 합니다. `export *` ❌
+- 세그먼트 안에 `index.ts` 를 따로 만들지 않습니다.

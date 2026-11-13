@@ -1,11 +1,7 @@
 import { NextResponse } from 'next/server';
 
-import {
-  MemberServiceError,
-  modifyMember,
-  removeMember,
-} from '@/entities/member/model/memberService';
-import type { MemberUpdateInput } from '@/entities/member/model/memberTypes';
+import type { MemberUpdateInput } from '@/entities/member';
+import { MemberServiceError, modifyMember, removeMember } from '@/entities/member/server';
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
